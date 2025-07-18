@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AppMuseo</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Views/Shared/_Layout.cshtml.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
+            <div class="w-100 d-flex align-items-center" style="padding:0; margin:0;">
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index" style="padding:0; margin:0 0 0 0;">
+                    <img src="/img/logos/logo.png" alt="Logo" style="height:70px; width:auto; max-height:80px;" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" asp-area="" asp-controller="Obras" asp-action="Index">Obras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" asp-area="" asp-controller="Colecciones" asp-action="Index">Colecciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5" asp-area="" asp-controller="Home" asp-action="Contacto">Contacto</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light fs-5 px-4" asp-area="" asp-controller="Account" asp-action="Login" style="margin-left:auto;">Iniciar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - AppMuseo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,15 @@
+.obras-titulo {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-family: 'Georgia', serif;
+}
+
+.obras-lista {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 6px rgba(44, 62, 80, 0.08);
+}
+
+/* Solo afecta a la vista de obras, no al navbar ni al footer */

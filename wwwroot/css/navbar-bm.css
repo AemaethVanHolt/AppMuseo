@@ -1,0 +1,103 @@
+/* navbar-bm.css: inspirado en British Museum, aislado */
+.navbar-bm {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  z-index: 1000;
+}
+.navbar-bm .navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+}
+.navbar-bm .navbar-logo {
+  font-size: 2.2rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: #222;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  margin-right: 2rem;
+  white-space: nowrap;
+}
+.navbar-bm .navbar-links {
+  display: flex;
+  gap: 2.1rem;
+  align-items: center;
+}
+.navbar-bm .navbar-link {
+  color: #222;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  font-size: 1.08rem;
+  position: relative;
+  transition: color 0.2s;
+  padding: 0.3rem 0.2rem;
+}
+.navbar-bm .navbar-link:hover,
+.navbar-bm .navbar-link:focus {
+  color: #0a5ba5;
+}
+.navbar-bm .navbar-link::after {
+  content: '';
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: #0a5ba5;
+  transition: width 0.2s;
+  margin-top: 2px;
+}
+.navbar-bm .navbar-link:hover::after,
+.navbar-bm .navbar-link:focus::after {
+  width: 100%;
+}
+.navbar-bm .navbar-login {
+  margin-left: 2rem;
+  font-size: 1.05rem;
+  padding: 0.2rem 0.9rem;
+  border-radius: 2px;
+  background: #f4f4f4;
+  border: 1px solid #e0e0e0;
+  color: #0a5ba5;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.navbar-bm .navbar-login:hover {
+  background: #e6f1fa;
+  color: #003c71;
+}
+@media (max-width: 900px) {
+  .navbar-bm .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem 1rem;
+  }
+  .navbar-bm .navbar-links {
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 600px) {
+  .navbar-bm .navbar-logo {
+    font-size: 1.4rem;
+  }
+  .navbar-bm .navbar-links {
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 100%;
+    margin-top: 0.7rem;
+  }
+  .navbar-bm .navbar-login {
+    margin-left: 0;
+    margin-top: 0.7rem;
+    width: 100%;
+    text-align: left;
+  }
+}

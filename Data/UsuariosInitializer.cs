@@ -19,7 +19,7 @@ namespace AppMuseo.Data
             var context = serviceProvider.GetRequiredService<AppMuseoDbContext>();
 
             // Admin (ya creado en SeedData, solo loguear)
-            var adminEmail = "admin@admin.com";
+            var adminEmail = "admin@museo.com";
             var admin = await userManager.FindByEmailAsync(adminEmail);
             if (admin == null)
             {

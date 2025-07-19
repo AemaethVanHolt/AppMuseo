@@ -36,7 +36,8 @@ namespace AppMuseo.Data
                     Nombre = "Administrador",
                     Apellidos = "Principal",
                     FechaCreacion = DateTime.Now,
-                    FechaNacimiento = DateTime.Now.AddYears(-30)
+                    FechaNacimiento = DateTime.Now.AddYears(-30),
+                    Activo = true
                 };
                 var result = await userManager.CreateAsync(adminUser, adminPass);
                 if (result.Succeeded)

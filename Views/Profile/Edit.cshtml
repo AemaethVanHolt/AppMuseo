@@ -1,0 +1,318 @@
+@model AppMuseo.Models.EditProfileViewModel
+
+@{
+    ViewData["Title"] = Model.Id == null ? "Mi Perfil" : "Editar Usuario";
+    var isAdmin = User.IsInRole("Administrator");
+}
+
+<div class="container-fluid p-0">
+    <div class="bg-dark bg-opacity-75 text-white p-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="m-0">@ViewData["Title"]</h1>
+                <a href="/" class="btn btn-outline-light rounded-pill">
+                    <i class="fas fa-arrow-left me-2"></i>Volver
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form asp-action="Edit" method="post" enctype="multipart/form-data" class="bg-dark bg-opacity-50 p-4 rounded-3">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="row">
+                <!-- Columna de la foto de perfil -->
+                <div class="col-md-3 text-center mb-4">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrEmpty(Model.FotoPerfilUrl))
+                        {
+                            <img src="@Url.Content(Model.FotoPerfilUrl)" class="img-fluid rounded-circle border border-3 border-white" style="width: 200px; height: 200px; object-fit: cover;" id="profileImage" />
+                        }
+                        else
+                        {
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto" style="width: 200px; height: 200px;">
+                                <i class="fas fa-user text-white" style="font-size: 5rem;"></i>
+                            </div>
+                        }
+                        <label for="FotoPerfil" class="btn btn-light rounded-circle position-absolute" style="bottom: 10px; right: 30px; width: 40px; height: 40px; line-height: 1; padding: 0.5rem;">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" asp-for="FotoPerfil" id="FotoPerfil" class="d-none" accept="image/*" onchange="previewImage(this)" />
+                        </label>
+                    </div>
+                    <div class="mt-3">
+                        <span asp-validation-for="FotoPerfil" class="text-danger"></span>
+                    </div>
+
+                    <!-- Estado del usuario (solo para administradores) -->
+                    @if (Model.PuedeDesactivar)
+                    {
+                        <div class="form-check form-switch mt-4 d-flex justify-content-center align-items-center">
+                            <input class="form-check-input me-2" type="checkbox" role="switch" id="Activo" asp-for="Activo">
+                            <label class="form-check-label text-white" for="Activo">
+                                @(Model.Activo ? "Activo" : "Inactivo")
+                            </label>
+                        </div>
+                    }
+                    else if (Model.PuedeEditarRol)
+                    {
+                        <div class="mt-4 text-center">
+                            <span class="badge @(Model.Activo ? "bg-success" : "bg-danger") p-2">
+                                @(Model.Activo ? "Activo" : "Inactivo")
+                            </span>
+                        </div>
+                    }
+                </div>
+
+                <!-- Columna de los datos del usuario -->
+                <div class="col-md-9">
+                    <div class="row g-3">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Nombre" class="form-label"></label>
+                                    <input asp-for="Nombre" class="form-control" />
+                                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Apellidos" class="form-label"></label>
+                                    <input asp-for="Apellidos" class="form-control" />
+                                    <span asp-validation-for="Apellidos" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Telefono" class="form-label"></label>
+                            <input asp-for="Telefono" class="form-control" />
+                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Direccion" class="form-label"></label>
+                            <input asp-for="Direccion" class="form-control" />
+                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Pais" class="form-label"></label>
+                            <input asp-for="Pais" class="form-control" />
+                            <span asp-validation-for="Pais" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="FechaNacimiento" class="form-label"></label>
+                            <input asp-for="FechaNacimiento" type="date" class="form-control" />
+                            <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                        </div>
+
+                        <!-- Información de cuenta -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Información de la cuenta</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">@Html.DisplayNameFor(m => m.FechaCreacion)</label>
+                                            <input type="text" class="form-control" value="@Model.FechaCreacion.ToString("g")" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">@Html.DisplayNameFor(m => m.UltimoAcceso)</label>
+                                            <input type="text" class="form-control" value="@(Model.UltimoAcceso?.ToString("g") ?? "Nunca")" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Cambio de contraseña -->
+                                <div class="border-top pt-3 mt-3">
+                                    <h6>Cambiar contraseña</h6>
+                                    <div class="mb-3">
+                                        <label asp-for="CurrentPassword" class="form-label"></label>
+                                        <input asp-for="CurrentPassword" class="form-control" />
+                                        <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="NewPassword" class="form-label"></label>
+                                        <input asp-for="NewPassword" class="form-control" />
+                                        <span asp-validation-for="NewPassword" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                                        <input asp-for="ConfirmPassword" class="form-control" />
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rol y estado (solo para administradores) -->
+                        @if (User.IsInRole("Administrador") && !Model.EsMismoUsuario)
+                        {
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5>Administración de usuario</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label asp-for="Rol" class="form-label"></label>
+                                        <select asp-for="Rol" class="form-select">
+                                            <option value="">Seleccione un rol</option>
+                                            @foreach (var role in Model.RolesDisponibles)
+                                            {
+                                                <option value="@role">@role</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="Rol" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" asp-for="Activo" id="activoSwitch">
+                                        <label class="form-check-label" for="activoSwitch">@Html.DisplayNameFor(m => m.Activo)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (User.IsInRole("Administrador") && Model.EsMismoUsuario)
+                        {
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i> 
+                                No puedes cambiar tu propio rol o estado. Otro administrador debe hacerlo por ti.
+                            </div>
+                        }
+
+                        <!-- Foto de perfil -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5>Foto de perfil</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label asp-for="FotoPerfil" class="form-label"></label>
+                                    <input type="file" asp-for="FotoPerfil" class="form-control" accept="image/*" />
+                                    <span asp-validation-for="FotoPerfil" class="text-danger"></span>
+                                    @if (!string.IsNullOrEmpty(Model.FotoPerfilUrl))
+                                    {
+                                        <div class="mt-3">
+                                            <img src="@Model.FotoPerfilUrl" alt="Foto de perfil" class="img-thumbnail" style="max-width: 200px;" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div> <!-- Cierre de row g-3 -->
+                </div> <!-- Cierre de col-md-9 -->
+            </div> <!-- Cierre de row principal -->
+        </form>
+    </div> <!-- Cierre de container py-5 -->
+</div> <!-- Cierre de container-fluid -->
+
+@section Styles {
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/img/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 0.5rem;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background-color: #1a1a1a;
+            color: #fff;
+            border-color: #6c757d;
+            box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+        }
+        
+        .btn {
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-light {
+            background-color: #fff;
+            color: #000;
+        }
+        
+        .btn-light:hover {
+            background-color: #f8f9fa;
+            color: #000;
+        }
+        
+        .form-check-input:checked {
+            background-color: #198754;
+            border-color: #198754;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    var img = document.getElementById('profileImage');
+                    if (!img) {
+                        // Si no existe la imagen, creamos una
+                        var container = input.closest('.position-relative');
+                        container.innerHTML = `
+                            <img src="${e.target.result}" class="img-fluid rounded-circle border border-3 border-white" style="width: 200px; height: 200px; object-fit: cover;" id="profileImage" />
+                            <label for="FotoPerfil" class="btn btn-light rounded-circle position-absolute" style="bottom: 10px; right: 30px; width: 40px; height: 40px; line-height: 1; padding: 0.5rem;">
+                                <i class="fas fa-camera"></i>
+                                <input type="file" id="FotoPerfil" name="FotoPerfil" class="d-none" accept="image/*" onchange="previewImage(this)" />
+                            </label>
+                        `;
+                    } else {
+                        // Si ya existe, actualizamos la fuente
+                        img.src = e.target.result;
+                    }
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Actualizar el texto del estado cuando cambia el switch
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('Activo');
+            if (toggle) {
+                toggle.addEventListener('change', function() {
+                    const label = this.nextElementSibling;
+                    label.textContent = this.checked ? 'Activo' : 'Inactivo';
+                });
+            }
+        });
+    </script>
+}

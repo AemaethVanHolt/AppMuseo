@@ -1,103 +1,118 @@
-/* navbar-bm.css: inspirado en British Museum, aislado */
-.navbar-bm {
-  width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #ececec;
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 1.15rem;
-  letter-spacing: 0.01em;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  z-index: 1000;
+/* navbar-bm.css - Estilos específicos para el navbar del museo */
+
+/* Navbar principal */
+.navbar-museo {
+  background-color: #000000 !important;
+  padding: 0.5rem 0;
 }
-.navbar-bm .navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 2rem;
+
+/* Logo */
+.navbar-museo .navbar-brand {
+  padding: 0;
+  margin: 0;
 }
-.navbar-bm .navbar-logo {
-  font-size: 2.2rem;
-  font-family: 'Georgia', serif;
-  font-weight: bold;
-  color: #222;
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  margin-right: 2rem;
-  white-space: nowrap;
+
+.navbar-museo .navbar-brand img {
+  height: 70px;
+  width: auto;
+  max-height: 80px;
 }
-.navbar-bm .navbar-links {
+
+/* Enlaces de navegación */
+.navbar-museo .navbar-nav {
   display: flex;
   gap: 2.1rem;
   align-items: center;
 }
-.navbar-bm .navbar-link {
-  color: #222;
-  text-decoration: none;
-  font-family: 'Georgia', serif;
-  font-size: 1.08rem;
-  position: relative;
+
+.navbar-museo .navbar-nav .nav-link {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.85) !important;
   transition: color 0.2s;
-  padding: 0.3rem 0.2rem;
 }
-.navbar-bm .navbar-link:hover,
-.navbar-bm .navbar-link:focus {
-  color: #0a5ba5;
+
+.navbar-museo .navbar-nav .nav-link:hover,
+.navbar-museo .navbar-nav .nav-link:focus {
+  color: #ffffff !important;
 }
-.navbar-bm .navbar-link::after {
-  content: '';
-  display: block;
-  width: 0%;
-  height: 2px;
-  background: #0a5ba5;
-  transition: width 0.2s;
-  margin-top: 2px;
+
+/* Botón de menú móvil */
+.navbar-museo .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.5);
 }
-.navbar-bm .navbar-link:hover::after,
-.navbar-bm .navbar-link:focus::after {
-  width: 100%;
+
+.navbar-museo .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-.navbar-bm .navbar-login {
-  margin-left: 2rem;
-  font-size: 1.05rem;
-  padding: 0.2rem 0.9rem;
-  border-radius: 2px;
-  background: #f4f4f4;
-  border: 1px solid #e0e0e0;
-  color: #0a5ba5;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+
+/* Dropdown de inicio de sesión */
+.navbar-museo .dropdown-menu {
+  background-color: #1a1a1a51;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  padding: 1.25rem;
 }
-.navbar-bm .navbar-login:hover {
-  background: #e6f1fa;
-  color: #003c71;
+
+.navbar-museo .form-control {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
 }
-@media (max-width: 900px) {
-  .navbar-bm .navbar-container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.7rem 1rem;
-  }
-  .navbar-bm .navbar-links {
-    gap: 1.2rem;
-    flex-wrap: wrap;
-  }
+
+.navbar-museo .form-control:focus {
+  background-color: #333;
+  border-color: #666;
+  color: #fff;
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
 }
-@media (max-width: 600px) {
-  .navbar-bm .navbar-logo {
-    font-size: 1.4rem;
-  }
-  .navbar-bm .navbar-links {
-    flex-direction: column;
-    gap: 0.7rem;
-    width: 100%;
-    margin-top: 0.7rem;
-  }
-  .navbar-bm .navbar-login {
-    margin-left: 0;
-    margin-top: 0.7rem;
-    width: 100%;
-    text-align: left;
-  }
+
+.navbar-museo .form-label {
+  color: #ddd;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.navbar-museo .btn-primary {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+  border-radius: 50px;
+  color: #ffffff;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 0.5rem 1.5rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.navbar-museo .btn-primary:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+
+.navbar-museo .btn-outline-light {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.navbar-museo .dropdown-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1rem 0;
+}
+
+/* Botón de inicio de sesión */
+.navbar-museo .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+  transition: all 0.2s;
+}
+
+.navbar-museo .btn-outline-light:hover,
+.navbar-museo .btn-outline-light:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+  color: #ffffff;
 }

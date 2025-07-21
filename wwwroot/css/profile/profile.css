@@ -1,0 +1,249 @@
+/* GENERAL */
+body {
+    background-color: #121212;
+    color: #E0E0E0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+}
+
+.profile-body {
+    padding: 2rem 4rem;
+}
+
+/* HEADER */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.btn-volver {
+    color: #E0E0E0;
+    background-color: #282828;
+    border: 1px solid #444;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-volver:hover {
+    background-color: #383838;
+}
+
+/* MAIN LAYOUT */
+.profile-main-container {
+    display: flex;
+    gap: 4rem;
+}
+
+.profile-avatar-section {
+    flex: 0 0 180px; /* Ancho fijo para la columna del avatar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-form-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* AVATAR */
+.avatar-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    cursor: pointer;
+}
+
+.avatar-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #282828;
+}
+
+.avatar-upload-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    background-color: #FFFFFF;
+    color: #121212;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* FORM SECTIONS */
+.form-section {
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.form-section h5 {
+    margin: 0 0 1.5rem 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #FFFFFF;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+    color: #AAAAAA;
+}
+
+.form-control {
+    width: 100%;
+    background-color: #282828;
+    border: 1px solid #444;
+    color: #E0E0E0;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    background-color: #282828;
+    color: #E0E0E0;
+    border-color: #6a6a6a;
+    outline: 0;
+    box-shadow: none;
+}
+
+.form-control[readonly] {
+    background-color: #222;
+    cursor: not-allowed;
+}
+
+/* FOOTER & SAVE BUTTON */
+.profile-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.btn-guardar {
+    background-color: #282828;
+    color: #E0E0E0;
+    border: 1px solid #191c1f;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-guardar:hover {
+    background-color: #191c1f;
+}
+
+/* SWITCH TOGGLE */
+.form-check-input:checked {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25) !important;
+    border-color: #28a745 !important;
+}
+
+.form-switch .form-check-input:checked {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
+
+.form-switch .form-check-input {
+    width: 2.5em !important;
+    height: 1.5em !important;
+    margin-left: -2.5em !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%28(, 255, 255, 0.25)'/%3e%3c/svg%3e") !important;
+    background-position: left center !important;
+    transition: background-position 0.15s ease-in-out !important;
+    border: 1px solid #191c1f !important;
+    background-color: #6c757d !important;
+}
+
+.form-check-label {
+    margin-left: 0.5rem;
+    color: #E0E0E0 !important;
+    font-size: 14px;
+}
+
+/* Estado activo */
+.form-switch .form-check-input:checked {
+    background-position: right center !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .profile-body {
+        padding: 2rem;
+    }
+    .profile-main-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .profile-avatar-section {
+        width: 100%;
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .form-row .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .profile-body {
+        padding: 1rem;
+    }
+}
+
+

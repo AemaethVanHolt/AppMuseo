@@ -74,10 +74,10 @@ namespace AppMuseo.Controllers
                 Pais = user.Pais,
                 FechaNacimiento = user.FechaNacimiento,
                 FechaCreacion = user.FechaCreacion,
-                UltimoAcceso = user.LockoutEnd,
+                UltimoAcceso = user.LockoutEnd?.DateTime,
                 FotoPerfilUrl = user.FotoPerfil,
                 Rol = userRoles.FirstOrDefault(),
-                RolesDisponibles = allRoles,
+                RolesDisponibles = allRoles.Where(r => r != null).ToList(),
                 Activo = user.Activo,
                 EsAdminActual = esAdminActual,
                 EsMismoUsuario = esMismoUsuario,
@@ -104,7 +104,7 @@ namespace AppMuseo.Controllers
             ApplicationUser user;
             if (!string.IsNullOrEmpty(model.Id) && isAdmin)
             {
-                user = await _userManager.FindByIdAsync(model.Id);
+                user = await _userManager.FindByIdAsync(model.Id) ?? throw new InvalidOperationException("Usuario no encontrado");
                 if (user == null)
                 {
                     return NotFound();
@@ -120,10 +120,10 @@ namespace AppMuseo.Controllers
             bool esAdminActual = await _userManager.IsInRoleAsync(user, "Administrador");
             
             // Validar que un administrador no pueda cambiar su propio rol
-            if (esMismoUsuario && esAdminActual && model.Rol != "Administrador")
+            if (esMismoUsuario && esAdminActual && !string.IsNullOrEmpty(model.Rol) && model.Rol != "Administrador")
             {
                 ModelState.AddModelError(string.Empty, "No puedes cambiar tu propio rol de Administrador.");
-                model.RolesDisponibles = _roleManager.Roles.Select(r => r.Name).ToList();
+                model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
                 model.EsAdminActual = esAdminActual;
                 model.EsMismoUsuario = esMismoUsuario;
                 model.PuedeDesactivar = isAdmin && !esMismoUsuario && !esAdminActual;
@@ -131,10 +131,11 @@ namespace AppMuseo.Controllers
             }
 
             // Validar que un administrador no pueda desactivarse a sí mismo
-            if (esMismoUsuario && esAdminActual && !model.Activo)
+            // Solo validar si el estado ha cambiado a inactivo
+            if (esMismoUsuario && esAdminActual && !model.Activo && user.Activo)
             {
                 ModelState.AddModelError(string.Empty, "No puedes desactivar tu propia cuenta de administrador.");
-                model.RolesDisponibles = _roleManager.Roles.Select(r => r.Name).ToList();
+                model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
                 model.EsAdminActual = esAdminActual;
                 model.EsMismoUsuario = esMismoUsuario;
                 model.PuedeDesactivar = isAdmin && !esMismoUsuario && !esAdminActual;
@@ -147,7 +148,7 @@ namespace AppMuseo.Controllers
             user.PhoneNumber = model.Telefono;
             user.Direccion = model.Direccion;
             user.Pais = model.Pais;
-            user.FechaNacimiento = model.FechaNacimiento;
+            user.FechaNacimiento = model.FechaNacimiento ?? user.FechaNacimiento;
 
             // Actualizar el correo electrónico si es administrador o si está editando su propio perfil
             if (isAdmin || user.Id == currentUser.Id)
@@ -162,7 +163,7 @@ namespace AppMuseo.Controllers
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        model.RolesDisponibles = _roleManager.Roles.Select(r => r.Name).ToList();
+                        model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
                         model.EsAdminActual = await _userManager.IsInRoleAsync(user, "Administrador");
                         model.EsMismoUsuario = user.Id == currentUser.Id;
                         model.PuedeDesactivar = isAdmin && user.Id != currentUser.Id;
@@ -189,7 +190,11 @@ namespace AppMuseo.Controllers
                 {
                     await _userManager.UpdateSecurityStampAsync(user);
                     // Refrescar la sesión del usuario actual
-                    await _signInManager.RefreshSignInAsync(await _userManager.GetUserAsync(User));
+                    var loggedInUser = await _userManager.GetUserAsync(User);
+                    if (loggedInUser != null)
+                    {
+                        await _signInManager.RefreshSignInAsync(loggedInUser);
+                    }
                 }
             }
 
@@ -235,7 +240,7 @@ namespace AppMuseo.Controllers
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        model.RolesDisponibles = _roleManager.Roles.Select(r => r.Name).ToList();
+                        model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
                         model.EsAdminActual = await _userManager.IsInRoleAsync(user, "Administrador");
                         model.EsMismoUsuario = user.Id == currentUser.Id;
                         model.PuedeDesactivar = isAdmin && user.Id != currentUser.Id;
@@ -245,7 +250,7 @@ namespace AppMuseo.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Debe proporcionar la contraseña actual para cambiarla");
-                    model.RolesDisponibles = _roleManager.Roles.Select(r => r.Name).ToList();
+                    model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
                     model.EsAdminActual = await _userManager.IsInRoleAsync(user, "Administrador");
                     model.EsMismoUsuario = user.Id == currentUser.Id;
                     model.PuedeDesactivar = isAdmin && user.Id != currentUser.Id;
@@ -261,7 +266,7 @@ namespace AppMuseo.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                model.RolesDisponibles = _roleManager.Roles.Select(r => r.Name).ToList();
+                model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
                 model.EsAdminActual = await _userManager.IsInRoleAsync(user, "Administrador");
                 model.EsMismoUsuario = user.Id == currentUser.Id;
                 model.PuedeDesactivar = isAdmin && user.Id != currentUser.Id;
@@ -274,7 +279,7 @@ namespace AppMuseo.Controllers
                 await _signInManager.RefreshSignInAsync(user);
             }
 
-            model.RolesDisponibles = _roleManager.Roles.Select(r => r.Name).ToList();
+            model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
             return View(model);
         }
     }

@@ -49,6 +49,8 @@ namespace AppMuseo.Models
         [Display(Name = "Usuario activo")]
         public bool Activo { get; set; }
 
+        public bool PuedeEditarRol { get; set; }
+
         [Display(Name = "Fecha de creación")]
         [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTime FechaCreacion { get; set; }

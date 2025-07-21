@@ -1,40 +1,41 @@
-// Manejar cambios en el selector de tipo de descuento
-document.addEventListener('DOMContentLoaded', function() {
+// Función para actualizar el precio de la entrada reducida
+function actualizarPrecioReducido() {
     const tipoDescuento = document.getElementById('tipoDescuento');
-    const precioReducido = document.getElementById('precioReducido');
     const precioReducidoInput = document.getElementById('precioReducidoInput');
     const tipoDescuentoInput = document.getElementById('tipoDescuentoInput');
-    const requisitosDescuento = document.getElementById('requisitosDescuento');
+    const precioMostrado = document.getElementById('precioReducidoMostrado');
     
     if (tipoDescuento) {
-        // Actualizar requisitos según el tipo de descuento seleccionado
-        function actualizarRequisitos() {
-            const valor = tipoDescuento.value;
-            let requisitos = '';
-            
-            switch(valor) {
-                case 'estudiante':
-                    requisitos = '<li>Carnet de estudiante o matrícula vigente</li>';
-                    break;
-                case 'investigador':
-                    requisitos = '<li>Acreditación de investigador o docente</li>';
-                    break;
-                case 'discapacidad':
-                    requisitos = '<li>Certificado de discapacidad</li><li>Documento de identidad del titular</li>';
-                    break;
-            }
-            
-            requisitosDescuento.innerHTML = requisitos;
-            
-            // Actualizar el valor oculto del formulario
-            const precio = tipoDescuento.options[tipoDescuento.selectedIndex].dataset.precio;
-            precioReducido.textContent = precio.replace('.', ',');
-            precioReducidoInput.value = precio;
-            tipoDescuentoInput.value = valor;
+        const opcionSeleccionada = tipoDescuento.options[tipoDescuento.selectedIndex];
+        const nuevoPrecio = opcionSeleccionada.dataset.precio;
+        const textoPrecio = nuevoPrecio === '0.00' ? 'Gratis' : `${parseFloat(nuevoPrecio).toFixed(2).replace('.', ',')} €`;
+        
+        // Actualizar el precio mostrado
+        if (precioMostrado) {
+            precioMostrado.textContent = textoPrecio;
         }
         
-        tipoDescuento.addEventListener('change', actualizarRequisitos);
-        actualizarRequisitos(); // Inicializar al cargar la página
+        // Actualizar los campos ocultos del formulario
+        if (precioReducidoInput) {
+            precioReducidoInput.value = nuevoPrecio;
+            precioReducidoInput.dataset.precio = nuevoPrecio;
+        }
+        
+        if (tipoDescuentoInput) {
+            tipoDescuentoInput.value = opcionSeleccionada.value;
+        }
+    }
+}
+
+// Inicialización al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar el precio reducido
+    actualizarPrecioReducido();
+    
+    // Configurar el evento change
+    const tipoDescuento = document.getElementById('tipoDescuento');
+    if (tipoDescuento) {
+        tipoDescuento.addEventListener('change', actualizarPrecioReducido);
     }
     
     // Validación de formularios

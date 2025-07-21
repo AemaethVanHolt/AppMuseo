@@ -48,28 +48,40 @@ body {
 
 /* Estilo para los botones de compra */
 .btn-taquilla {
-    background-color: transparent;
-    color: #ffd700;
+    background-color: #000000;
+    color: #ffffff !important;
     border: 2px solid #ffd700;
     border-radius: 50px;
-    padding: 12px 32px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
+    padding: 12px 30px;
+    font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: auto;
+}
+
+.btn-taquilla:hover, .btn-taquilla:focus {
+    background-color: #ffd700 !important;
+    color: #000000 !important;
+    border-color: #ffd700;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.btn-taquilla:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Estilo adicional para asegurar que el texto sea blanco */
+.btn-taquilla, .btn-taquilla:not(:disabled):not(.disabled):active, .btn-taquilla:not(:disabled):not(.disabled).active {
+    color: #ffffff !important;
     width: 100%;
     max-width: 220px;
     margin: 1.5rem auto 0;
     display: block;
-}
-
-.btn-taquilla:hover {
-    background-color: rgba(255, 215, 0, 0.1);
-    color: #ffd700;
-    border-color: #ffd700;
-    transform: none;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
 /* Estilo para los títulos */

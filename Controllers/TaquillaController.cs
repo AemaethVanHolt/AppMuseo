@@ -24,13 +24,26 @@ namespace AppMuseo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ProcesarCompra(string tipoEntrada, decimal precio, List<string> extras = null)
+        public IActionResult ProcesarCompra(string tipoEntrada, string precio, List<string> extras = null)
         {
+            // Asegurarse de que el precio tenga el formato correcto
+            if (!decimal.TryParse(precio.Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal precioDecimal))
+            {
+                // Si no se puede parsear, usar un valor por defecto según el tipo de entrada
+                precioDecimal = tipoEntrada.ToLower() switch
+                {
+                    "entrada general" => 15.00m,
+                    "entrada familiar" => 35.00m,
+                    "entrada reducida" => 7.50m,
+                    _ => 0m
+                };
+            }
+
             // Crear modelo para la vista de resumen
             var model = new Dictionary<string, object>
             {
                 { "TipoEntrada", tipoEntrada },
-                { "PrecioUnitario", precio },
+                { "PrecioUnitario", precioDecimal },
                 { "ExtrasDisponibles", new Dictionary<string, decimal>
                     {
                         { "Audioguía", 2.50m },

@@ -78,28 +78,43 @@
             const cantidadInput = document.getElementById('cantidad');
             const checkboxes = document.querySelectorAll('input[type="checkbox"][name="extras"]');
             const totalElement = document.getElementById('total');
-            const precioUnitario = @precioUnitario;
+            
+            // Asegurarse de que el precio unitario sea un número
+            const precioUnitario = parseFloat('@precioUnitario'.replace(',', '.')) || 0;
+            
+            // Crear objeto de precios de extras
             const preciosExtras = {
                 @foreach (var extra in extrasDisponibles)
                 {
-                    <text>'@extra.Key': @extra.Value.ToString("0.00").Replace(',', '.'),</text>
+                    <text>'@extra.Key': @extra.Value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),</text>
                 }
             };
             
             function calcularTotal() {
+                // Obtener cantidad y asegurarse de que sea un número válido
                 let cantidad = parseInt(cantidadInput.value) || 0;
                 if (cantidad < 1) cantidad = 1;
                 
-                let total = precioUnitario * cantidad;
+                // Calcular subtotal de entradas
+                let subtotalEntradas = precioUnitario * cantidad;
+                let subtotalExtras = 0;
                 
+                // Calcular total de extras
                 checkboxes.forEach(checkbox => {
                     if (checkbox.checked) {
                         const extra = checkbox.value;
-                        total += preciosExtras[extra] * cantidad;
+                        subtotalExtras += (preciosExtras[extra] || 0) * cantidad;
                     }
                 });
                 
-                totalElement.textContent = total.toFixed(2) + ' €';
+                // Calcular total general
+                const total = subtotalEntradas + subtotalExtras;
+                
+                // Mostrar el total formateado con 2 decimales y separador de miles
+                totalElement.textContent = total.toLocaleString('es-ES', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) + ' €';
             }
             
             cantidadInput.addEventListener('change', calcularTotal);

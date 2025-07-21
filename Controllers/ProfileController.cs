@@ -59,7 +59,10 @@ namespace AppMuseo.Controllers
             }
 
             var userRoles = await _userManager.GetRolesAsync(user);
-            var allRoles = _roleManager.Roles.Select(r => r.Name).ToList();
+            var allRoles = _roleManager.Roles
+                .Where(r => r.Name != null)
+                .Select(r => r.Name!)
+                .ToList() ?? new List<string>();
             var esMismoUsuario = user.Id == currentUser.Id;
             var esAdminActual = await _userManager.IsInRoleAsync(user, "Administrador");
 
@@ -104,10 +107,10 @@ namespace AppMuseo.Controllers
             ApplicationUser user;
             if (!string.IsNullOrEmpty(model.Id) && isAdmin)
             {
-                user = await _userManager.FindByIdAsync(model.Id) ?? throw new InvalidOperationException("Usuario no encontrado");
+                user = await _userManager.FindByIdAsync(model.Id);
                 if (user == null)
                 {
-                    return NotFound();
+                    return NotFound("Usuario no encontrado");
                 }
             }
             else
@@ -149,11 +152,11 @@ namespace AppMuseo.Controllers
             }
 
             // Actualizar propiedades básicas
-            user.Nombre = model.Nombre;
-            user.Apellidos = model.Apellidos;
-            user.PhoneNumber = model.Telefono;
-            user.Direccion = model.Direccion;
-            user.Pais = model.Pais;
+            user.Nombre = model.Nombre ?? string.Empty;
+            user.Apellidos = model.Apellidos ?? string.Empty;
+            user.PhoneNumber = model.Telefono ?? string.Empty;
+            user.Direccion = model.Direccion ?? string.Empty;
+            user.Pais = model.Pais ?? string.Empty;
             user.FechaNacimiento = model.FechaNacimiento ?? user.FechaNacimiento;
 
             // Actualizar el correo electrónico si es administrador o si está editando su propio perfil
@@ -205,7 +208,7 @@ namespace AppMuseo.Controllers
             }
 
             // Actualizar la foto de perfil si se proporciona
-            if (model.FotoPerfil != null && model.FotoPerfil.Length > 0)
+            if (model.FotoPerfil != null && model.FotoPerfil.Length > 0 && model.FotoPerfil.FileName != null)
             {
                 var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "perfiles");
                 if (!Directory.Exists(uploadsFolder))
@@ -213,7 +216,7 @@ namespace AppMuseo.Controllers
                     Directory.CreateDirectory(uploadsFolder);
                 }
 
-                var uniqueFileName = $"{Guid.NewGuid()}_{model.FotoPerfil.FileName}";
+                var uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(model.FotoPerfil.FileName)}";
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))

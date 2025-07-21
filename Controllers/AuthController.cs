@@ -33,14 +33,16 @@ namespace AppMuseo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
-            Console.WriteLine($"Intento de inicio de sesión para el usuario: {model?.Email}");
             ViewData["ReturnUrl"] = returnUrl ?? "/";
             
-            if (model == null)
+            if (model == null || string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
             {
-                Console.WriteLine("El modelo es nulo");
+                Console.WriteLine("El modelo o credenciales son nulos");
+                ModelState.AddModelError(string.Empty, "Las credenciales son obligatorias.");
                 return View(new LoginViewModel());
             }
+            
+            Console.WriteLine($"Intento de inicio de sesión para el usuario: {model.Email}");
             
             if (!ModelState.IsValid)
             {
@@ -67,6 +69,13 @@ namespace AppMuseo.Controllers
                 Console.WriteLine($"Usuario encontrado: {user.UserName}");
                 Console.WriteLine("Intentando iniciar sesión...");
                 
+                if (user.UserName == null)
+                {
+                    Console.WriteLine("El nombre de usuario es nulo");
+                    ModelState.AddModelError(string.Empty, "Error en las credenciales proporcionadas.");
+                    return View(model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(
                     user.UserName, 
                     model.Password, 
@@ -118,16 +127,13 @@ namespace AppMuseo.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        private IActionResult RedirectToLocal(string returnUrl)
+        private IActionResult RedirectToLocal(string? returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

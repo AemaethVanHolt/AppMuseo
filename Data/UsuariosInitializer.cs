@@ -85,23 +85,6 @@ namespace AppMuseo.Data
                 "+49 15123456780", "+351 912345678", "+351 912345679", "+351 912345670", "+351 912345671"
             };
             
-            // Función para obtener un teléfono único
-            string ObtenerTelefonoUnico()
-            {
-                if (telefonosDisponibles.Count > 0)
-                {
-                    int index = random.Next(telefonosDisponibles.Count);
-                    string telefono = telefonosDisponibles[index];
-                    telefonosDisponibles.RemoveAt(index);
-                    logger?.LogInformation($"Asignado teléfono: {telefono}");
-                    return telefono;
-                }
-                // Si no quedan teléfonos únicos, generar uno aleatorio
-                string nuevoTelefono = $"+34 6{random.Next(10)}{random.Next(10)}{random.Next(10)}{random.Next(10)}{random.Next(10)}";
-                logger.LogWarning($"No quedaban teléfonos únicos, generado: {nuevoTelefono}");
-                return nuevoTelefono;
-            }
-            
             var provincias = new Dictionary<string, string[]> {
                 ["España"] = new[] { "Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", "Málaga", "Bilbao", "Alicante", "Córdoba", "Valladolid" },
                 ["Francia"] = new[] { "París", "Marsella", "Lyon", "Toulouse", "Niza", "Nantes", "Estrasburgo", "Montpellier", "Burdeos", "Lille" },

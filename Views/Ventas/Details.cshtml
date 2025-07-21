@@ -38,16 +38,11 @@
                                     <dt class="col-sm-5 text-white-50">Precio Base:</dt>
                                     <dd class="col-sm-7 text-white">@Model.Precio.ToString("C2")</dd>
                                     
-                                    @if (Model.Descuento != null)
+                                    @if (Model.Descuento != null && Model.Descuento.Tipo != TipoDescuento.Ninguno)
                                     {
-                                        <dt class="col-sm-5 text-white-50">Descuentos Aplicados:</dt>
+                                        <dt class="col-sm-5 text-white-50">Descuento Aplicado:</dt>
                                         <dd class="col-sm-7 text-white">
-                                            @(Model.Descuento.Estudiante ? "Estudiante, " : "") 
-                                            @(Model.Descuento.Investigador ? "Investigador, " : "")
-                                            @(Model.Descuento.Discapacidad ? "Discapacidad, " : "")
-                                            @(Model.Descuento.TerceraEdad ? "Tercera Edad, " : "")
-                                            @(Model.Descuento.FamiliaNumerosa ? "Familia Numerosa, " : "")
-                                            @(Model.Descuento.Desempleado ? "Desempleado" : "")
+                                            @Model.Descuento.Descripcion
                                         </dd>
                                     }
                                     

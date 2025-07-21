@@ -2,7 +2,7 @@
 
 /* Contenedor principal */
 .ventas-container {
-    background-color: #343a40; /* Fondo oscuro */
+    background-color: #191c1f; /* Fondo oscuro */
     min-height: calc(100vh - 200px);
     padding: 2rem 0;
     color: #ffffff; /* Texto blanco */
@@ -29,7 +29,7 @@
 .ventas-table {
     margin-bottom: 0;
     color: #ffffff; /* Texto blanco */
-    background-color: #2c3034; /* Fondo oscuro para la tabla */
+    background-color: #191c1f; /* Fondo oscuro para la tabla */
 }
 
 .ventas-table thead th {
@@ -48,7 +48,7 @@
     padding: 1rem 1.25rem;
     vertical-align: middle;
     border-color: #444; /* Borde más oscuro */
-    color: #f8f9fa; /* Texto blanco más suave */
+    color: #f8f9fa; /* Texto blanco */
 }
 
 .ventas-table tbody tr {
@@ -85,6 +85,30 @@
     color: #ffffff; /* Texto blanco al pasar el ratón */
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de detalles */
+.btn-details {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 50%;
+    background-color: #FFD700; /* Amarillo dorado */
+    color: #000000;
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.btn-details:hover {
+    background-color: #FFC000; /* Un tono más oscuro de dorado al pasar el ratón */
+    transform: translateY(-1px) scale(1.05);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+    color: #000000;
 }
 
 /* Estilos para los totales */

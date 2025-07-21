@@ -30,15 +30,26 @@ namespace AppMuseo.Data
                 Discapacidad = 0.00m
             };
 
-            // Descuentos
-            var descuentos = new
+            // Tipos de descuento disponibles
+            var tiposDescuento = new[]
             {
-                Estudiante = 2.00m,
-                Investigador = 1.50m,
-                Discapacidad = 0.00m,
-                TerceraEdad = 0.20m, // 20%
-                FamiliaNumerosa = 0.25m, // 25%
-                Desempleado = 0.50m // 50%
+                TipoDescuento.Estudiante,
+                TipoDescuento.Investigador,
+                TipoDescuento.Discapacidad,
+                TipoDescuento.TerceraEdad,
+                TipoDescuento.FamiliaNumerosa,
+                TipoDescuento.Desempleado
+            };
+            
+            // Porcentajes de descuento
+            var porcentajesDescuento = new Dictionary<TipoDescuento, decimal>
+            {
+                { TipoDescuento.Estudiante, 2.00m },
+                { TipoDescuento.Investigador, 1.50m },
+                { TipoDescuento.Discapacidad, 0.00m },
+                { TipoDescuento.TerceraEdad, 0.20m }, // 20%
+                { TipoDescuento.FamiliaNumerosa, 0.25m }, // 25%
+                { TipoDescuento.Desempleado, 0.50m } // 50%
             };
 
             // Extras
@@ -65,12 +76,12 @@ namespace AppMuseo.Data
             logger.LogInformation($"- Discapacidad: {preciosBase.Discapacidad:C2}");
 
             logger.LogInformation("\nDESCUENTOS:");
-            logger.LogInformation($"- Estudiante: -{descuentos.Estudiante:C2}");
-            logger.LogInformation($"- Investigador: -{descuentos.Investigador:C2}");
-            logger.LogInformation($"- Discapacidad: {descuentos.Discapacidad:C2}");
-            logger.LogInformation($"- Tercera Edad: -{descuentos.TerceraEdad:P0} del precio base");
-            logger.LogInformation($"- Familia Numerosa: -{descuentos.FamiliaNumerosa:P0} del precio base");
-            logger.LogInformation($"- Desempleado: -{descuentos.Desempleado:P0} del precio base");
+            logger.LogInformation($"- Estudiante: -2.00 € (fijo)");
+            logger.LogInformation($"- Investigador: -1.50 € (fijo)");
+            logger.LogInformation($"- Discapacidad: Gratis");
+            logger.LogInformation("- Tercera Edad: -25% del precio base");
+            logger.LogInformation("- Familia Numerosa: -20% del precio base");
+            logger.LogInformation("- Desempleado: -50% del precio base");
 
             logger.LogInformation("\nEXTRAS:");
             logger.LogInformation($"- Autorización Foto: {extras.AutorizacionFoto:C2}");
@@ -113,32 +124,42 @@ namespace AppMuseo.Data
                         _ => preciosBase.Normal
                     };
 
-                    // Crear descuento
-                    var descuento = new Descuento
-                    {
-                        Estudiante = random.Next(2) == 1,
-                        Investigador = random.Next(2) == 1,
-                        Discapacidad = random.Next(2) == 1,
-                        TerceraEdad = random.Next(5) == 0, // 20% de probabilidad
-                        FamiliaNumerosa = random.Next(4) == 0, // 25% de probabilidad
-                        Desempleado = random.Next(10) == 0, // 10% de probabilidad
-                        FechaCreacion = DateTime.Now
-                    };
-
-                    // Aplicar descuentos al precio
+                    // Determinar si se aplica algún descuento (70% de probabilidad)
+                    bool aplicarDescuento = random.Next(10) < 7; // 70% de probabilidad
+                    Descuento descuento = null;
                     decimal total = precioBase;
                     
-                    if (descuento.Estudiante) total -= descuentos.Estudiante;
-                    if (descuento.Investigador) total -= descuentos.Investigador;
-                    if (descuento.Discapacidad) total = 0; // Gratis para discapacitados
-                    
-                    // Aplicar descuentos porcentuales (no acumulables entre sí)
-                    if (descuento.TerceraEdad)
-                        total -= precioBase * descuentos.TerceraEdad;
-                    else if (descuento.FamiliaNumerosa)
-                        total -= precioBase * descuentos.FamiliaNumerosa;
-                    else if (descuento.Desempleado)
-                        total -= precioBase * descuentos.Desempleado;
+                    if (aplicarDescuento)
+                    {
+                        // Seleccionar un tipo de descuento aleatorio
+                        var tipoDescuento = tiposDescuento[random.Next(tiposDescuento.Length)];
+                        
+                        // Crear el descuento
+                        descuento = new Descuento
+                        {
+                            Tipo = tipoDescuento,
+                            FechaCreacion = DateTime.Now
+                        };
+                        
+                        // Aplicar el descuento correspondiente
+                        if (tipoDescuento == TipoDescuento.Discapacidad)
+                        {
+                            total = 0; // Gratis para discapacitados
+                        }
+                        else if (tipoDescuento == TipoDescuento.TerceraEdad || 
+                                tipoDescuento == TipoDescuento.FamiliaNumerosa || 
+                                tipoDescuento == TipoDescuento.Desempleado)
+                        {
+                            // Aplicar descuento porcentual
+                            decimal porcentaje = porcentajesDescuento[tipoDescuento];
+                            total -= precioBase * porcentaje;
+                        }
+                        else
+                        {
+                            // Descuento fijo para estudiante o investigador
+                            total -= porcentajesDescuento[tipoDescuento];
+                        }
+                    }
 
                     // Asegurar que el precio no sea negativo
                     total = Math.Max(0, total);
@@ -197,10 +218,17 @@ namespace AppMuseo.Data
                         CreadoPor = adminEmail
                     };
 
-                    // Guardar en la base de datos
-                    context.Descuentos.Add(descuento);
+                    // Guardar en la base de datos si hay descuento
+                    if (descuento != null)
+                    {
+                        context.Descuentos.Add(descuento);
+                        // Guardar para obtener el ID generado
+                        await context.SaveChangesAsync();
+                    }
+                    
                     context.Extras.Add(extra);
                     context.Entradas.Add(entrada);
+                    await context.SaveChangesAsync();
 
                     // Mostrar resumen de la entrada
                     logger.LogInformation($"\nEntrada {i + 1}:");
@@ -208,21 +236,15 @@ namespace AppMuseo.Data
                     logger.LogInformation($"- Tipo: {entrada.TipoEntrada}");
                     logger.LogInformation($"- Precio base: {entrada.Precio:C2}");
                     
-                    // Mostrar descuentos aplicados
-                    var descuentosAplicados = new System.Text.StringBuilder("- Descuentos: ");
-                    bool tieneDescuento = false;
-                    
-                    if (descuento.Estudiante) { descuentosAplicados.Append("Estudiante, "); tieneDescuento = true; }
-                    if (descuento.Investigador) { descuentosAplicados.Append("Investigador, "); tieneDescuento = true; }
-                    if (descuento.Discapacidad) { descuentosAplicados.Append("Discapacidad, "); tieneDescuento = true; }
-                    if (descuento.TerceraEdad) { descuentosAplicados.Append("Tercera Edad, "); tieneDescuento = true; }
-                    if (descuento.FamiliaNumerosa) { descuentosAplicados.Append("Familia Numerosa, "); tieneDescuento = true; }
-                    if (descuento.Desempleado) { descuentosAplicados.Append("Desempleado, "); tieneDescuento = true; }
-                    
-                    if (tieneDescuento)
-                        logger.LogInformation(descuentosAplicados.ToString().TrimEnd(',', ' '));
+                    // Mostrar descuento aplicado si existe
+                    if (descuento != null && descuento.Tipo != TipoDescuento.Ninguno)
+                    {
+                        logger.LogInformation($"- Descuento: {descuento.Descripcion}");
+                    }
                     else
+                    {
                         logger.LogInformation("- Sin descuentos");
+                    }
                     
                     // Mostrar extras
                     var extrasAplicados = new System.Text.StringBuilder("- Extras: ");

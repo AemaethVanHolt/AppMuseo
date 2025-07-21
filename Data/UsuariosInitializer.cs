@@ -358,17 +358,55 @@ namespace AppMuseo.Data
 
                     try
                     {
-                        // Crear descuento
-                        var descuento = new Descuento
+                        // Determinar si el usuario tiene derecho a algún descuento (70% de probabilidad)
+                        Descuento descuento = null;
+                        if (random.Next(10) < 7) // 70% de probabilidad
                         {
-                            Estudiante = random.Next(4) == 0, // 25% de probabilidad
-                            Investigador = random.Next(5) == 0, // 20% de probabilidad
-                            Discapacidad = random.Next(10) == 0, // 10% de probabilidad
-                            TerceraEdad = user.FechaNacimiento <= DateTime.Now.AddYears(-65), // Mayores de 65 años
-                            FamiliaNumerosa = random.Next(5) == 0, // 20% de probabilidad
-                            Desempleado = random.Next(8) == 0, // 12.5% de probabilidad
-                            FechaCreacion = DateTime.Now
-                        };
+                            // Lista de posibles descuentos con sus probabilidades
+                            var posiblesDescuentos = new List<(TipoDescuento tipo, int peso)>
+                            {
+                                (TipoDescuento.Estudiante, 25),    // 25% de peso relativo
+                                (TipoDescuento.Investigador, 20),  // 20% de peso relativo
+                                (TipoDescuento.Discapacidad, 10),  // 10% de peso relativo
+                                (TipoDescuento.TerceraEdad, user.FechaNacimiento <= DateTime.Now.AddYears(-65) ? 20 : 0), // 20% si es mayor de 65
+                                (TipoDescuento.FamiliaNumerosa, 20), // 20% de peso relativo
+                                (TipoDescuento.Desempleado, 5)     // 5% de peso relativo
+                            };
+                            
+                            // Filtrar solo los descuentos con peso > 0
+                            var descuentosPosibles = posiblesDescuentos.Where(d => d.peso > 0).ToList();
+                            
+                            if (descuentosPosibles.Any())
+                            {
+                                // Calcular el peso total
+                                int pesoTotal = descuentosPosibles.Sum(d => d.peso);
+                                
+                                // Seleccionar un descuento aleatorio basado en los pesos
+                                int valorAleatorio = random.Next(pesoTotal);
+                                int sumaPesos = 0;
+                                TipoDescuento tipoSeleccionado = TipoDescuento.Ninguno;
+                                
+                                foreach (var (tipo, peso) in descuentosPosibles)
+                                {
+                                    sumaPesos += peso;
+                                    if (valorAleatorio < sumaPesos)
+                                    {
+                                        tipoSeleccionado = tipo;
+                                        break;
+                                    }
+                                }
+                                
+                                // Crear el descuento si se seleccionó alguno
+                                if (tipoSeleccionado != TipoDescuento.Ninguno)
+                                {
+                                    descuento = new Descuento
+                                    {
+                                        Tipo = tipoSeleccionado,
+                                        FechaCreacion = DateTime.Now
+                                    };
+                                }
+                            }
+                        }
 
                         // Crear extras
                         var extra = new Extra
@@ -384,12 +422,17 @@ namespace AppMuseo.Data
                             FechaCreacion = DateTime.Now
                         };
 
-                        // Guardar descuento y extra
-                        await context.Descuentos.AddAsync(descuento);
+                        // Guardar descuento (si existe) y extra
+                        if (descuento != null)
+                        {
+                            await context.Descuentos.AddAsync(descuento);
+                            await context.SaveChangesAsync(); // Guardar para obtener el ID
+                        }
+                        
                         await context.Extras.AddAsync(extra);
                         await context.SaveChangesAsync();
 
-                        logger.LogInformation($"Descuento y extra creados para el usuario {user.Email}");
+                        logger.LogInformation($"{(descuento != null ? "Descuento y extra" : "Extra")} creados para el usuario {user.Email}");
                     }
                     catch (Exception ex)
                     {
@@ -400,13 +443,15 @@ namespace AppMuseo.Data
 
                     try
                     {
-                        // Obtener el último descuento y extra creados para este usuario
-                        var descuento = await context.Descuentos.OrderByDescending(d => d.Id).FirstOrDefaultAsync();
+                        // Obtener el último extra creado para este usuario
                         var extra = await context.Extras.OrderByDescending(e => e.Id).FirstOrDefaultAsync();
+                        
+                        // Obtener el último descuento creado para este usuario (si existe)
+                        var descuento = await context.Descuentos.OrderByDescending(d => d.Id).FirstOrDefaultAsync();
 
-                        if (descuento == null || extra == null)
+                        if (extra == null)
                         {
-                            logger.LogWarning($"No se encontró descuento o extra para el usuario {user.Email}");
+                            logger.LogWarning($"No se encontró el extra para el usuario {user.Email}");
                             continue;
                         }
 
@@ -444,17 +489,43 @@ namespace AppMuseo.Data
                                 _ => 12.00m // Normal
                             };
 
-                            // Aplicar descuentos
+                            // Aplicar descuento si existe
                             decimal total = precioBase;
-                            if (descuento.Estudiante) total -= 2.00m;
-                            if (descuento.Investigador) total -= 1.50m;
-                            if (descuento.Discapacidad) total -= 3.00m;
-                            if (descuento.TerceraEdad) total *= 0.75m; // 25% descuento
-                            if (descuento.FamiliaNumerosa) total *= 0.80m; // 20% descuento
-                            if (descuento.Desempleado) total *= 0.50m; // 50% descuento
                             
-                            // Precio mínimo
-                            if (total < 1.00m) total = 1.00m;
+                            if (descuento != null)
+                            {
+                                switch (descuento.Tipo)
+                                {
+                                    case TipoDescuento.Estudiante:
+                                        total -= 2.00m;
+                                        break;
+                                    case TipoDescuento.Investigador:
+                                        total -= 1.50m;
+                                        break;
+                                    case TipoDescuento.Discapacidad:
+                                        total = 0; // Gratis para discapacitados
+                                        break;
+                                    case TipoDescuento.TerceraEdad:
+                                        total *= 0.75m; // 25% descuento
+                                        break;
+                                    case TipoDescuento.FamiliaNumerosa:
+                                        total *= 0.80m; // 20% descuento
+                                        break;
+                                    case TipoDescuento.Desempleado:
+                                        total *= 0.50m; // 50% descuento
+                                        break;
+                                    case TipoDescuento.Ninguno:
+                                    default:
+                                        // Sin descuento
+                                        break;
+                                }
+                                
+                                // Precio mínimo (excepto para discapacitados que es gratis)
+                                if (descuento.Tipo != TipoDescuento.Discapacidad && total < 1.00m)
+                                {
+                                    total = 1.00m;
+                                }
+                            }
 
 
 

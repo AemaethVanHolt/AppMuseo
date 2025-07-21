@@ -131,15 +131,21 @@ namespace AppMuseo.Controllers
             }
 
             // Validar que un administrador no pueda desactivarse a sí mismo
-            // Solo validar si el estado ha cambiado a inactivo
-            if (esMismoUsuario && esAdminActual && !model.Activo && user.Activo)
+            if (esMismoUsuario && esAdminActual)
             {
-                ModelState.AddModelError(string.Empty, "No puedes desactivar tu propia cuenta de administrador.");
-                model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
-                model.EsAdminActual = esAdminActual;
-                model.EsMismoUsuario = esMismoUsuario;
-                model.PuedeDesactivar = isAdmin && !esMismoUsuario && !esAdminActual;
-                return View(model);
+                // Forzar el estado a activo para el administrador actual
+                model.Activo = true;
+                
+                // Si se está intentando desactivar, mostrar error
+                if (!model.Activo && user.Activo)
+                {
+                    ModelState.AddModelError(string.Empty, "No puedes desactivar tu propia cuenta de administrador.");
+                    model.RolesDisponibles = _roleManager.Roles.Where(r => r.Name != null).Select(r => r.Name!).ToList();
+                    model.EsAdminActual = esAdminActual;
+                    model.EsMismoUsuario = esMismoUsuario;
+                    model.PuedeDesactivar = isAdmin && !esMismoUsuario && !esAdminActual;
+                    return View(model);
+                }
             }
 
             // Actualizar propiedades básicas

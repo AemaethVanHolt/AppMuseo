@@ -29,6 +29,7 @@
         <form asp-action="Edit" method="post" enctype="multipart/form-data" class="profile-edit-form">
             <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Activo" id="activoHidden" />
             
             <div class="row">
                 <!-- Columna de la foto de perfil -->
@@ -387,16 +388,19 @@
     function updateStatusText(checkbox) {
         var statusText = document.getElementById('statusText');
         var statusIndicator = document.getElementById('statusIndicator');
+        var activoHidden = document.getElementById('activoHidden');
         
-        if (statusText && statusIndicator) {
+        if (statusText && statusIndicator && activoHidden) {
             if (checkbox.checked) {
                 statusText.textContent = 'Activo';
                 statusIndicator.textContent = 'Activo';
                 statusIndicator.className = 'badge bg-success';
+                activoHidden.value = 'true';
             } else {
                 statusText.textContent = 'Inactivo';
                 statusIndicator.textContent = 'Inactivo';
                 statusIndicator.className = 'badge bg-danger';
+                activoHidden.value = 'false';
             }
         }
     }

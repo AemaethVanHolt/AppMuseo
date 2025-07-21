@@ -121,6 +121,11 @@
                         var user = await UserManager.GetUserAsync(User);
                         var displayName = user != null ? $"{user.Nombre} {user.Apellidos}" : User.Identity?.Name ?? "Usuario";
                         
+                        <!-- Botón de Taquilla -->
+                        <a asp-controller="Taquilla" asp-action="Index" class="btn btn-success rounded-pill me-2 px-3 fw-bold">
+                            <i class="fas fa-ticket-alt me-1"></i> Taquilla
+                        </a>
+                        
                         <div class="dropdown">
                             <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 @if (user?.FotoPerfil != null)

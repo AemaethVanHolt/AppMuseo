@@ -1,0 +1,267 @@
+@{
+    ViewData["Title"] = "Taquilla";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-5">Compra de Entradas</h1>
+    
+    <div id="mensajeError" class="alert alert-danger d-none" role="alert">
+        Por favor, selecciona al menos una entrada.
+    </div>
+    
+    <!-- Sección 1: Entrada General -->
+    <div class="entrada-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <form id="formGeneral" method="post" action="/Taquilla/ProcesarCompra" class="h-100 d-flex flex-column">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="tipoEntrada" value="Entrada General" />
+                        <input type="hidden" name="precio" value="15.00" />
+                        <div class="card-body text-center p-4 d-flex flex-column">
+                            <h2 class="card-title mb-3">Entrada General</h2>
+                            <p class="text-muted mb-4">Acceso a todas las exposiciones</p>
+                            <h3 class="text-primary my-3">15,00 €</h3>
+                            
+                            <div class="mb-3">
+                                <label for="cantidadGeneral" class="form-label">Cantidad</label>
+                                <input type="number" class="form-control text-center" id="cantidadGeneral" name="cantidad" value="1" min="1" style="max-width: 100px; margin: 0 auto;">
+                            </div>
+                        
+                        <div class="extras mt-4 text-start">
+                            <h5 class="fw-bold mb-3">Extras disponibles:</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="extras" value="audioguia" id="audioGuia">
+                                <label class="form-check-label" for="audioGuia">
+                                    Audioguía (+2,50 €)
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="extras" value="visita" id="visitaGuiada">
+                                <label class="form-check-label" for="visitaGuiada">
+                                    Visita guiada (+4,00 €)
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="extras" value="foto" id="fotos">
+                                <label class="form-check-label" for="fotos">
+                                    Autorización fotográfica (+1,50 €)
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="acreditacion mt-4 p-3 bg-dark rounded">
+                            <h6 class="fw-bold mb-2">Acreditación requerida:</h6>
+                            <ul class="mb-0 ps-3">
+                                <li>Documento de identidad</li>
+                            </ul>
+                        </div>
+                        
+                            <button type="submit" class="btn btn-primary btn-lg mt-3">
+                                Comprar Entrada
+                            </button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+            <div class="col-md-6">
+                <img src="/img/obras/12.jpg" alt="Entrada General" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 2: Entrada Familiar -->
+    <div class="entrada-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 order-md-2">
+                <div class="card h-100 border-0 shadow">
+                    <form id="formFamiliar" method="post" action="/Taquilla/ProcesarCompra" class="h-100 d-flex flex-column">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="tipoEntrada" value="Entrada Familiar" />
+                        <input type="hidden" name="precio" value="35.00" />
+                        <div class="card-body text-center p-4 d-flex flex-column">
+                            <h2 class="card-title mb-3">Entrada Familiar</h2>
+                            <p class="text-muted mb-4">2 adultos + 2 niños (hasta 12 años)</p>
+                            <h3 class="text-primary my-3">35,00 €</h3>
+                            
+                            <div class="mb-3">
+                                <label for="cantidadFamiliar" class="form-label">Cantidad</label>
+                                <input type="number" class="form-control text-center" id="cantidadFamiliar" name="cantidad" value="1" min="1" style="max-width: 100px; margin: 0 auto;">
+                            </div>
+                        
+                        <div class="extras mt-4 text-start">
+                            <h5 class="fw-bold mb-3">Extras disponibles:</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="extras" value="audioguia" id="audioGuiaFamiliar">
+                                <label class="form-check-label" for="audioGuiaFamiliar">
+                                    Audioguía (+2,50 €)
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="extras" value="visita" id="visitaGuiadaFamiliar">
+                                <label class="form-check-label" for="visitaGuiadaFamiliar">
+                                    Visita guiada (+4,00 €)
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="extras" value="foto" id="fotosFamiliar">
+                                <label class="form-check-label" for="fotosFamiliar">
+                                    Autorización fotográfica (+1,50 €)
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="acreditacion mt-4 p-3 bg-dark rounded">
+                            <h6 class="fw-bold mb-2">Acreditación requerida:</h6>
+                            <ul class="mb-0 ps-3">
+                                <li>Documento de identidad de los adultos</li>
+                                <li>Libro de familia o documento que acredite la relación familiar</li>
+                            </ul>
+                        </div>
+                        
+                            <button type="submit" class="btn btn-primary btn-taquilla mt-2">Comprar ahora</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6 order-md-1">
+                <img src="/img/obras/14.jpg" alt="Entrada Familiar" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 3: Entrada Reducida -->
+    <div class="entrada-section">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <form id="formReducida" method="post" action="/Taquilla/ProcesarCompra" class="h-100 d-flex flex-column">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="tipoEntrada" value="Entrada Reducida" />
+                        <input type="hidden" name="precio" value="7.50" id="precioReducidoInput" />
+                        <input type="hidden" name="tipoDescuento" value="estudiante" id="tipoDescuentoInput" />
+                        
+                        <div class="card-body text-center p-4 d-flex flex-column">
+                            <h2 class="card-title mb-3">Entrada Reducida*</h2>
+                            
+                            <div class="mb-3">
+                                <select class="form-select" id="tipoDescuento">
+                                    <option value="estudiante" data-precio="7.50">Estudiante - 7,50 €</option>
+                                    <option value="investigador" data-precio="5.00">Investigador - 5,00 €</option>
+                                    <option value="discapacidad" data-precio="0.00">Discapacitado - Gratis</option>
+                                </select>
+                                <div id="infoDescuento" class="form-text text-start mt-2">
+                                    * Se requiere acreditación en taquilla
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="cantidadReducida" class="form-label">Cantidad</label>
+                                <input type="number" class="form-control text-center" id="cantidadReducida" name="cantidad" value="1" min="1" style="max-width: 100px; margin: 0 auto;">
+                            </div>
+                        
+                        <div class="extras mt-4 text-start">
+                            <h5 class="fw-bold mb-3">Extras disponibles:</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="extras" value="audioguia" id="audioGuiaReducida">
+                                <label class="form-check-label" for="audioGuiaReducida">
+                                    Audioguía (+2,50 €)
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="extras" value="visita" id="visitaGuiadaReducida">
+                                <label class="form-check-label" for="visitaGuiadaReducida">
+                                    Visita guiada (+4,00 €)
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="extras" value="foto" id="fotoReducida">
+                                <label class="form-check-label" for="fotoReducida">
+                                    Autorización fotográfica (+1,50 €)
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="acreditacion mt-4 p-3 bg-dark rounded">
+                            <h6 class="fw-bold mb-2">Acreditación requerida:</h6>
+                            <select class="form-select mb-3" id="tipoDescuento">
+                                <option value="estudiante" data-precio="7.50">Estudiante - 7,50 €</option>
+                                <option value="mayor65" data-precio="5.00">Mayores 65 años - 5,00 €</option>
+                                <option value="discapacidad" data-precio="0.00">Discapacidad - Gratuita</option>
+                                <option value="acompanante" data-precio="0.00">Acompañante de discapacitado - Gratuita</option>
+                                <option value="desempleado" data-precio="4.00">Desempleados - 4,00 €</option>
+                            </select>
+                            <div id="infoAcreditacion">
+                                <small class="text-muted">Seleccione el tipo de descuento para ver los requisitos</small>
+                            </div>
+                        </div>
+                        
+                            <button type="submit" class="btn btn-primary btn-taquilla mt-2">Comprar ahora</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="/img/obras/18.jpg" alt="Entrada Reducida" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+
+    <div class="acreditacion mt-5 p-4">
+        <h6 class="fw-bold mb-3">Información importante sobre acreditación:</h6>
+        <ul class="mb-0">
+            <li>Se deberá acreditar la condición en taquilla</li>
+            <li>Estudiantes: carné de estudiante vigente</li>
+            <li>Investigadores: acreditación oficial</li>
+            <li>Discapacidad: certificado igual o superior al 33%</li>
+        </ul>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/taquilla/taquilla.css" />
+}
+
+@section Scripts {
+    <script src="~/js/taquilla.js"></script>
+    <script>
+        // Lógica para actualizar precios en tiempo real
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar cambios en el selector de descuentos
+            const selectorDescuento = document.getElementById('tipoDescuento');
+            const precioReducido = document.getElementById('precioReducido');
+            
+            if (selectorDescuento) {
+                selectorDescuento.addEventListener('change', function() {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const precio = selectedOption.getAttribute('data-precio');
+                    precioReducido.textContent = parseFloat(precio).toFixed(2).replace('.', ',');
+                });
+            }
+
+            // Manejar clic en botones de compra
+            document.querySelectorAll('.btn-taquilla').forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.card');
+                    const tipoEntrada = card.querySelector('.card-title').textContent;
+                    let mensaje = `Has seleccionado: ${tipoEntrada}\n\n`;
+                    
+                    // Obtener extras seleccionados
+                    const extras = [];
+                    card.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                        extras.push(checkbox.nextElementSibling.textContent.trim());
+                    });
+                    
+                    if (extras.length > 0) {
+                        mensaje += 'Extras seleccionados:\n' + extras.join('\n');
+                    } else {
+                        mensaje += 'Sin extras seleccionados.';
+                    }
+                    
+                    mensaje += '\n\nEsta funcionalidad está en desarrollo.';
+                    alert(mensaje);
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,294 @@
+/* Estilos específicos para la página de Taquilla */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Estilo para las secciones de entradas */
+.entrada-section {
+    margin-bottom: 5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.entrada-section:last-child {
+    border-bottom: none;
+}
+
+/* Estilo para las tarjetas de entradas */
+.card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    border: none;
+    height: 100%;
+    background-color: #191c1f;
+    color: #ffd700;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Estilo para las imágenes */
+.entrada-section img {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 350px;
+}
+
+/* Estilo para los botones de compra */
+.btn-taquilla {
+    background-color: transparent;
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    border-radius: 50px;
+    padding: 12px 32px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 220px;
+    margin: 1.5rem auto 0;
+    display: block;
+}
+
+.btn-taquilla:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    border-color: #ffd700;
+    transform: none;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Estilo para los títulos */
+h1 {
+    color: #ffd700;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+    margin: 2rem 0 3rem;
+    text-align: center;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+    background: #ffd700;
+    border-radius: 2px;
+}
+
+.card-title {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+/* Estilo para los precios */
+.text-precio {
+    color: #ffd700;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0.5rem 0 1rem;
+    display: block;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+/* Estilo para la sección de acreditación */
+.acreditacion {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffd700;
+    color: #ffffff;
+}
+
+.acreditacion h6 {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.acreditacion ul {
+    margin-bottom: 0;
+}
+
+.acreditacion li {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+.acreditacion .form-select {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ced4da;
+    color: #212529;
+    margin-bottom: 1rem;
+}
+
+.acreditacion .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#infoAcreditacion {
+    font-size: 0.85rem;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+/* Estilos para el selector de descuentos */
+.form-select {
+    border-radius: 12px;
+    padding: 12px 20px;
+    border: 2px solid #e0e0e0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    max-width: 300px;
+    margin: 0 auto 1.5rem;
+}
+
+.form-select:focus {
+    border-color: #dbab00;
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.15);
+}
+
+/* Estilos para los checkboxes de extras */
+.extras {
+    background-color: #000000;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.75rem 0;
+    flex-grow: 1;
+}
+
+.extras h5 {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 6px;
+    display: inline-block;
+}
+
+.extras .form-check-label {
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.extras .form-check-input:checked + .form-check-label {
+    color: #ffd700 !important;
+    font-weight: 500;
+}
+
+.extras h5::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffae00, #bb7a00);
+    border-radius: 2px;
+}
+
+.form-check {
+    margin-bottom: 0.8rem;
+    padding-left: 2.2em;
+}
+
+.form-check-input {
+    margin-left: -2.2em;
+    margin-top: 0.2em;
+    width: 1.2em;
+    height: 1.2em;
+    border: 2px solid #adb5bd;
+    transition: all 0.2s ease;
+}
+
+.form-check-input:checked {
+    background-color: #ffc400;
+    border-color: #fda900;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+.form-check-label {
+    font-size: 1rem;
+    color: #495057;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.form-check-input:checked + .form-check-label {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .entrada-section {
+        margin-bottom: 3rem;
+        padding: 1.5rem 0;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        margin: 1.5rem 0 2.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .btn-taquilla {
+        padding: 10px 24px;
+        font-size: 0.85rem;
+        max-width: 200px;
+    }
+    
+    .extras {
+        padding: 1.2rem;
+        margin: 1.5rem 0;
+    }
+    
+    .form-select {
+        font-size: 0.95rem;
+        padding: 10px 16px;
+    }
+    
+    .text-primary {
+        font-size: 1.8rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+}

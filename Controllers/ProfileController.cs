@@ -78,7 +78,7 @@ namespace AppMuseo.Controllers
                 FechaNacimiento = user.FechaNacimiento,
                 FechaCreacion = user.FechaCreacion,
                 UltimoAcceso = user.LockoutEnd?.DateTime,
-                FotoPerfilUrl = user.FotoPerfil,
+                FotoPerfilUrl = user.ImageUrl,
                 Rol = userRoles.FirstOrDefault(),
                 RolesDisponibles = allRoles.Where(r => r != null).ToList(),
                 Activo = user.Activo,
@@ -225,16 +225,16 @@ namespace AppMuseo.Controllers
                 }
 
                 // Eliminar la foto anterior si existe
-                if (!string.IsNullOrEmpty(user.FotoPerfil))
+                if (!string.IsNullOrEmpty(user.ImageUrl))
                 {
-                    var oldFilePath = Path.Combine(_env.WebRootPath, user.FotoPerfil.TrimStart('/'));
+                    var oldFilePath = Path.Combine(_env.WebRootPath, user.ImageUrl.TrimStart('/'));
                     if (System.IO.File.Exists(oldFilePath))
                     {
                         System.IO.File.Delete(oldFilePath);
                     }
                 }
 
-                user.FotoPerfil = $"/uploads/perfiles/{uniqueFileName}";
+                user.ImageUrl = $"/uploads/perfiles/{uniqueFileName}";
             }
 
             // Actualizar la contraseña si se proporciona

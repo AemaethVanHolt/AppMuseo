@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppMuseo.Migrations
 {
     [DbContext(typeof(AppMuseoDbContext))]
-    [Migration("20250721172128_UpdateUserTable")]
-    partial class UpdateUserTable
+    [Migration("20250721185654_MigracionInicial")]
+    partial class MigracionInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,9 +70,6 @@ namespace AppMuseo.Migrations
 
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FotoPerfil")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");

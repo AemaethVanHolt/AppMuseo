@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AppMuseo.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class MigracionInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,10 +34,17 @@ namespace AppMuseo.Migrations
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Apellidos = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ciudad = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Provincia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CodigoPostal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Pais = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Activo = table.Column<bool>(type: "bit", nullable: false),
+                    Biografia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Intereses = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -84,7 +91,11 @@ namespace AppMuseo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Estudiante = table.Column<bool>(type: "bit", nullable: false),
                     Investigador = table.Column<bool>(type: "bit", nullable: false),
-                    Discapacidad = table.Column<bool>(type: "bit", nullable: false)
+                    Discapacidad = table.Column<bool>(type: "bit", nullable: false),
+                    TerceraEdad = table.Column<bool>(type: "bit", nullable: false),
+                    FamiliaNumerosa = table.Column<bool>(type: "bit", nullable: false),
+                    Desempleado = table.Column<bool>(type: "bit", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,7 +111,12 @@ namespace AppMuseo.Migrations
                     AutorizacionFoto = table.Column<bool>(type: "bit", nullable: false),
                     VisitaTaller = table.Column<bool>(type: "bit", nullable: false),
                     AudioGuia = table.Column<bool>(type: "bit", nullable: false),
-                    VisitaGuiada = table.Column<bool>(type: "bit", nullable: false)
+                    VisitaGuiada = table.Column<bool>(type: "bit", nullable: false),
+                    GuiaEnLenguaExtranjera = table.Column<bool>(type: "bit", nullable: false),
+                    AccesoPreferente = table.Column<bool>(type: "bit", nullable: false),
+                    Parking = table.Column<bool>(type: "bit", nullable: false),
+                    Tienda = table.Column<bool>(type: "bit", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -255,6 +271,10 @@ namespace AppMuseo.Migrations
                     IncluyeVisitaTaller = table.Column<bool>(type: "bit", nullable: false),
                     IncluyeAudioGuia = table.Column<bool>(type: "bit", nullable: false),
                     IncluyeVisitaGuiada = table.Column<bool>(type: "bit", nullable: false),
+                    IncluyeGuiaExtranjera = table.Column<bool>(type: "bit", nullable: false),
+                    IncluyeAccesoPreferente = table.Column<bool>(type: "bit", nullable: false),
+                    IncluyeParking = table.Column<bool>(type: "bit", nullable: false),
+                    IncluyeTienda = table.Column<bool>(type: "bit", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DescuentoId = table.Column<int>(type: "int", nullable: true),

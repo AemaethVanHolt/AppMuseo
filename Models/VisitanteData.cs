@@ -16,6 +16,7 @@ namespace AppMuseo.Models
         public string? Pais { get; set; }
         public string? Telefono { get; set; }
         public string? ImageUrl { get; set; }
+        public string? FotoPerfil { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string? Biografia { get; set; }
         public string? Intereses { get; set; }

@@ -68,9 +68,6 @@ namespace AppMuseo.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FotoPerfil")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 

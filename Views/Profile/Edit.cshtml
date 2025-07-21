@@ -247,7 +247,7 @@
     <style>
         /* Main container for the profile edit page */
         .container.py-5 {
-            background-color: #2d2d2d;
+            background-color: #191c1f;
             color: #ffffff;
             min-height: calc(100vh - 200px);
             margin-top: 20px;
@@ -255,7 +255,7 @@
         
         /* Profile form specific styles */
         .profile-edit-form {
-            background-color: #2d2d2d;
+            background-color: #191c1f;
             color: #ffffff;
             border: 3px solid #ffffff;
             border-radius: 15px;
@@ -265,7 +265,7 @@
         /* Form elements within the profile edit form */
         .profile-edit-form .form-control,
         .profile-edit-form .form-select {
-            background-color: #2d2d2d;
+            background-color: #191c1f;
             color: #ffffff;
             border: 2px solid #ffffff;
             border-radius: 10px;
@@ -274,7 +274,7 @@
         
         .profile-edit-form .form-control:focus,
         .profile-edit-form .form-select:focus {
-            background-color: #2d2d2d;
+            background-color: #191c1f;
             color: #ffffff;
             border-color: #ffffff;
             box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
@@ -291,7 +291,7 @@
         
         /* Cards within the profile form */
         .profile-edit-form .card {
-            background-color: #2d2d2d;
+            background-color: #191c1f;
             border: 2px solid #ffffff;
             border-radius: 15px;
         }
@@ -304,7 +304,7 @@
         }
         
         .profile-edit-form .card-body {
-            background-color: #2d2d2d;
+            background-color: #191c1f;
             color: #ffffff;
         }
         
@@ -334,7 +334,7 @@
         }
         
         .profile-edit-form .btn-secondary:hover {
-            background-color: #333333;
+            background-color: #191c1f;
             color: #ffffff;
             border-color: #ffffff;
         }
@@ -353,7 +353,7 @@
         
         /* Form check elements */
         .profile-edit-form .form-check-input {
-            background-color: #2d2d2d;
+            background-color: #191c1f;
             border: 2px solid #ffffff;
         }
         
@@ -380,7 +380,7 @@
             color: #ff6b6b;
         }
         
-        /* Profile image */
+        /* Imagen del usuario */
         .profile-edit-form .rounded-circle {
             border: 3px solid #ffffff;
         }
@@ -396,7 +396,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     
     <script>
-        // Función para actualizar el texto del estado cuando se cambia el interruptor
+    // Función para actualizar el texto del estado cuando se cambia el interruptor
         function updateStatusText(checkbox) {
             const statusText = document.getElementById('statusText');
             const statusIndicator = document.getElementById('statusIndicator');
@@ -418,7 +418,7 @@
                 reader.onload = function(e) {
                     var img = document.getElementById('profileImage');
                     if (!img) {
-                        // Si no existe la imagen, creamos una
+                        // Si no existe la imagen, se crea
                         var container = input.closest('.position-relative');
                         container.innerHTML = `
                             <img src="${e.target.result}" class="img-fluid rounded-circle border border-3 border-white" style="width: 200px; height: 200px; object-fit: cover;" id="profileImage" />
@@ -428,7 +428,7 @@
                             </label>
                         `;
                     } else {
-                        // Si ya existe, actualizamos la fuente
+                        // Si ya existe, se actualiza
                         img.src = e.target.result;
                     }
                 }

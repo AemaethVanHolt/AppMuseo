@@ -2,9 +2,24 @@
 @{
     ViewData["Title"] = "Resumen de Compra";
     
-    var precioUnitario = (decimal)Model["PrecioUnitario"];
+    var precioBase = (decimal)Model["PrecioBase"];
+    var precioTotal = (decimal)Model["PrecioTotal"];
     var extrasDisponibles = Model["ExtrasDisponibles"] as Dictionary<string, decimal>;
     var extrasSeleccionados = Model["ExtrasSeleccionados"] as List<string> ?? new List<string>();
+    
+    // Crear un diccionario para mapear los valores de los checkboxes a los nombres de los extras
+    var extrasMap = new Dictionary<string, string>
+    {
+        { "Audioguía", "audioguia" },
+        { "Visita Guiada", "visita" },
+        { "Autorización Fotográfica", "foto" }
+    };
+    
+    // Obtener los valores de los checkboxes seleccionados
+    var extrasCheckboxValues = extrasSeleccionados
+        .Where(e => extrasMap.ContainsValue(e))
+        .Select(e => extrasMap.FirstOrDefault(x => x.Value == e).Key)
+        .ToList();
 }
 
 <div class="container mt-4">
@@ -17,13 +32,15 @@
                     <form asp-action="ConfirmarCompra" method="post" id="formularioCompra">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="tipoEntrada" value="@Model["TipoEntrada"]" />
-                        <input type="hidden" name="precioUnitario" value="@precioUnitario" />
+                        <input type="hidden" name="precioUnitario" value="@precioTotal" />
+                        <input type="hidden" name="precioTotal" value="@precioTotal" />
                         
                         <h4 class="card-title text-warning mb-4">Detalles de la compra</h4>
                         
                         <div class="mb-4">
                             <h5>Tipo de entrada: <span class="text-warning">@Model["TipoEntrada"]</span></h5>
-                            <p class="mb-1">Precio unitario: <span class="text-warning">@precioUnitario.ToString("0.00") €</span></p>
+                            <p class="mb-1">Precio base: <span class="text-warning">@precioBase.ToString("0.00") €</span></p>
+                            <p class="mb-1">Precio total: <span class="text-warning fw-bold">@precioTotal.ToString("0.00") €</span></p>
                             
                             <div class="form-group mt-3">
                                 <label for="cantidad" class="form-label">Cantidad:</label>
@@ -33,27 +50,116 @@
                             <hr class="bg-warning my-4">
                             
                             <h5 class="mb-3">Extras disponibles:</h5>
-                            <div class="row">
+                            <div class="extras-container">
                                 @foreach (var extra in extrasDisponibles)
                                 {
-                                    var isChecked = extrasSeleccionados.Contains(extra.Key);
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="extras" value="@extra.Key" id="extra-@extra.Key" @(isChecked ? "checked" : "")>
-                                            <label class="form-check-label d-flex justify-content-between" for="extra-@extra.Key">
-                                                <span>@extra.Key</span>
-                                                <span class="text-warning">+@extra.Value.ToString("0.00") €</span>
-                                            </label>
-                                        </div>
+                                    var checkboxValue = extrasMap.ContainsKey(extra.Key) ? extrasMap[extra.Key] : extra.Key;
+                                    var isChecked = extrasSeleccionados.Contains(checkboxValue);
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" name="extras" value="@checkboxValue" id="extra-@checkboxValue" @(isChecked ? "checked" : "")>
+                                        <label class="form-check-label d-flex justify-content-between w-100" for="extra-@checkboxValue">
+                                            <span>@extra.Key</span>
+                                            <span class="text-warning">+@extra.Value.ToString("0.00") €</span>
+                                        </label>
                                     </div>
                                 }
                             </div>
                             
                             <hr class="bg-warning my-4">
                             
-                            <div class="d-flex justify-content-between align-items-center mt-4">
+                            <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
                                 <h4 class="mb-0">Total:</h4>
-                                <h3 class="text-warning mb-0" id="total">@precioUnitario.ToString("0.00") €</h3>
+                                <h3 class="text-warning mb-0" id="total">@precioTotal.ToString("0.00") €</h3>
+                            </div>
+                            
+                            <!-- Métodos de pago -->
+                            <div class="metodos-pago mt-4">
+                                <h5 class="mb-3">Método de pago:</h5>
+                                
+                                <!-- Tarjeta -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="tarjeta" value="tarjeta">
+                                        <label class="form-check-label d-flex align-items-center" for="tarjeta" data-bs-toggle="collapse" data-bs-target="#datosTarjeta">
+                                            <i class="fas fa-credit-card text-warning me-2"></i> Tarjeta de crédito/débito
+                                        </label>
+                                    </div>
+                                    <div id="datosTarjeta" class="collapse mt-2 ps-4">
+                                        <div class="card card-body bg-dark border-warning">
+                                            <div class="mb-3">
+                                                <label class="form-label">Número de tarjeta</label>
+                                                <input type="text" class="form-control bg-dark text-white border-warning" placeholder="1234 5678 9012 3456" disabled>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Fecha de caducidad</label>
+                                                    <input type="text" class="form-control bg-dark text-white border-warning" placeholder="MM/AA" disabled>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">CVV</label>
+                                                    <input type="text" class="form-control bg-dark text-white border-warning" placeholder="123" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Transferencia -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="transferencia" value="transferencia">
+                                        <label class="form-check-label d-flex align-items-center" for="transferencia" data-bs-toggle="collapse" data-bs-target="#datosTransferencia">
+                                            <i class="fas fa-university text-warning me-2"></i> Transferencia bancaria
+                                        </label>
+                                    </div>
+                                    <div id="datosTransferencia" class="collapse mt-2 ps-4">
+                                        <div class="card card-body bg-dark border-warning">
+                                            <p class="mb-2">Realiza una transferencia a la siguiente cuenta:</p>
+                                            <p class="mb-1">Banco: Tu Banco</p>
+                                            <p class="mb-1">IBAN: ESXX XXXX XXXX XXXX XXXX XXXX</p>
+                                            <p class="mb-1">Beneficiario: Nombre del Museo</p>
+                                            <p class="mb-1">Concepto: Entradas Museo - [Nº de referencia]</p>
+                                            <small class="text-muted">* Recuerda incluir el número de referencia en el concepto.</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- PayPal -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="paypal" value="paypal">
+                                        <label class="form-check-label d-flex align-items-center" for="paypal">
+                                            <i class="fab fa-paypal text-warning me-2"></i> PayPal
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Bizum -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="bizum" value="bizum">
+                                        <label class="form-check-label d-flex align-items-center" for="bizum" data-bs-toggle="collapse" data-bs-target="#datosBizum">
+                                            <i class="fas fa-mobile-alt text-warning me-2"></i> Bizum
+                                        </label>
+                                    </div>
+                                    <div id="datosBizum" class="collapse mt-2 ps-4">
+                                        <div class="card card-body bg-dark border-warning">
+                                            <p>Realiza el pago a través de Bizum al número:</p>
+                                            <h5 class="text-center text-warning">+34 600 000 000</h5>
+                                            <p class="text-center mb-0">Concepto: ENTRADAS</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pago en taquilla -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="taquilla" value="taquilla" checked>
+                                        <label class="form-check-label d-flex align-items-center" for="taquilla">
+                                            <i class="fas fa-ticket-alt text-warning me-2"></i> Pago en taquilla
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
@@ -61,9 +167,41 @@
                             <a href="/Taquilla" class="btn btn-outline-warning">
                                 <i class="fas fa-arrow-left me-2"></i>Volver
                             </a>
-                            <button type="submit" class="btn btn-warning">
-                                Confirmar Compra <i class="fas fa-arrow-right ms-2"></i>
-                            </button>
+                            <div>
+                                <button type="button" id="btnPagar" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPago" disabled>
+                                    <i class="fas fa-credit-card me-2"></i>Pagar Ahora
+                                </button>
+                                <button type="submit" id="btnConfirmar" class="btn btn-success ms-2">
+                                    <i class="fas fa-check-circle me-2"></i>Confirmar Compra
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Modal de pago -->
+                        <div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content bg-dark text-white">
+                                    <div class="modal-header border-warning">
+                                        <h5 class="modal-title">Procesando pago...</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div id="paypal-button-container" class="d-none">
+                                            <!-- PayPal Button will be rendered here -->
+                                            <p>Redirigiendo a PayPal...</p>
+                                            <div class="spinner-border text-warning" role="status">
+                                                <span class="visually-hidden">Cargando...</span>
+                                            </div>
+                                        </div>
+                                        <div id="pagoOtros" class="d-none">
+                                            <p>Redirigiendo a la pasarela de pago...</p>
+                                            <div class="spinner-border text-warning" role="status">
+                                                <span class="visually-hidden">Cargando...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -75,62 +213,138 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del formulario
+            const formulario = document.getElementById('formularioCompra');
             const cantidadInput = document.getElementById('cantidad');
             const checkboxes = document.querySelectorAll('input[type="checkbox"][name="extras"]');
             const totalElement = document.getElementById('total');
+            const precioUnitarioInput = document.querySelector('input[name="precioUnitario"]');
+            const precioTotalInput = document.querySelector('input[name="precioTotal"]');
+            const btnPagar = document.getElementById('btnPagar');
+            const btnConfirmar = document.getElementById('btnConfirmar');
+            const metodosPago = document.querySelectorAll('input[name="metodoPago"]');
+            const modalPago = new bootstrap.Modal(document.getElementById('modalPago'));
             
-            // Asegurarse de que el precio unitario sea un número
-            const precioUnitario = parseFloat('@precioUnitario'.replace(',', '.')) || 0;
-            
-            // Crear objeto de precios de extras
+            // Precios
+            const precioBase = parseFloat('@precioBase'.replace(',', '.')) || 0;
             const preciosExtras = {
                 @foreach (var extra in extrasDisponibles)
                 {
-                    <text>'@extra.Key': @extra.Value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),</text>
+                    var extraKey = extrasMap.ContainsKey(extra.Key) ? extrasMap[extra.Key] : extra.Key;
+                    <text>'@extraKey': @extra.Value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),</text>
                 }
             };
             
+            // Función para calcular el total
             function calcularTotal() {
-                // Obtener cantidad y asegurarse de que sea un número válido
-                let cantidad = parseInt(cantidadInput.value) || 0;
+                let cantidad = parseInt(cantidadInput.value) || 1;
                 if (cantidad < 1) cantidad = 1;
                 
-                // Calcular subtotal de entradas
-                let subtotalEntradas = precioUnitario * cantidad;
+                let subtotalEntradas = precioBase * cantidad;
                 let subtotalExtras = 0;
+                let extrasSeleccionados = [];
                 
-                // Calcular total de extras
                 checkboxes.forEach(checkbox => {
                     if (checkbox.checked) {
                         const extra = checkbox.value;
                         subtotalExtras += (preciosExtras[extra] || 0) * cantidad;
+                        extrasSeleccionados.push(extra);
                     }
                 });
                 
-                // Calcular total general
                 const total = subtotalEntradas + subtotalExtras;
                 
-                // Mostrar el total formateado con 2 decimales y separador de miles
+                // Actualizar campos ocultos
+                if (precioUnitarioInput) precioUnitarioInput.value = precioBase.toFixed(2);
+                if (precioTotalInput) precioTotalInput.value = total.toFixed(2);
+                
+                // Actualizar UI
                 totalElement.textContent = total.toLocaleString('es-ES', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 }) + ' €';
+                
+                return { cantidad, total, extrasSeleccionados };
             }
             
-            cantidadInput.addEventListener('change', calcularTotal);
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', calcularTotal);
-            });
-            
-            // Validación del formulario
-            document.getElementById('formularioCompra').addEventListener('submit', function(e) {
-                const cantidad = parseInt(cantidadInput.value) || 0;
-                if (cantidad < 1) {
-                    e.preventDefault();
-                    alert('Por favor, introduce una cantidad válida.');
-                    cantidadInput.focus();
+            // Manejar cambio en métodos de pago
+            function actualizarBotonesPago() {
+                const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
+                
+                if (metodoSeleccionado === 'taquilla') {
+                    btnPagar.disabled = true;
+                    btnConfirmar.disabled = false;
+                } else {
+                    btnPagar.disabled = false;
+                    btnConfirmar.disabled = true;
                 }
-            });
+            }
+            
+            // Inicializar
+            function inicializar() {
+                // Configurar eventos
+                cantidadInput.addEventListener('change', calcularTotal);
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', calcularTotal);
+                });
+                
+                metodosPago.forEach(metodo => {
+                    metodo.addEventListener('change', actualizarBotonesPago);
+                });
+                
+                // Manejar clic en pagar
+                btnPagar?.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
+                    
+                    if (metodoSeleccionado === 'paypal') {
+                        document.getElementById('paypal-button-container').classList.remove('d-none');
+                        document.getElementById('pagoOtros').classList.add('d-none');
+                        // Aquí iría la integración con PayPal
+                        setTimeout(() => {
+                            alert('Redirigiendo a PayPal...');
+                            // En un caso real, aquí se redirigiría a PayPal
+                        }, 2000);
+                    } else {
+                        document.getElementById('paypal-button-container').classList.add('d-none');
+                        document.getElementById('pagoOtros').classList.remove('d-none');
+                        // Simular procesamiento de pago
+                        setTimeout(() => {
+                            alert('Pago procesado correctamente');
+                            modalPago.hide();
+                            // Habilitar confirmación después del pago
+                            btnConfirmar.disabled = false;
+                            btnPagar.disabled = true;
+                        }, 2000);
+                    }
+                });
+                
+                // Validación del formulario
+                formulario?.addEventListener('submit', function(e) {
+                    const cantidad = parseInt(cantidadInput.value) || 0;
+                    if (cantidad < 1) {
+                        e.preventDefault();
+                        alert('Por favor, introduce una cantidad válida.');
+                        cantidadInput.focus();
+                        return;
+                    }
+                    
+                    // Verificar método de pago
+                    const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
+                    if (metodoSeleccionado !== 'taquilla' && !btnConfirmar.disabled) {
+                        e.preventDefault();
+                        alert('Por favor, completa el proceso de pago antes de confirmar.');
+                        return;
+                    }
+                });
+                
+                // Calcular total inicial
+                calcularTotal();
+                actualizarBotonesPago();
+            }
+            
+            // Inicializar la página
+            inicializar();
         });
     </script>
 }

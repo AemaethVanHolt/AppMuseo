@@ -4,11 +4,14 @@
     
     var tipoEntrada = Model["TipoEntrada"] as string;
     var precioUnitario = (decimal)Model["PrecioUnitario"];
+    var precioTotal = (decimal)Model["PrecioTotal"];
     var cantidad = (int)Model["Cantidad"];
     var total = (decimal)Model["Total"];
     var extras = Model["Extras"] as List<string> ?? new List<string>();
     var numeroConfirmacion = Model["NumeroConfirmacion"] as string;
+    var fechaCompra = Model["FechaCompra"] as string ?? DateTime.Now.ToString("dd/MM/yyyy HH:mm");
     
+    // Mapeo de valores de extras a sus precios
     var preciosExtras = new Dictionary<string, decimal>
     {
         { "Audioguía", 2.50m },
@@ -16,8 +19,27 @@
         { "Autorización Fotográfica", 1.50m }
     };
     
-    var subtotalEntradas = precioUnitario * cantidad;
-    var subtotalExtras = extras.Sum(e => preciosExtras.GetValueOrDefault(e, 0) * cantidad);
+    // Mapeo de los valores de los checkboxes a los nombres de los extras
+    var extrasMap = new Dictionary<string, string>
+    {
+        { "audioguia", "Audioguía" },
+        { "visita", "Visita Guiada" },
+        { "foto", "Autorización Fotográfica" }
+    };
+    
+    // Obtener los nombres de los extras seleccionados
+    var extrasNombres = extras.Select(e => extrasMap.ContainsKey(e) ? extrasMap[e] : e).ToList();
+    
+    // Calcular subtotales
+    var subtotalEntradas = (precioUnitario * cantidad) - extras.Sum(e => {
+        var nombreExtra = extrasMap.ContainsKey(e) ? extrasMap[e] : e;
+        return preciosExtras.GetValueOrDefault(nombreExtra, 0) * cantidad;
+    });
+    
+    var subtotalExtras = extras.Sum(e => {
+        var nombreExtra = extrasMap.ContainsKey(e) ? extrasMap[e] : e;
+        return preciosExtras.GetValueOrDefault(nombreExtra, 0) * cantidad;
+    });
 }
 
 <div class="container mt-4">
@@ -29,8 +51,9 @@
                         <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
                     </div>
                     <h1 class="text-warning mb-3">¡Compra Confirmada!</h1>
-                    <p class="lead mb-4">Gracias por tu compra. Hemos enviado los detalles a tu correo electrónico.</p>
-                    <p class="mb-4">Número de confirmación: <span class="text-warning fw-bold">@numeroConfirmacion</span></p>
+                    <p class="lead mb-2">Gracias por tu compra. Hemos enviado los detalles a tu correo electrónico.</p>
+                    <p class="mb-1">Número de confirmación: <span class="text-warning fw-bold">@numeroConfirmacion</span></p>
+                    <p class="mb-0">Fecha de compra: <span class="text-warning">@fechaCompra</span></p>
                 </div>
             </div>
             
@@ -44,14 +67,14 @@
                     <div class="table-responsive">
                         <table class="table table-dark table-borderless">
                             <tbody>
-                                <!-- Entradas -->
+                                <!-- Entrada base -->
                                 <tr>
-                                    <td>@cantidad x @precioUnitario.ToString("0.00") €</td>
-                                    <td class="text-end">@subtotalEntradas.ToString("0.00") €</td>
+                                    <td>@cantidad x @tipoEntrada (@precioUnitario.ToString("0.00") € c/u)</td>
+                                    <td class="text-end">@(subtotalEntradas.ToString("0.00")) €</td>
                                 </tr>
                                 
                                 <!-- Extras -->
-                                @if (extras.Any())
+                                @if (extrasNombres.Any())
                                 {
                                     <tr>
                                         <td colspan="2" class="pt-3"><strong>Extras:</strong></td>
@@ -59,11 +82,15 @@
                                     
                                     @foreach (var extra in extras)
                                     {
-                                        var precioExtra = preciosExtras.GetValueOrDefault(extra, 0);
-                                        <tr>
-                                            <td class="ps-4">@cantidad x @extra (@precioExtra.ToString("0.00") € c/u)</td>
-                                            <td class="text-end">@((precioExtra * cantidad).ToString("0.00")) €</td>
-                                        </tr>
+                                        var nombreExtra = extrasMap.ContainsKey(extra) ? extrasMap[extra] : extra;
+                                        var precioExtra = preciosExtras.GetValueOrDefault(nombreExtra, 0);
+                                        if (precioExtra > 0)
+                                        {
+                                            <tr>
+                                                <td class="ps-4">@cantidad x @nombreExtra (@precioExtra.ToString("0.00") € c/u)</td>
+                                                <td class="text-end">@((precioExtra * cantidad).ToString("0.00")) €</td>
+                                            </tr>
+                                        }
                                     }
                                 }
                                 

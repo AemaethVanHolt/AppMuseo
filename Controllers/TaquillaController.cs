@@ -24,13 +24,13 @@ namespace AppMuseo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ProcesarCompra(string tipoEntrada, string precio, List<string> extras = null)
+        public IActionResult ProcesarCompra(string tipoEntrada, string precio, string precioTotal, List<string> extras = null)
         {
             // Asegurarse de que el precio tenga el formato correcto
-            if (!decimal.TryParse(precio.Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal precioDecimal))
+            if (!decimal.TryParse(precio.Replace(",", "."), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal precioBase))
             {
                 // Si no se puede parsear, usar un valor por defecto según el tipo de entrada
-                precioDecimal = tipoEntrada.ToLower() switch
+                precioBase = tipoEntrada.ToLower() switch
                 {
                     "entrada general" => 15.00m,
                     "entrada familiar" => 35.00m,
@@ -38,12 +38,44 @@ namespace AppMuseo.Controllers
                     _ => 0m
                 };
             }
+            
+            // Obtener el precio total del formulario si está disponible
+            decimal precioTotalDecimal = precioBase;
+            if (!string.IsNullOrEmpty(precioTotal) && decimal.TryParse(precioTotal.Replace(",", "."), 
+                System.Globalization.NumberStyles.Any, 
+                System.Globalization.CultureInfo.InvariantCulture, 
+                out decimal precioTotalParsed))
+            {
+                precioTotalDecimal = precioTotalParsed;
+            }
+
+            // Mapear los valores de los extras a sus nombres legibles
+            var extrasNombres = new List<string>();
+            if (extras != null)
+            {
+                foreach (var extra in extras)
+                {
+                    switch (extra)
+                    {
+                        case "audioguia":
+                            extrasNombres.Add("Audioguía");
+                            break;
+                        case "visita":
+                            extrasNombres.Add("Visita Guiada");
+                            break;
+                        case "foto":
+                            extrasNombres.Add("Autorización Fotográfica");
+                            break;
+                    }
+                }
+            }
 
             // Crear modelo para la vista de resumen
             var model = new Dictionary<string, object>
             {
                 { "TipoEntrada", tipoEntrada },
-                { "PrecioUnitario", precioDecimal },
+                { "PrecioBase", precioBase },
+                { "PrecioTotal", precioTotalDecimal },
                 { "ExtrasDisponibles", new Dictionary<string, decimal>
                     {
                         { "Audioguía", 2.50m },
@@ -51,7 +83,7 @@ namespace AppMuseo.Controllers
                         { "Autorización Fotográfica", 1.50m }
                     }
                 },
-                { "ExtrasSeleccionados", extras ?? new List<string>() }
+                { "ExtrasSeleccionados", extrasNombres }
             };
 
             // Pasar a la vista de resumen
@@ -60,27 +92,32 @@ namespace AppMuseo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ConfirmarCompra(string tipoEntrada, decimal precioUnitario, int cantidad, List<string> extras)
+        public IActionResult ConfirmarCompra(string tipoEntrada, decimal precioUnitario, decimal precioTotal, int cantidad, List<string> extras)
         {
             if (cantidad <= 0)
             {
                 return RedirectToAction("Index");
             }
 
-            // Calcular total
-            decimal total = precioUnitario * cantidad;
-            
-            // Sumar el costo de los extras
-            if (extras != null && extras.Any())
+            // Mapear los valores de los extras a sus nombres legibles
+            var extrasNombres = new List<string>();
+            if (extras != null)
             {
-                total += extras.Sum(extra => 
-                    extra switch
+                foreach (var extra in extras)
+                {
+                    switch (extra)
                     {
-                        "Audioguía" => 2.50m * cantidad,
-                        "Visita Guiada" => 4.00m * cantidad,
-                        "Autorización Fotográfica" => 1.50m * cantidad,
-                        _ => 0m
-                    });
+                        case "audioguia":
+                            extrasNombres.Add("Audioguía");
+                            break;
+                        case "visita":
+                            extrasNombres.Add("Visita Guiada");
+                            break;
+                        case "foto":
+                            extrasNombres.Add("Autorización Fotográfica");
+                            break;
+                    }
+                }
             }
 
             // Aquí iría la lógica para guardar la compra en la base de datos
@@ -90,10 +127,12 @@ namespace AppMuseo.Controllers
             {
                 { "TipoEntrada", tipoEntrada },
                 { "PrecioUnitario", precioUnitario },
+                { "PrecioTotal", precioTotal },
                 { "Cantidad", cantidad },
-                { "Total", total },
-                { "Extras", extras ?? new List<string>() },
-                { "NumeroConfirmacion", Guid.NewGuid().ToString().Substring(0, 8).ToUpper() }
+                { "Total", precioTotal },
+                { "Extras", extrasNombres },
+                { "NumeroConfirmacion", Guid.NewGuid().ToString().Substring(0, 8).ToUpper() },
+                { "FechaCompra", DateTime.Now.ToString("dd/MM/yyyy HH:mm") }
             };
 
             return View("~/Views/Compra/Confirmacion.cshtml", model);

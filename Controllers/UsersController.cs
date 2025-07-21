@@ -20,11 +20,19 @@ namespace AppMuseo.Controllers
             _roleManager = roleManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string roleFilter = "")
         {
             var users = _userManager.Users.ToList();
             var userRoles = new Dictionary<string, IList<string>>();
             var allRoles = _roleManager.Roles.Select(r => r.Name).ToList();
+            
+            // Aplicar filtro si se especificó
+            if (!string.IsNullOrEmpty(roleFilter) && roleFilter != "Todos")
+            {
+                var usersInRole = await _userManager.GetUsersInRoleAsync(roleFilter);
+                var userIdsInRole = usersInRole.Select(u => u.Id).ToHashSet();
+                users = users.Where(u => userIdsInRole.Contains(u.Id)).ToList();
+            }
 
             foreach (var user in users)
             {
@@ -34,6 +42,7 @@ namespace AppMuseo.Controllers
 
             ViewBag.AllRoles = allRoles;
             ViewBag.UserRoles = userRoles;
+            ViewBag.SelectedRole = roleFilter;
             
             return View(users);
         }

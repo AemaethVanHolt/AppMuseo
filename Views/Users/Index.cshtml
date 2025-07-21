@@ -42,15 +42,38 @@
             </div>
         }
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
+                <form method="get" class="mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label for="roleFilter" class="form-label">Filtrar por rol:</label>
+                            <div class="input-group">
+                                <select class="form-select" id="roleFilter" name="roleFilter" onchange="this.form.submit()">
+                                    <option value="Todos" selected="@(ViewBag.SelectedRole == null || ViewBag.SelectedRole == "Todos")">Todos los usuarios</option>
+                                    @foreach (var role in ViewBag.AllRoles)
+                                    {
+                                        <option value="@role" selected="@(ViewBag.SelectedRole == role)">@role</option>
+                                    }
+                                </select>
+                                @if (!string.IsNullOrEmpty(ViewBag.SelectedRole) && ViewBag.SelectedRole != "Todos")
+                                {
+                                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
                 <div class="table-responsive">
                     <table class="table table-hover align-middle" id="usersTable">
                         <thead class="table-dark">
                             <tr>
-                                <th>Usuario</th>
                                 <th>Nombre</th>
                                 <th>Email</th>
+                                <th>Teléfono</th>
                                 <th>Rol</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
@@ -61,23 +84,9 @@
                             {
                                 var roles = userRoles.ContainsKey(user.Id) ? userRoles[user.Id] : new List<string>();
                                 <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            @if (!string.IsNullOrEmpty(user.FotoPerfil))
-                                            {
-                                                <img src="@Url.Content(user.FotoPerfil)" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;" alt="Foto de perfil">
-                                            }
-                                            else
-                                            {
-                                                <div class="rounded-circle bg-secondary me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                                    <i class="fas fa-user text-white"></i>
-                                                </div>
-                                            }
-                                            <span>@user.UserName</span>
-                                        </div>
-                                    </td>
                                     <td>@(user.Nombre + " " + user.Apellidos)</td>
                                     <td>@user.Email</td>
+                                    <td>@(string.IsNullOrEmpty(user.PhoneNumber) ? "No especificado" : user.PhoneNumber)</td>
                                     <td>
                                         @if (roles.Any())
                                         {
@@ -208,8 +217,42 @@
             text-decoration: none;
         }
         
+        /* Estilos para el filtro */
+        .form-select {
+            background-color: #191c1f !important;
+            color: #ffffff !important;
+            border: 1px solid #ffffff;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+        }
+        
+        .form-select:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+        }
+        
+        .form-label {
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .input-group .btn-outline-secondary {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: none;
+            background-color: #191c1f;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+        
+        .input-group .btn-outline-secondary:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        
         .btn-group .btn {
-            margin-right: 0.25rem;
+            margin-right: 1rem; /* Aumentado de 0.25rem a 1rem */
         }
         
         .btn-group .btn:last-child {

@@ -16,6 +16,8 @@ namespace AppMuseo.Data
             await ColeccionInitializer.SeedColeccionesAsync(serviceProvider);
             // 4. Crear obras
             await ObraInitializer.SeedObrasAsync(serviceProvider);
+            // 5. Crear entradas para los visitantes
+            await EntradasInitializer.SeedEntradasAsync(serviceProvider);
         }
     }
 }

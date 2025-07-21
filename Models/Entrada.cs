@@ -14,10 +14,20 @@ namespace AppMuseo.Models
         public bool IncluyeVisitaTaller { get; set; }
         public bool IncluyeAudioGuia { get; set; }
         public bool IncluyeVisitaGuiada { get; set; }
+        public bool IncluyeGuiaExtranjera { get; set; }
+        public bool IncluyeAccesoPreferente { get; set; }
+        public bool IncluyeParking { get; set; }
+        public bool IncluyeTienda { get; set; }
         public decimal Total { get; set; }
         public string? UserId { get; set; }
         public ApplicationUser? User { get; set; }
+        
+        // Relación con Descuento
+        public int? DescuentoId { get; set; }
         public Descuento? Descuento { get; set; }
+        
+        // Relación con Extra
+        public int? ExtraId { get; set; }
         public Extra? Extra { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime UltimaModificacion { get; set; }

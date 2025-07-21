@@ -22,6 +22,7 @@ namespace AppMuseo.Models
 
     public enum TipoEntrada
     {
+        Normal,
         General,
         Estudiante,
         Investigador,

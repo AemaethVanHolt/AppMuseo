@@ -1,0 +1,153 @@
+@model AppMuseo.Models.Entrada
+
+@{
+    ViewData["Title"] = "Detalles de la Venta";
+    Layout = "_Layout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/ventas.css" />
+}
+
+<div class="container mt-4">
+    <div class="ventas-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="ventas-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Detalles de la Venta #@Model.Id</h4>
+                        <a asp-action="Index" class="btn btn-ventas">
+                            <i class="fas fa-arrow-left me-1"></i> Volver al listado
+                        </a>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5 class="text-white mb-3">Información de la Venta</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-5 text-white-50">Fecha:</dt>
+                                    <dd class="col-sm-7 text-white">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
+                                    
+                                    <dt class="col-sm-5 text-white-50">Hora:</dt>
+                                    <dd class="col-sm-7 text-white">@($"{Model.Hora.Hours:00}:{Model.Hora.Minutes:00}")</dd>
+                                    
+                                    <dt class="col-sm-5 text-white-50">Tipo de Entrada:</dt>
+                                    <dd class="col-sm-7 text-white">@Model.TipoEntrada</dd>
+                                    
+                                    <dt class="col-sm-5 text-white-50">Precio Base:</dt>
+                                    <dd class="col-sm-7 text-white">@Model.Precio.ToString("C2")</dd>
+                                    
+                                    @if (Model.Descuento != null)
+                                    {
+                                        <dt class="col-sm-5 text-white-50">Descuentos Aplicados:</dt>
+                                        <dd class="col-sm-7 text-white">
+                                            @(Model.Descuento.Estudiante ? "Estudiante, " : "") 
+                                            @(Model.Descuento.Investigador ? "Investigador, " : "")
+                                            @(Model.Descuento.Discapacidad ? "Discapacidad, " : "")
+                                            @(Model.Descuento.TerceraEdad ? "Tercera Edad, " : "")
+                                            @(Model.Descuento.FamiliaNumerosa ? "Familia Numerosa, " : "")
+                                            @(Model.Descuento.Desempleado ? "Desempleado" : "")
+                                        </dd>
+                                    }
+                                    
+                                    @if (Model.Extra != null)
+                                    {
+                                        <dt class="col-sm-5 text-white-50">Servicios Extra:</dt>
+                                        <dd class="col-sm-7 text-white">
+                                            @(Model.Extra.AutorizacionFoto ? "Autorización Foto, " : "")
+                                            @(Model.Extra.VisitaTaller ? "Visita Taller, " : "")
+                                            @(Model.Extra.AudioGuia ? "Audio Guía, " : "")
+                                            @(Model.Extra.VisitaGuiada ? "Visita Guiada, " : "")
+                                            @(Model.Extra.GuiaEnLenguaExtranjera ? "Guía en Lengua Extranjera, " : "")
+                                            @(Model.Extra.AccesoPreferente ? "Acceso Preferente, " : "")
+                                            @(Model.Extra.Parking ? "Parking, " : "")
+                                            @(Model.Extra.Tienda ? "Tienda" : "")
+                                        </dd>
+                                    }
+                                    
+                                    <dt class="col-sm-5 text-white-50">Total:</dt>
+                                    <dd class="col-sm-7 text-white fw-bold">@Model.Total.ToString("C2")</dd>
+                                </dl>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5 class="text-white mb-3">Información del Cliente</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-5 text-white-50">Cliente:</dt>
+                                    <dd class="col-sm-7 text-white">@(Model.User?.Email ?? "Usuario no registrado")</dd>
+                                    
+                                    <dt class="col-sm-5 text-white-50">ID de Usuario:</dt>
+                                    <dd class="col-sm-7 text-white">@Model.UserId</dd>
+                                </dl>
+                                
+                                <h5 class="text-white mt-4 mb-3">Servicios Incluidos</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeAutorizacionFoto ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Autorización de fotos</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeVisitaTaller ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Visita taller</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeAudioGuia ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Audioguía</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeVisitaGuiada ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Visita guiada</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeGuiaExtranjera ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Guía en idioma extranjero</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeAccesoPreferente ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Acceso preferente</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeParking ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Parking incluido</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas @(Model.IncluyeTienda ? "fa-check text-success" : "fa-times text-danger") me-2"></i>
+                                        <span class="text-white">Acceso a tienda</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="text-white-50">Fecha de creación:</span>
+                                        <span class="text-white ms-2">@Model.FechaCreacion.ToString("g")</span>
+                                    </div>
+                                    @if (Model.UltimaModificacion > Model.FechaCreacion)
+                                    {
+                                        <div>
+                                            <span class="text-white-50">Última modificación:</span>
+                                            <span class="text-white ms-2">@Model.UltimaModificacion.ToString("g")</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer text-end">
+                        <button onclick="window.print()" class="btn btn-ventas me-2">
+                            <i class="fas fa-print me-1"></i> Imprimir
+                        </button>
+                        <a asp-action="Index" class="btn btn-ventas">
+                            <i class="fas fa-list me-1"></i> Volver al listado
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppMuseo.Migrations
 {
     [DbContext(typeof(AppMuseoDbContext))]
-    [Migration("20250721185654_MigracionInicial")]
-    partial class MigracionInicial
+    [Migration("20250721213916_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

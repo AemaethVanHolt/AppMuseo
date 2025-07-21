@@ -32,6 +32,23 @@ namespace AppMuseo.Models
         [Display(Name = "País")]
         public string? Pais { get; set; }
 
+        [Display(Name = "Ciudad")]
+        public string? Ciudad { get; set; }
+
+        [Display(Name = "Provincia")]
+        public string? Provincia { get; set; }
+
+        [Display(Name = "Código Postal")]
+        [DataType(DataType.PostalCode)]
+        public string? CodigoPostal { get; set; }
+
+        [Display(Name = "Biografía")]
+        [DataType(DataType.MultilineText)]
+        public string? Biografia { get; set; }
+
+        [Display(Name = "Intereses")]
+        public string? Intereses { get; set; }
+
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de nacimiento")]
         public DateTime? FechaNacimiento { get; set; }

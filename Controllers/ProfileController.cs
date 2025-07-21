@@ -74,7 +74,12 @@ namespace AppMuseo.Controllers
                 Email = user.Email,
                 Telefono = user.PhoneNumber,
                 Direccion = user.Direccion,
+                Ciudad = user.Ciudad,
+                Provincia = user.Provincia,
+                CodigoPostal = user.CodigoPostal,
                 Pais = user.Pais,
+                Biografia = user.Biografia,
+                Intereses = user.Intereses,
                 FechaNacimiento = user.FechaNacimiento,
                 FechaCreacion = user.FechaCreacion,
                 UltimoAcceso = user.LockoutEnd?.DateTime,
@@ -156,7 +161,12 @@ namespace AppMuseo.Controllers
             user.Apellidos = model.Apellidos ?? string.Empty;
             user.PhoneNumber = model.Telefono ?? string.Empty;
             user.Direccion = model.Direccion ?? string.Empty;
+            user.Ciudad = model.Ciudad ?? string.Empty;
+            user.Provincia = model.Provincia ?? string.Empty;
+            user.CodigoPostal = model.CodigoPostal ?? string.Empty;
             user.Pais = model.Pais ?? string.Empty;
+            user.Biografia = model.Biografia ?? string.Empty;
+            user.Intereses = model.Intereses ?? string.Empty;
             user.FechaNacimiento = model.FechaNacimiento ?? user.FechaNacimiento;
 
             // Actualizar el correo electrónico si es administrador o si está editando su propio perfil

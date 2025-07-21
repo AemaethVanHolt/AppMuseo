@@ -2,12 +2,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AppMuseo.Models;
 using AppMuseo.Data;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AppMuseoDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlServerOptions => sqlServerOptions.MigrationsAssembly("AppMuseo")));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -25,11 +28,42 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 var app = builder.Build();
 
-// Seed roles and admin
+// Aplicar migraciones pendientes y seed inicial
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    await DbInitializer.InitializeAsync(services);
+    try
+    {
+        var context = services.GetRequiredService<AppMuseoDbContext>();
+        
+        // Aplicar migraciones pendientes
+        Console.WriteLine("Aplicando migraciones pendientes...");
+        await context.Database.MigrateAsync();
+        Console.WriteLine("Migraciones aplicadas correctamente.");
+        
+        // Verificar si la tabla de obras está vacía
+        var obrasExisten = await context.Obras.AnyAsync();
+        
+        // Ejecutar seed inicial
+        Console.WriteLine("Inicializando datos...");
+        await DbInitializer.InitializeAsync(services);
+        
+        // Si la tabla de obras estaba vacía, inicializar solo las obras
+        if (!obrasExisten)
+        {
+            Console.WriteLine("Inicializando datos de obras...");
+            await ObraInitializer.SeedObrasAsync(services);
+            Console.WriteLine("Datos de obras inicializados correctamente.");
+        }
+        
+        Console.WriteLine("Datos inicializados correctamente.");
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Ocurrió un error al inicializar la base de datos.");
+        Console.WriteLine($"Error al inicializar la base de datos: {ex.Message}");
+    }
 }
 
 // Configure the HTTP request pipeline.

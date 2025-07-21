@@ -1,0 +1,123 @@
+/* Estilos específicos para la página de ventas */
+
+/* Contenedor principal */
+.ventas-container {
+    background-color: #343a40; /* Fondo oscuro */
+    min-height: calc(100vh - 200px);
+    padding: 2rem 0;
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Tarjeta de contenido */
+.ventas-card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    background-color: #2c3034; /* Fondo oscuro para la tarjeta */
+}
+
+/* Cabecera de la tarjeta */
+.ventas-card .card-header {
+    background-color: #1a1a1a; /* Negro más oscuro */
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #444;
+}
+
+/* Tabla de ventas */
+.ventas-table {
+    margin-bottom: 0;
+    color: #ffffff; /* Texto blanco */
+    background-color: #2c3034; /* Fondo oscuro para la tabla */
+}
+
+.ventas-table thead th {
+    background-color: #1a1a1a; /* Fondo oscuro para la cabecera */
+    color: #ffffff; /* Texto blanco */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #444;
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+}
+
+.ventas-table tbody td {
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+    border-color: #444; /* Borde más oscuro */
+    color: #f8f9fa; /* Texto blanco más suave */
+}
+
+.ventas-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.ventas-table tbody tr:hover {
+    background-color: #3a3f44; /* Fondo ligeramente más claro al pasar el ratón */
+}
+
+/* Pie de la tarjeta */
+.ventas-card .card-footer {
+    background-color: #1a1a1a; /* Fondo oscuro para el pie */
+    border-top: 1px solid #444;
+    padding: 1rem 1.5rem;
+    color: #f8f9fa;
+}
+
+/* Botones de acción */
+.btn-ventas {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 20px; /* Bordes más redondeados */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #000000; /* Texto negro */
+    border: 1px solid #000000; /* Borde negro */
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-ventas:hover {
+    background-color: #000000; /* Fondo negro al pasar el ratón */
+    color: #ffffff; /* Texto blanco al pasar el ratón */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para los totales */
+.ventas-total {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffffff; /* Texto blanco */
+}
+
+.ventas-count {
+    color: #adb5bd; /* Color gris más claro para mejor contraste */
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ventas-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .ventas-card .card-body {
+        padding: 0;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ventas-card {
+    animation: fadeIn 0.3s ease-out;
+}

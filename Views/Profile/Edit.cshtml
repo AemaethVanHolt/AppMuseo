@@ -137,6 +137,58 @@
                         <!-- Información de cuenta -->
                         <div class="card mb-4">
                             <div class="card-header">
+                                <h5>Información de contacto</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Ciudad" class="form-label">Ciudad</label>
+                                            <input asp-for="Ciudad" class="form-control" />
+                                            <span asp-validation-for="Ciudad" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Provincia" class="form-label">Provincia</label>
+                                            <input asp-for="Provincia" class="form-control" />
+                                            <span asp-validation-for="Provincia" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="CodigoPostal" class="form-label">Código Postal</label>
+                                            <input asp-for="CodigoPostal" class="form-control" />
+                                            <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label asp-for="Biografia" class="form-label">Biografía</label>
+                                            <textarea asp-for="Biografia" class="form-control" rows="3"></textarea>
+                                            <span asp-validation-for="Biografia" class="text-danger"></span>
+                                            <small class="text-muted">Cuéntanos algo sobre ti</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label asp-for="Intereses" class="form-label">Intereses</label>
+                                            <input asp-for="Intereses" class="form-control" />
+                                            <span asp-validation-for="Intereses" class="text-danger"></span>
+                                            <small class="text-muted">Separa tus intereses con comas (ej: Arte, Historia, Música)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Información de la cuenta -->
+                        <div class="card mb-4">
+                            <div class="card-header">
                                 <h5>Información de la cuenta</h5>
                             </div>
                             <div class="card-body">

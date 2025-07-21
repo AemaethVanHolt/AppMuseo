@@ -144,10 +144,10 @@
                                 <li><a class="dropdown-item text-uppercase px-3 py-2" asp-controller="Profile" asp-action="Edit">PERFIL</a></li>
                                 @if (User.IsInRole("Administrador"))
                                 {
-                                    <li><a class="dropdown-item text-uppercase px-3 py-2" href="#">OBRAS</a></li>
+                                    <li><a class="dropdown-item text-uppercase px-3 py-2" asp-controller="Obras" asp-action="Index">OBRAS</a></li>
                                     <li><a class="dropdown-item text-uppercase px-3 py-2" href="#">RESTAURACIONES</a></li>
                                     <li><a class="dropdown-item text-uppercase px-3 py-2" asp-controller="Users" asp-action="Index">USUARIOS REGISTRADOS</a></li>
-                                    <li><a class="dropdown-item text-uppercase px-3 py-2" href="#">VENTAS</a></li>
+                                    <li><a class="dropdown-item text-uppercase px-3 py-2" asp-controller="Ventas" asp-action="Index">VENTAS</a></li>
                                     <li><hr class="dropdown-divider m-0"></li>
                                 }
                                 <li>

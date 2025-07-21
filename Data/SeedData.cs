@@ -23,7 +23,7 @@ namespace AppMuseo.Data
             }
 
             // Crear usuario admin si no existe
-            var adminEmail = "admin@admin.com";
+            var adminEmail = "admin@museo.com";
             var adminPass = "admin1234"; // CONTRASEÑA. NO TOCAR HOSTIA!!!
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)

@@ -28,7 +28,7 @@ namespace AppMuseo.Data
             var admin = await userManager.FindByEmailAsync(adminEmail);
             if (admin == null)
             {
-                logger.LogError("[UsuariosInitializer] Admin no encontrado, debe crearse en SeedData.");
+                logger.LogError("[UsuariosInitializer] Administrador no encontrado, debe crearse en SeedData.");
                 throw new Exception("El usuario administrador no existe. Asegúrate de que SeedData se haya ejecutado correctamente.");
             }
 
@@ -48,7 +48,7 @@ namespace AppMuseo.Data
                     Provincia = "Sevilla",
                     CodigoPostal = "41001",
                     Pais = "España",
-                    Telefono = "+34 678901234",
+                    Telefono = "688455200",
                     ImageUrl = "/img/avatares/M1.jpg",
                     FechaCreacion = DateTime.Now,
                     FechaNacimiento = new DateTime(1985, 5, 15),
@@ -69,10 +69,39 @@ namespace AppMuseo.Data
                 }
             }
 
+            // Inicializar el generador de números aleatorios
+            var random = new Random();
+            
             // Datos para usuarios
             var nombres = new[] { "Luis", "Ana", "Javier", "Marta", "Elena", "Carlos", "Lucía", "Pablo", "Sara", "David", "María", "Juan", "Laura", "Diego", "Sofía", "Miguel", "Carmen", "Jorge", "Patricia", "Álvaro" };
             var apellidos = new[] { "García", "López", "Martínez", "Sánchez", "Pérez", "Gómez", "Fernández", "Ruiz", "Díaz", "Moreno", "Álvarez", "Romero", "Torres", "Navarro", "Jiménez", "Molina", "Ortega", "Delgado", "Castro", "Vargas" };
             var paises = new[] { "España", "Francia", "Italia", "Alemania", "Portugal" };
+            
+            // Números de teléfono de ejemplo (formato internacional)
+            var telefonosDisponibles = new List<string> {
+                "+34 612345678", "+34 623456789", "+34 634567890", "+34 645678901", "+34 656789012",
+                "+34 667890123", "+34 678901234", "+34 690123456", "+33 612345678", "+33 623456789",
+                "+33 634567890", "+39 3456789012", "+39 3456789013", "+39 3456789014", "+49 15123456789",
+                "+49 15123456780", "+351 912345678", "+351 912345679", "+351 912345670", "+351 912345671"
+            };
+            
+            // Función para obtener un teléfono único
+            string ObtenerTelefonoUnico()
+            {
+                if (telefonosDisponibles.Count > 0)
+                {
+                    int index = random.Next(telefonosDisponibles.Count);
+                    string telefono = telefonosDisponibles[index];
+                    telefonosDisponibles.RemoveAt(index);
+                    logger?.LogInformation($"Asignado teléfono: {telefono}");
+                    return telefono;
+                }
+                // Si no quedan teléfonos únicos, generar uno aleatorio
+                string nuevoTelefono = $"+34 6{random.Next(10)}{random.Next(10)}{random.Next(10)}{random.Next(10)}{random.Next(10)}";
+                logger.LogWarning($"No quedaban teléfonos únicos, generado: {nuevoTelefono}");
+                return nuevoTelefono;
+            }
+            
             var provincias = new Dictionary<string, string[]> {
                 ["España"] = new[] { "Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", "Málaga", "Bilbao", "Alicante", "Córdoba", "Valladolid" },
                 ["Francia"] = new[] { "París", "Marsella", "Lyon", "Toulouse", "Niza", "Nantes", "Estrasburgo", "Montpellier", "Burdeos", "Lille" },
@@ -82,9 +111,8 @@ namespace AppMuseo.Data
             };
             
             var calles = new[] { "Mayor", "Real", "Gran Vía", "San Miguel", "Plaza España", "Avenida Libertad", "Cervantes", "Goya", "Velázquez", "Picasso" };
-            var random = new Random();
 
-            // Asegurarse de que los nombres y apellidos sean únicos
+            // Asegurarse de que los nombres, apellidos y teléfonos sean únicos
             var nombresUsados = new HashSet<string>();
             var apellidosUsados = new HashSet<string>();
             
@@ -100,10 +128,10 @@ namespace AppMuseo.Data
             }
 
             // Crear 10 visitantes con datos específicos
-            var visitantes = new[]
+            var visitantes = new List<VisitanteData>
             {
                 // Visitante 1
-                new 
+                new VisitanteData
                 {
                     Nombre = "Carlos",
                     Apellidos = "Martínez Gutiérrez",
@@ -115,14 +143,14 @@ namespace AppMuseo.Data
                     Provincia = "Madrid",
                     CodigoPostal = "28013",
                     Pais = "España",
-                    Telefono = "+34 612345678",
+                    Telefono = "609344522",
                     ImageUrl = "/img/avatares/H1.jpg",
                     FechaNacimiento = new DateTime(1985, 5, 15),
                     Biografia = "Historiador del arte especializado en el Renacimiento italiano. Me apasiona la pintura al óleo y la restauración de obras antiguas.",
                     Intereses = "Pintura clásica, Restauración, Historia del arte"
                 },
                 // Visitante 2
-                new 
+                new VisitanteData
                 {
                     Nombre = "Laura",
                     Apellidos = "Sánchez López",
@@ -134,14 +162,14 @@ namespace AppMuseo.Data
                     Provincia = "Barcelona",
                     CodigoPostal = "08018",
                     Pais = "España",
-                    Telefono = "+34 623456789",
+                    Telefono = "645277412",
                     ImageUrl = "/img/avatares/M1.jpg",
                     FechaNacimiento = new DateTime(1990, 8, 22),
                     Biografia = "Artista plástica y profesora de arte contemporáneo. Me interesa especialmente el arte conceptual y las instalaciones.",
                     Intereses = "Arte conceptual, Instalaciones, Educación artística"
                 },
                 // Visitante 3
-                new 
+                new VisitanteData
                 {
                     Nombre = "David",
                     Apellidos = "García Pérez",
@@ -153,14 +181,14 @@ namespace AppMuseo.Data
                     Provincia = "París",
                     CodigoPostal = "75004",
                     Pais = "Francia",
-                    Telefono = "+33 612345678",
+                    Telefono = "665902321",
                     ImageUrl = "/img/avatares/H2.jpg",
                     FechaNacimiento = new DateTime(1982, 11, 3),
                     Biografia = "Fotógrafo profesional especializado en documentar obras de arte y exposiciones para catálogos y museos.",
                     Intereses = "Fotografía, Arte moderno, Exposiciones"
                 },
                 // Visitante 4
-                new 
+                new VisitanteData
                 {
                     Nombre = "Elena",
                     Apellidos = "Rodríguez Fernández",
@@ -172,14 +200,14 @@ namespace AppMuseo.Data
                     Provincia = "Lacio",
                     CodigoPostal = "00186",
                     Pais = "Italia",
-                    Telefono = "+39 3456789012",
+                    Telefono = "688689480",
                     ImageUrl = "/img/avatares/M2.jpg",
                     FechaNacimiento = new DateTime(1988, 4, 17),
                     Biografia = "Guía turística especializada en museos y patrimonio histórico-artístico de Roma y el Vaticano.",
                     Intereses = "Arte renacentista, Escultura, Arquitectura"
                 },
                 // Visitante 5
-                new 
+                new VisitanteData
                 {
                     Nombre = "Javier",
                     Apellidos = "López Martín",
@@ -191,14 +219,14 @@ namespace AppMuseo.Data
                     Provincia = "Berlín",
                     CodigoPostal = "10709",
                     Pais = "Alemania",
-                    Telefono = "+49 15123456789",
+                    Telefono = "689345678",
                     ImageUrl = "/img/avatares/H3.jpg",
                     FechaNacimiento = new DateTime(1979, 9, 30),
                     Biografia = "Coleccionista de arte contemporáneo y mecenas de jóvenes artistas emergentes.",
                     Intereses = "Arte contemporáneo, Coleccionismo, Galerías"
                 },
                 // Visitante 6
-                new 
+                new VisitanteData
                 {
                     Nombre = "Sofía",
                     Apellidos = "Gómez Díaz",
@@ -210,14 +238,14 @@ namespace AppMuseo.Data
                     Provincia = "Lisboa",
                     CodigoPostal = "1100-053",
                     Pais = "Portugal",
-                    Telefono = "+351 912345678",
+                    Telefono = "603466110",
                     ImageUrl = "/img/avatares/M3.jpg",
                     FechaNacimiento = new DateTime(1993, 12, 8),
                     Biografia = "Estudiante de Bellas Artes especializada en técnicas de pintura al fresco y muralismo.",
                     Intereses = "Pintura mural, Arte callejero, Técnicas pictóricas"
                 },
                 // Visitante 7
-                new 
+                new VisitanteData
                 {
                     Nombre = "Miguel",
                     Apellidos = "Fernández Ruiz",
@@ -229,14 +257,14 @@ namespace AppMuseo.Data
                     Provincia = "Sevilla",
                     CodigoPostal = "41004",
                     Pais = "España",
-                    Telefono = "+34 667890123",
+                    Telefono = "658566802",
                     ImageUrl = "/img/avatares/H4.jpg",
                     FechaNacimiento = new DateTime(1980, 7, 25),
                     Biografia = "Crítico de arte y comisario de exposiciones especializado en arte barroco y su influencia en el arte actual.",
                     Intereses = "Crítica de arte, Barroco, Comisariado"
                 },
                 // Visitante 8
-                new 
+                new VisitanteData
                 {
                     Nombre = "Ana",
                     Apellidos = "Pérez Sánchez",
@@ -248,14 +276,14 @@ namespace AppMuseo.Data
                     Provincia = "Málaga",
                     CodigoPostal = "29005",
                     Pais = "España",
-                    Telefono = "+34 678901234",
+                    Telefono = "699621455",
                     ImageUrl = "/img/avatares/M4.jpg",
                     FechaNacimiento = new DateTime(1987, 3, 12),
                     Biografia = "Gestora cultural en el Museo Picasso Málaga. Especializada en actividades educativas y mediación cultural.",
                     Intereses = "Gestión cultural, Educación artística, Museos"
                 },
                 // Visitante 9
-                new 
+                new VisitanteData
                 {
                     Nombre = "Daniel",
                     Apellidos = "González Martín",
@@ -267,14 +295,14 @@ namespace AppMuseo.Data
                     Provincia = "Madrid",
                     CodigoPostal = "28001",
                     Pais = "España",
-                    Telefono = "+34 689012345",
+                    Telefono = "634032456",
                     ImageUrl = "/img/avatares/H5.jpg",
                     FechaNacimiento = new DateTime(1991, 10, 5),
                     Biografia = "Diseñador gráfico e ilustrador. Me interesa especialmente la relación entre el diseño y las artes plásticas.",
                     Intereses = "Diseño gráfico, Ilustración, Arte digital"
                 },
                 // Visitante 10
-                new 
+                new VisitanteData
                 {
                     Nombre = "Carmen",
                     Apellidos = "Díaz Romero",
@@ -286,7 +314,7 @@ namespace AppMuseo.Data
                     Provincia = "Madrid",
                     CodigoPostal = "28046",
                     Pais = "España",
-                    Telefono = "+34 690123456",
+                    Telefono = "677544865",
                     ImageUrl = "/img/avatares/M5.jpg",
                     FechaNacimiento = new DateTime(1984, 2, 28),
                     Biografia = "Arquitecta especializada en diseño de espacios expositivos y museográficos. Trabajo en la creación de experiencias inmersivas.",
@@ -408,6 +436,22 @@ namespace AppMuseo.Data
                             var fecha = DateTime.Now.AddDays(-random.Next(1, 30));
                             var hora = new TimeSpan(random.Next(9, 19), random.Next(0, 60), 0);
                             
+                            // Seleccionar un teléfono disponible
+                            string telefono;
+                            if (telefonosDisponibles.Count > 0)
+                            {
+                                int index = random.Next(telefonosDisponibles.Count);
+                                telefono = telefonosDisponibles[index];
+                                telefonosDisponibles.RemoveAt(index);
+                                logger.LogInformation($"Asignado teléfono {telefono} a {user.Email}");
+                            }
+                            else
+                            {
+                                // Si no hay teléfonos disponibles, generar uno aleatorio
+                                telefono = $"+34 6{random.Next(10)}{random.Next(10)}{random.Next(10)}{random.Next(10)}{random.Next(10)}";
+                                logger.LogWarning($"No quedaban teléfonos disponibles, generado aleatorio: {telefono} para {user.Email}");
+                            }
+                            
                             // Precios base según tipo de entrada
                             decimal precioBase = tipoEntrada switch
                             {
@@ -428,6 +472,8 @@ namespace AppMuseo.Data
                             
                             // Precio mínimo
                             if (total < 1.00m) total = 1.00m;
+
+
 
                             // Crear entrada
                             var entrada = new Entrada

@@ -204,7 +204,7 @@ namespace AppMuseo.Data
 
                     // Mostrar resumen de la entrada
                     logger.LogInformation($"\nEntrada {i + 1}:");
-                    logger.LogInformation($"- Fecha: {entrada.Fecha:dd/MM/yyyy} {entrada.Hora:hh:mm}");
+                    logger.LogInformation($"- Fecha: {entrada.Fecha:dd/MM/yyyy} {entrada.Hora.Hours:00}:{entrada.Hora.Minutes:00}");
                     logger.LogInformation($"- Tipo: {entrada.TipoEntrada}");
                     logger.LogInformation($"- Precio base: {entrada.Precio:C2}");
                     

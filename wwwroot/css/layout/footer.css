@@ -1,0 +1,103 @@
+/* Estilos específicos para el footer del museo */
+.footer-museo {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 4rem 0 2rem;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-museo h5 {
+    color: #FFD700;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.footer-museo h5::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #FFD700;
+}
+
+.footer-museo .social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.footer-museo .social-icons a:hover {
+    background-color: #FFD700;
+    color: #000000 !important;
+    transform: translateY(-3px);
+}
+
+.footer-museo .text-gold {
+    color: #FFD700;
+    width: 20px;
+    text-align: center;
+}
+
+.footer-museo ul li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer-museo a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-museo a:hover {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+/* Estilos responsivos */
+@media (max-width: 767.98px) {
+    .footer-museo {
+        text-align: center;
+        padding: 3rem 0 1.5rem;
+    }
+    
+    .footer-museo h5::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-museo .social-icons {
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+    
+    .footer-museo .col-md-4 {
+        margin-bottom: 2rem;
+    }
+    
+    .footer-museo .border-top {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+    }
+    
+    .footer-museo .text-md-start,
+    .footer-museo .text-md-end {
+        text-align: center !important;
+    }
+    
+    .footer-museo .text-md-end {
+        margin-top: 1rem;
+    }
+}

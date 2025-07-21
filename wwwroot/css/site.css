@@ -1,3 +1,295 @@
+/* Estilos generales del body */
+body {
+    background-image: url('/img/obras/WALL.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Fondo oscuro semitransparente sobre la imagen */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+/* Asegurar que el contenido principal esté por encima del fondo */
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Estilos base para los botones en toda la aplicación */
+.btn-custom,
+.btn-guardar,
+.btn-volver,
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning,
+.btn-info,
+.btn-light,
+.btn-dark,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-info,
+.btn-outline-light,
+.btn-outline-dark {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFD700 !important;
+    padding: 10px 25px !important;
+    border-radius: 50px !important; /* Bordes más redondeados */
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Estilo para los botones de Taquilla */
+.btn-taqui, .btn-taquilla {
+    background-color: #FFD700 !important;
+    color: #000000 !important;
+    border: 2px solid #FFD700 !important;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    padding: 8px 20px !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-taqui:hover, .btn-taquilla:hover {
+    background-color: #E6C200 !important;
+    border-color: #E6C200 !important;
+    color: #000000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Estilo para el botón de Usuario */
+#userDropdown {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #FFFFFF !important;
+    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    font-weight: normal !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    transition: all 0.2s ease !important;
+    min-width: auto !important;
+}
+
+#userDropdown:hover {
+    background-color: #1a1a1a !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Excluir botones específicos de los estilos generales */
+.navbar .btn:not(.btn-taqui):not(.btn-taquilla),
+.navbar .dropdown-menu .btn:not(.btn-taqui):not(.btn-taquilla),
+.btn-ventas,
+.taquilla .btn:not(.btn-taqui):not(.btn-taquilla),
+.navbar-museo .btn:not(#userDropdown):not(.btn-taqui):not(.btn-taquilla),
+.navbar-museo .dropdown-menu .btn:not(.btn-taqui):not(.btn-taquilla),
+.profile-edit-form .btn:not(.btn-taqui):not(.btn-taquilla),
+#loginDropdown:not(.btn-taqui):not(.btn-taquilla),
+.btn-action.btn-icon-only:not(.btn-taqui):not(.btn-taquilla) {
+    border-radius: 0.375rem !important; /* Valor por defecto de Bootstrap */
+    text-transform: none !important;
+    min-width: auto !important;
+    padding: 0.375rem 0.75rem !important;
+    background-color: transparent !important;
+    color: inherit !important;
+    border: 1px solid transparent !important;
+    font-weight: normal !important;
+    letter-spacing: normal !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+/* Restaurar estilos específicos para el botón de inicio de sesión */
+.navbar-museo .btn-outline-light {
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.navbar-museo .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Efecto hover para los botones */
+.btn-custom:hover,
+.btn-guardar:hover,
+.btn-volver:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-warning:hover,
+.btn-info:hover,
+.btn-light:hover,
+.btn-dark:hover,
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover,
+.btn-outline-success:hover,
+.btn-outline-danger:hover,
+.btn-outline-warning:hover,
+.btn-outline-info:hover,
+.btn-outline-light:hover,
+.btn-outline-dark:hover {
+    background-color: #FFD700 !important;
+    color: #000000 !important;
+    border-color: #FFD700 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Efecto al hacer clic */
+.btn-custom:active,
+.btn-guardar:active,
+.btn-volver:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-success:active,
+.btn-danger:active,
+.btn-warning:active,
+.btn-info:active,
+.btn-light:active,
+.btn-dark:active,
+.btn-outline-primary:active,
+.btn-outline-secondary:active,
+.btn-outline-success:active,
+.btn-outline-danger:active,
+.btn-outline-warning:active,
+.btn-outline-info:active,
+.btn-outline-light:active,
+.btn-outline-dark:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+}
+
+/* Estilos específicos para botones de acción */
+.btn-action {
+    min-width: auto !important;
+    padding: 8px 15px !important;
+    font-size: 0.85rem !important;
+}
+
+/* Estilos para iconos dentro de botones */
+.btn i {
+    margin-right: 8px;
+}
+
+/* Estilo específico para botones de acción con ícono */
+.btn-action {
+    min-width: auto !important;
+    padding: 8px 15px !important;
+    font-size: 0.85rem !important;
+    border-radius: 50px !important;
+}
+
+/* Estilo para botones que solo muestran ícono */
+.btn-icon-only {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.btn-icon-only i {
+    margin: 0 !important;
+}
+
+.btn-icon-only:hover {
+    background-color: #f8f9fa !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Estilo específico para el botón de editar en la vista de usuarios */
+.btn-edit-user {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFD700 !important;
+    border-radius: 50px !important;
+    padding: 8px 15px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-edit-user:hover {
+    background-color: #FFD700 !important;
+    color: #000000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Asegurar que los botones de formulario hereden los estilos */
+button[type="submit"],
+input[type="submit"],
+input[type="button"],
+button {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFD700 !important;
+    padding: 10px 25px !important;
+    border-radius: 50px !important; /* Bordes más redondeados */
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    text-align: center;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+button:hover {
+    background-color: #FFD700 !important;
+    color: #000000 !important;
+    border-color: #FFD700 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
 html {
   font-size: 14px;
 }

@@ -160,25 +160,56 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-top: 1rem;
+    gap: 15px;
 }
 
-.btn-guardar {
-    background-color: #282828;
-    color: #E0E0E0;
-    border: 1px solid #191c1f;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: 500;
+/* Estilos para todos los botones */
+.btn-guardar,
+.btn-volver,
+.profile-edit-form .btn {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFD700 !important;
+    padding: 10px 25px !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
     cursor: pointer;
     font-size: 14px;
-    display: flex;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: background-color 0.2s ease;
+    justify-content: center;
+    min-width: 120px;
+    text-align: center;
 }
 
-.btn-guardar:hover {
-    background-color: #191c1f;
+/* Efecto hover para los botones */
+.btn-guardar:hover,
+.btn-volver:hover,
+.profile-edit-form .btn:hover {
+    background-color: #FFD700 !important;
+    color: #000000 !important;
+    border-color: #FFD700 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Efecto al hacer clic */
+.btn-guardar:active,
+.btn-volver:active,
+.profile-edit-form .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+}
+
+/* Estilo específico para el botón de volver */
+.btn-volver {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFD700 !important;
 }
 
 /* SWITCH TOGGLE */

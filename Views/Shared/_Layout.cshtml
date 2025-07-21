@@ -9,10 +9,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Museo Internacional</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/navbar-bm.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/layout/footer.css" />
     @RenderSection("Styles", required: false)
 </head>
 <body>
@@ -58,7 +60,7 @@
                             <a class="nav-link fs-5 px-3 dropdown-toggle" href="#" id="informacionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Información
                             </a>
-                            <div class="dropdown-menu bg-dark bg-opacity-90 border-0 rounded-0 mt-0 p-4" style="width: 800px; left: 50%; transform: translateX(-50%);">
+                            <div class="dropdown-menu bg-dark bg-opacity-90 border-0 rounded-0 mt-0 p-4" style="width: 1000px; left: 50%; transform: translateX(-50%);">
                                 <div class="container-fluid">
                                     <div class="row">
                                         <!-- Columna 1 -->
@@ -122,7 +124,7 @@
                         var displayName = user != null ? $"{user.Nombre} {user.Apellidos}" : User.Identity?.Name ?? "Usuario";
                         
                         <!-- Botón de Taquilla -->
-                        <a asp-controller="Taquilla" asp-action="Index" class="btn btn-success rounded-pill me-2 px-3 fw-bold">
+                        <a asp-controller="Taquilla" asp-action="Index" class="btn btn-taqui me-2">
                             <i class="fas fa-ticket-alt me-1"></i> Taquilla
                         </a>
                         
@@ -209,9 +211,55 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer-museo">
         <div class="container">
-            &copy; 2025 - AppMuseo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row g-4">
+                <!-- Logo y descripción -->
+                <div class="col-md-4">
+                    <img src="/img/logos/logo.png" alt="Museo Internacional" class="footer-logo mb-3" style="height: 80px;">
+                    <p class="text-white-50">Explora el arte y la cultura en nuestro museo. Un espacio dedicado a la preservación y exhibición de obras maestras de todo el mundo.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Horarios -->
+                <div class="col-md-4">
+                    <h5 class="text-white mb-4">Horario de Visitas</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="far fa-clock me-2 text-gold"></i> Martes a Domingo: 10:00 - 20:00</li>
+                        <li class="mb-2"><i class="far fa-clock me-2 text-gold"></i> Lunes: Cerrado</li>
+                        <li class="mb-2"><i class="fas fa-calendar-alt me-2 text-gold"></i> Días festivos: Consultar</li>
+                        <li class="mb-2"><i class="fas fa-ticket-alt me-2 text-gold"></i> Último acceso: 1 hora antes del cierre</li>
+                    </ul>
+                </div>
+                
+                <!-- Contacto -->
+                <div class="col-md-4">
+                    <h5 class="text-white mb-4">Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2 text-gold"></i> Calle del Arte, 123, 28001 Madrid</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2 text-gold"></i> +34 912 345 678</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2 text-gold"></i> info@museointernacional.com</li>
+                        <li class="mb-2"><i class="fas fa-subway me-2 text-gold"></i> Línea 1 - Estación Museo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright y enlaces legales -->
+            <div class="row mt-5 pt-4 border-top border-secondary">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-white-50">&copy; @DateTime.Now.Year Museo Internacional. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 me-3 text-decoration-none">Política de privacidad</a>
+                    <a href="#" class="text-white-50 me-3 text-decoration-none">Términos de uso</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Mapa del sitio</a>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

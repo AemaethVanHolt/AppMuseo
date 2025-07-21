@@ -14,12 +14,12 @@
                 <div class="d-flex gap-2">
                     <form asp-controller="AdminUtilities" asp-action="ActivarTodosUsuarios" method="post" class="d-inline">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-success rounded-pill">
-                            <i class="fas fa-check-circle me-2"></i>Activar Todos
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check-circle me-2"></i>ACTIVAR TODOS
                         </button>
                     </form>
-                    <a href="/" class="btn btn-outline-light rounded-pill">
-                        <i class="fas fa-arrow-left me-2"></i>Volver al Inicio
+                    <a href="/" class="btn btn-volver">
+                        <i class="fas fa-arrow-left me-2"></i>VOLVER AL INICIO
                     </a>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                                 </select>
                                 @if (!string.IsNullOrEmpty(ViewBag.SelectedRole) && ViewBag.SelectedRole != "Todos")
                                 {
-                                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                                    <a href="@Url.Action("Index")" class="btn btn-action" title="Quitar filtro">
                                         <i class="fas fa-times"></i>
                                     </a>
                                 }
@@ -109,24 +109,26 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <a href="@Url.Action("Edit", "Profile", new { id = user.Id })" class="btn-edit">
-                                                EDITAR
+                                            <a href="@Url.Action("Edit", "Profile", new { id = user.Id })" class="btn-edit-user me-2">
+                                                <i class="fas fa-edit"></i> EDITAR
                                             </a>
                                             <form asp-action="ToggleStatus" method="post" class="d-inline">
                                                 @Html.AntiForgeryToken()
                                                 <input type="hidden" name="id" value="@user.Id" />
                                                 @if (user.Activo)
                                                 {
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                                    <button type="submit" class="btn btn-icon-only" 
+                                                            title="Desactivar usuario"
                                                             onclick="return confirm('¿Estás seguro de desactivar este usuario?')">
-                                                        <i class="fas fa-user-slash"></i> Desactivar
+                                                        <i class="fas fa-user-slash text-danger"></i>
                                                     </button>
                                                 }
                                                 else
                                                 {
-                                                    <button type="submit" class="btn btn-sm btn-outline-success"
+                                                    <button type="submit" class="btn btn-icon-only"
+                                                            title="Activar usuario"
                                                             onclick="return confirm('¿Estás seguro de activar este usuario?')">
-                                                        <i class="fas fa-user-check"></i> Activar
+                                                        <i class="fas fa-user-check text-success"></i>
                                                     </button>
                                                 }
                                             </form>
@@ -181,6 +183,34 @@
             font-size: 0.75rem;
             font-weight: 500;
             padding: 0.35em 0.65em;
+        }
+        
+        /* Estilos para el formulario de búsqueda y filtros */
+        .form-select, .form-control, .input-group-text {
+            background-color: #2a2f33 !important;
+            color: #ffffff !important;
+            border: 1px solid #3e454a !important;
+            border-radius: 50px !important;
+        }
+        
+        .form-select:focus, .form-control:focus {
+            background-color: #2a2f33 !important;
+            color: #ffffff !important;
+            border-color: #ffd700 !important;
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25) !important;
+        }
+        
+        .form-label {
+            color: #ffffff !important;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .input-group .btn-action {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: 50px !important;
+            border-bottom-right-radius: 50px !important;
         }
         
         .btn {

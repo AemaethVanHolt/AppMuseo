@@ -123,6 +123,49 @@
     font-weight: 500;
 }
 
+/* Estilos para el desplegable de filtro */
+.ventas-container .form-select {
+    background-color: #2a2f33 !important;
+    color: #ffffff !important;
+    border: 1px solid #3e454a !important;
+    border-radius: 50px !important;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ventas-container .form-select:focus {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25) !important;
+    outline: none;
+}
+
+.ventas-container .form-select option {
+    background-color: #2a2f33;
+    color: #ffffff;
+    padding: 0.5rem;
+}
+
+.ventas-container .form-select option:hover,
+.ventas-container .form-select option:checked {
+    background-color: #ffd700;
+    color: #000000;
+}
+
+/* Estilos para el contenedor del filtro */
+.ventas-container .input-group {
+    max-width: 500px;
+}
+
+.ventas-container .btn-primary {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 50px !important;
+    border-bottom-right-radius: 50px !important;
+    margin-left: -10px;
+    z-index: 1;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .ventas-table {

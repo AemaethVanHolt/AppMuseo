@@ -72,6 +72,23 @@ namespace AppMuseo.Controllers
                     .ToListAsync();
 
                 ViewBag.FiltroSeleccionado = filtroTipo;
+
+                // Datos para el gráfico
+                var ventasPorTipo = await _context.Entradas
+                    .GroupBy(e => e.TipoEntrada)
+                    .Select(g => new
+                    {
+                        Tipo = g.Key,
+                        Cantidad = g.Count(),
+                        Total = g.Sum(e => e.PrecioTotal)
+                    })
+                    .OrderByDescending(x => x.Cantidad)
+                    .ToListAsync();
+
+                ViewBag.Labels = ventasPorTipo.Select(x => x.Tipo).ToArray();
+                ViewBag.Cantidades = ventasPorTipo.Select(x => x.Cantidad).ToArray();
+                ViewBag.Totales = ventasPorTipo.Select(x => x.Total).ToArray();
+
                 return View(ventas);
             }
             catch (Exception ex)

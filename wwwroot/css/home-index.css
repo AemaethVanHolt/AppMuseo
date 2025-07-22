@@ -64,25 +64,62 @@
 }
 
 /* Sección Hero */
-.hero-section {
-    width: 100%;
+.home-page .hero-section {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
     height: 100vh;
     position: relative;
     overflow: hidden;
+    background-color: #121212;
+    z-index: 1;
+    color: white;
 }
 
-.hero-image {
+.home-page .hero-image {
+    width: 100%;
+    height: 100%;
+    background: url('/img/obras/1.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.home-page .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('/img/obras/1.jpg') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
+}
+
+.home-page .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.home-page .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+/* Eliminamos la imagen de fondo del body */
+body {
+    background-color: #121212;
+    background-image: none !important;
+}
+
+/* Aseguramos que no haya otra imagen de fondo */
+body::before {
+    display: none !important;
 }
 
 .hero-image::before {
@@ -124,30 +161,20 @@
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.btn-primary {
-    background-color: var(--secondary-color);
-    border: none;
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
+.home-page .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
     border-radius: 50px;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+.home-page .btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .hero-subtitle {
@@ -191,48 +218,170 @@
 }
 
 /* Sección Colecciones */
-.collections-section {
-    background-color: var(--light-bg);
+.home-page .collections-section {
+    padding: 5rem 0;
+    text-align: center;
+    background-color: #121212;
+    color: white;
 }
 
-.collection-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+/* Título en amarillo dorado */
+.home-page .collections-section h2.section-title {
+    color: #FFD700 !important;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.collection-card {
-    background: var(--white);
+/* Asegurar que las tarjetas tengan el mismo tamaño */
+.home-page .collection-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 500px;
+    background: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
 }
 
+/* Imagen de la tarjeta */
+.home-page .collection-image {
+    height: 250px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Contenido de la tarjeta */
+.home-page .collection-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+    justify-content: center;
+    color: white;
+}
+
+.collection-info h3 {
+    margin-bottom: 1rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.collection-info p {
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Botón centrado */
+.home-page .collection-info .btn {
+    margin-top: 1.5rem;
+    align-self: center;
+    background-color: #ffc107;
+    border: none;
+    color: #000;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.collection-info .btn:hover {
+    background-color: #e0a800;
+    transform: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.collections-section h2.section-title {
+    color: #FFD700 !important; /* Amarillo dorado */
+    font-size: 2.5rem !important;
+    margin-bottom: 3rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    align-items: stretch;
+}
+
+.collection-card {
+    background: #1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 500px;
+    margin: 0 15px;
+    color: white;
+}
+
 .collection-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .collection-image {
-    height: 200px;
+    height: 250px;
     overflow: hidden;
+    flex-shrink: 0; /* Evita que la imagen se encoja */
 }
 
 .collection-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
 }
 
-.collection-card:hover .collection-image img {
-    transform: scale(1.1);
+/* Se mantiene el hover pero sin efectos de transformación */
+.collection-card:hover .collection-image img {}
+
+/* Estilos para el contenedor de las tarjetas */
+.row.g-4 {
+    justify-content: center;
+    margin: 0 -15px;
+}
+
+/* Asegurar que las columnas tengan un ancho máximo */
+.col-md-4 {
+    max-width: 400px;
+    flex: 0 0 100%;
+    margin-bottom: 2rem;
+    padding: 0 15px;
+}
+
+@media (min-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
 }
 
 .collection-info {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.collection-info .btn {
+    align-self: center;
+    margin-top: 1rem;
+    width: 80%;
+    max-width: 200px;
 }
 
 .collection-title {
@@ -244,6 +393,39 @@
 .collection-desc {
     color: var(--light-text);
     margin-bottom: 1.5rem;
+}
+
+/* Sección de Información */
+.home-page .info-section {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5rem 0;
+}
+
+.info-box {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.info-box i {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.info-box h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.info-box p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+    line-height: 1.6;
 }
 
 /* Sección Eventos */

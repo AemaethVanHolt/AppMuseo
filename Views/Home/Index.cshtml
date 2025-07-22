@@ -3,13 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/home-index.css" />
-}
-
-<!-- Hero Section -->
+<!-- Contenedor principal con clase home-page -->
+<main class="home-page">
+<!-- SECCIÓN HERO -->
 <section class="hero-section">
     <div class="hero-image">
+        <div class="hero-overlay"></div>
         <div class="hero-content animate-fade-in-up">
             <h1 class="hero-title">Bienvenido al Museo Internacional</h1>
             <p class="hero-subtitle">Descubre obras maestras de todo el mundo en nuestra colección digital</p>
@@ -18,42 +17,48 @@
     </div>
 </section>
 
-<!-- Featured Collections -->
+<!-- TARJETS -->
 <section class="featured-section">
     <div class="container">
-        <h2 class="section-title">Colecciones Destacadas</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="/img/obras/10.jpg" class="card-img-top" alt="Arte Moderno">
-                    <div class="card-body">
-                        <h5 class="card-title">Arte Moderno</h5>
-                        <p class="card-text">Explora las obras más vanguardistas del siglo XX que cambiaron el rumbo del arte contemporáneo.</p>
-                        <a href="/colecciones/1" class="btn btn-primary">Ver colección</a>
+        <h2 class="section-title text-center" style="color:rgb(0, 0, 0) !important; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);">COLECCIONES DESTACADAS</h2>
+            <div class="row g-4">
+                <div class="col-md-4 d-flex">
+                    <div class="collection-card">
+                        <div class="collection-image">
+                            <img src="/img/obras/10.jpg" class="img-fluid w-100 h-100" alt="Arte Moderno" style="object-fit: cover;">
+                        </div>
+                        <div class="collection-info">
+                            <h3 class="h4 mb-3">Arte Moderno</h3>
+                            <p class="mb-4">Explora nuestra colección de arte moderno con obras de los siglos XIX y XX que representan movimientos artísticos revolucionarios.</p>
+                            <a href="/colecciones/1" class="btn btn-primary">Ver colección</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex">
+                    <div class="collection-card">
+                        <div class="collection-image">
+                            <img src="/img/obras/11.jpg" class="img-fluid w-100 h-100" alt="Renacimiento" style="object-fit: cover;">
+                        </div>
+                        <div class="collection-info">
+                            <h3 class="h4 mb-3">Renacimiento</h3>
+                            <p class="mb-4">Descubre las obras maestras del Renacimiento europeo que marcaron un antes y después en la historia del arte.</p>
+                            <a href="/colecciones/2" class="btn btn-primary">Ver colección</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex">
+                    <div class="collection-card">
+                        <div class="collection-image">
+                            <img src="/img/obras/13.jpg" class="img-fluid w-100 h-100" alt="Arte Asiático" style="object-fit: cover;">
+                        </div>
+                        <div class="collection-info">
+                            <h3 class="h4 mb-3">Arte Asiático</h3>
+                            <p class="mb-4">Una colección única de arte asiático que abarca siglos de historia, tradición y cultura milenaria.</p>
+                            <a href="/colecciones/3" class="btn btn-primary">Ver colección</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="/images/renacimiento.jpg" class="card-img-top" alt="Renacimiento">
-                    <div class="card-body">
-                        <h5 class="card-title">Renacimiento</h5>
-                        <p class="card-text">Descubre las obras maestras que definieron una de las épocas más brillantes del arte occidental.</p>
-                        <a href="/colecciones/2" class="btn btn-primary">Ver colección</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="/images/arte-asiatico.jpg" class="card-img-top" alt="Arte Asiático">
-                    <div class="card-body">
-                        <h5 class="card-title">Arte Asiático</h5>
-                        <p class="card-text">Sumérgete en la rica tradición artística de las culturas orientales a lo largo de los siglos.</p>
-                        <a href="/colecciones/3" class="btn btn-primary">Ver colección</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -85,6 +90,7 @@
         </div>
     </div>
 </section>
+</main>
 
 @section Scripts {
     <script>

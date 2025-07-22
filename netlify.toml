@@ -1,0 +1,19 @@
+[build]
+  command = "dotnet publish -c Release -o published"
+  publish = "published/wwwroot"
+  functions = "published/functions"
+
+[build.environment]
+  DOTNET_VERSION = "8.0.100"
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "dotnet run"
+  publish = "wwwroot"
+  targetPort = 5000
+  framework = "#custom"

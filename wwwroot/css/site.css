@@ -1,28 +1,21 @@
 /* Estilos generales del body */
 body {
-    background-image: url('/img/obras/WALL.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    background-color: #121212 !important; /* Color de fondo */
+    background-image: none !important;
     min-height: 100vh;
-    position: relative;
     margin: 0;
     padding: 0;
-    background-color: #121212; /* Color de respaldo */
+    position: relative;
 }
 
-/* Fondo oscuro semitransparente sobre la imagen */
+/* Asegurarse de que no haya overlay */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
-    z-index: -1;
-    pointer-events: none;
+    display: none !important;
+}
+
+/* Asegurar que la página de inicio no tenga fondo adicional */
+.home-page {
+    background: none !important;
 }
 
 /* Estilos para el contenido principal */

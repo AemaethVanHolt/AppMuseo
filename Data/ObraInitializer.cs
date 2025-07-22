@@ -15,7 +15,7 @@ namespace AppMuseo.Data
             {
             var context = serviceProvider.GetRequiredService<AppMuseoDbContext>();
             if (await context.Obras.AnyAsync())
-                return; 
+                return; // Ya hay obras
 
             // Obtener diccionario de colecciones (nombre -> id)
             var colecciones = await ColeccionInitializer.SeedColeccionesAsync(serviceProvider);
@@ -254,7 +254,7 @@ namespace AppMuseo.Data
                     ColeccionId = colecciones["Pintores flamencos"],
                     FechaCreacion = DateTime.Now.AddYears(-381),
                     UltimaModificacion = DateTime.Now,
-                    CreadoPor = "admin"
+                    CreadoPor = "admin@museo.com"
                 },
                 new Obra
                 {
@@ -267,7 +267,7 @@ namespace AppMuseo.Data
                     ColeccionId = colecciones["Colección permanente"],
                     FechaCreacion = DateTime.Now.AddYears(-100),
                     UltimaModificacion = DateTime.Now,
-                    CreadoPor = "admin"
+                    CreadoPor = "admin@museo.com"
                 }
             };
 

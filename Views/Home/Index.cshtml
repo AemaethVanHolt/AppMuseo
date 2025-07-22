@@ -1,8 +1,113 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Museo Internacional";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/home-index.css" />
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-image">
+        <div class="hero-content animate-fade-in-up">
+            <h1 class="hero-title">Bienvenido al Museo Internacional</h1>
+            <p class="hero-subtitle">Descubre obras maestras de todo el mundo en nuestra colección digital</p>
+            <a href="/colecciones" class="btn btn-primary btn-lg">Explorar Colecciones</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Collections -->
+<section class="featured-section">
+    <div class="container">
+        <h2 class="section-title">Colecciones Destacadas</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/img/obras/10.jpg" class="card-img-top" alt="Arte Moderno">
+                    <div class="card-body">
+                        <h5 class="card-title">Arte Moderno</h5>
+                        <p class="card-text">Explora las obras más vanguardistas del siglo XX que cambiaron el rumbo del arte contemporáneo.</p>
+                        <a href="/colecciones/1" class="btn btn-primary">Ver colección</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/images/renacimiento.jpg" class="card-img-top" alt="Renacimiento">
+                    <div class="card-body">
+                        <h5 class="card-title">Renacimiento</h5>
+                        <p class="card-text">Descubre las obras maestras que definieron una de las épocas más brillantes del arte occidental.</p>
+                        <a href="/colecciones/2" class="btn btn-primary">Ver colección</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/images/arte-asiatico.jpg" class="card-img-top" alt="Arte Asiático">
+                    <div class="card-body">
+                        <h5 class="card-title">Arte Asiático</h5>
+                        <p class="card-text">Sumérgete en la rica tradición artística de las culturas orientales a lo largo de los siglos.</p>
+                        <a href="/colecciones/3" class="btn btn-primary">Ver colección</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Info Section -->
+<section class="info-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="info-box">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Horario</h3>
+                    <p>Lunes a Viernes: 9:00 - 20:00<br>Sábados y Domingos: 10:00 - 18:00</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-box">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Ubicación</h3>
+                    <p>Calle del Arte, 123<br>28001 Madrid, España</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-box">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Entradas</h3>
+                    <p>Adultos: 10€<br>Estudiantes: 5€<br>Menores de 12 años: Gratis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Añadir clase de animación a los elementos al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.card, .info-box');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+                element.style.opacity = '0';
+            });
+        });
+    </script>
+}

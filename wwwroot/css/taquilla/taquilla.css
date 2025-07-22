@@ -127,30 +127,40 @@ h1::after {
     display: block;
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
 }
-
 /* Estilo para la sección de acreditación */
 .acreditacion {
-    background-color: rgba(0, 0, 0, 0.2) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffd700;
-    color: #ffffff;
+    background-color: #1e2124;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    text-align: left;
 }
 
 .acreditacion h6 {
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.75rem;
+    color: #ffd700;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: left !important;
 }
 
 .acreditacion ul {
     margin-bottom: 0;
+    padding-left: 1.5rem !important;
+    text-align: left !important;
+    list-style-type: disc !important;
 }
 
 .acreditacion li {
-    margin-bottom: 0.25rem;
-    font-size: 0.9rem;
-    color: #e0e0e0;
+    margin-bottom: 0.5rem !important;
+    color: #b0b0b0 !important;
+    text-align: left !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    list-style-position: outside !important;
+    display: list-item !important;
+    text-indent: 0 !important;
 }
 
 .acreditacion .form-select {

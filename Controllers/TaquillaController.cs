@@ -6,7 +6,6 @@ using AppMuseo.Models;
 
 namespace AppMuseo.Controllers
 {
-    [Authorize] // Solo usuarios autenticados pueden acceder
     public class TaquillaController : Controller
     {
         private readonly ILogger<TaquillaController> _logger;
@@ -16,6 +15,7 @@ namespace AppMuseo.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             // Aquí irá la lógica para mostrar las entradas disponibles
@@ -24,6 +24,7 @@ namespace AppMuseo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous] // No requiere autenticación para ver el resumen
         public IActionResult ProcesarCompra(string tipoEntrada, string precio, string precioTotal, List<string> extras = null)
         {
             // Asegurarse de que el precio tenga el formato correcto
@@ -92,6 +93,7 @@ namespace AppMuseo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize] // Requiere autenticación SOLO para confirmar la compra
         public IActionResult ConfirmarCompra(string tipoEntrada, decimal precioUnitario, decimal precioTotal, int cantidad, List<string> extras)
         {
             if (cantidad <= 0)

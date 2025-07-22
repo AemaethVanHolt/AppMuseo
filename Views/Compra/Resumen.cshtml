@@ -7,204 +7,219 @@
     var extrasDisponibles = Model["ExtrasDisponibles"] as Dictionary<string, decimal>;
     var extrasSeleccionados = Model["ExtrasSeleccionados"] as List<string> ?? new List<string>();
     
-    // Crear un diccionario para mapear los valores de los checkboxes a los nombres de los extras
+    // Diccionario para mapear los valores de los checkboxes a los nombres de los extras
     var extrasMap = new Dictionary<string, string>
     {
         { "Audioguía", "audioguia" },
         { "Visita Guiada", "visita" },
         { "Autorización Fotográfica", "foto" }
     };
-    
-    // Obtener los valores de los checkboxes seleccionados
-    var extrasCheckboxValues = extrasSeleccionados
-        .Where(e => extrasMap.ContainsValue(e))
-        .Select(e => extrasMap.FirstOrDefault(x => x.Value == e).Key)
-        .ToList();
 }
 
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Completa tu Compra</h1>
-    
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="card bg-dark text-white">
-                <div class="card-body">
-                    <form asp-action="ConfirmarCompra" method="post" id="formularioCompra">
-                        @Html.AntiForgeryToken()
+                <form asp-action="ConfirmarCompra" method="post" id="formularioCompra">
+                    @Html.AntiForgeryToken()
+                    <div class="card-body">
+                        <h1 class="card-title">Completa tu Compra</h1>
+                        
                         <input type="hidden" name="tipoEntrada" value="@Model["TipoEntrada"]" />
-                        <input type="hidden" name="precioUnitario" value="@precioTotal" />
-                        <input type="hidden" name="precioTotal" value="@precioTotal" />
+                        <input type="hidden" name="precioUnitario" value="@Model["PrecioTotal"]" />
+                        <input type="hidden" name="precio" value="@Model["PrecioTotal"]" />
                         
-                        <h4 class="card-title text-warning mb-4">Detalles de la compra</h4>
-                        
+                        <!-- Detalles de la compra -->
                         <div class="mb-4">
                             <h5>Tipo de entrada: <span class="text-warning">@Model["TipoEntrada"]</span></h5>
                             <p class="mb-1">Precio base: <span class="text-warning">@precioBase.ToString("0.00") €</span></p>
                             <p class="mb-1">Precio total: <span class="text-warning fw-bold">@precioTotal.ToString("0.00") €</span></p>
                             
-                            <div class="form-group mt-3">
-                                <label for="cantidad" class="form-label">Cantidad:</label>
-                                <input type="number" class="form-control w-25" id="cantidad" name="cantidad" min="1" value="1" required>
+                            <!-- Selector de Cantidad -->
+                            <div class="cantidad-container">
+                                <label for="cantidad" class="form-label">Cantidad de entradas:</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" value="1" required>
+                                </div>
+                                <small class="form-text">(Mínimo: 1)</small>
                             </div>
+                        </div>
+                        
+                        <!-- Sección de Extras -->
+                        <div class="extras-simple mb-4">
+                            <h5 class="text-warning mb-3">Extras</h5>
+                            @foreach (var extra in extrasDisponibles)
+                            {
+                                var checkboxValue = extrasMap.ContainsKey(extra.Key) ? extrasMap[extra.Key] : extra.Key;
+                                var isChecked = extrasSeleccionados.Contains(checkboxValue);
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="extras" value="@checkboxValue" id="extra-@checkboxValue" data-precio="@extra.Value" @(isChecked ? "checked" : "")>
+                                    <label class="form-check-label" for="extra-@checkboxValue">
+                                        @extra.Key <span class="text-warning">+@extra.Value.ToString("0.00") €</span>
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                        
+                        <!-- Sección de Métodos de Pago -->
+                        <div class="metodos-pago mt-4">
+                            <h5 class="mb-3">Método de pago:</h5>
                             
-                            <hr class="bg-warning my-4">
-                            
-                            <h5 class="mb-3">Extras disponibles:</h5>
-                            <div class="extras-container">
-                                @foreach (var extra in extrasDisponibles)
-                                {
-                                    var checkboxValue = extrasMap.ContainsKey(extra.Key) ? extrasMap[extra.Key] : extra.Key;
-                                    var isChecked = extrasSeleccionados.Contains(checkboxValue);
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" type="checkbox" name="extras" value="@checkboxValue" id="extra-@checkboxValue" @(isChecked ? "checked" : "")>
-                                        <label class="form-check-label d-flex justify-content-between w-100" for="extra-@checkboxValue">
-                                            <span>@extra.Key</span>
-                                            <span class="text-warning">+@extra.Value.ToString("0.00") €</span>
-                                        </label>
-                                    </div>
-                                }
-                            </div>
-                            
-                            <hr class="bg-warning my-4">
-                            
-                            <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
-                                <h4 class="mb-0">Total:</h4>
-                                <h3 class="text-warning mb-0" id="total">@precioTotal.ToString("0.00") €</h3>
-                            </div>
-                            
-                            <!-- Métodos de pago -->
-                            <div class="metodos-pago mt-4">
-                                <h5 class="mb-3">Método de pago:</h5>
-                                
+                            <div class="accordion accordion-flush" id="metodosPagoAccordion">
                                 <!-- Tarjeta -->
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="metodoPago" id="tarjeta" value="tarjeta">
-                                        <label class="form-check-label d-flex align-items-center" for="tarjeta" data-bs-toggle="collapse" data-bs-target="#datosTarjeta">
+                                <div class="accordion-item bg-transparent border-warning mb-2">
+                                    <h2 class="accordion-header" id="headingTarjeta">
+                                        <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#datosTarjeta" aria-expanded="true" aria-controls="datosTarjeta">
                                             <i class="fas fa-credit-card text-warning me-2"></i> Tarjeta de crédito/débito
-                                        </label>
-                                    </div>
-                                    <div id="datosTarjeta" class="collapse mt-2 ps-4">
-                                        <div class="card card-body bg-dark border-warning">
+                                        </button>
+                                    </h2>
+                                    <div id="datosTarjeta" class="accordion-collapse collapse show" aria-labelledby="headingTarjeta" data-bs-parent="#metodosPagoAccordion">
+                                        <div class="accordion-body">
                                             <div class="mb-3">
-                                                <label class="form-label">Número de tarjeta</label>
-                                                <input type="text" class="form-control bg-dark text-white border-warning" placeholder="1234 5678 9012 3456" disabled>
+                                                <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
+                                                <input type="text" class="form-control bg-dark text-white border-warning" id="numeroTarjeta" placeholder="1234 5678 9012 3456" required>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Fecha de caducidad</label>
-                                                    <input type="text" class="form-control bg-dark text-white border-warning" placeholder="MM/AA" disabled>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="fechaExpiracion" class="form-label">Fecha de expiración</label>
+                                                    <input type="text" class="form-control bg-dark text-white border-warning" id="fechaExpiracion" placeholder="MM/AA" required>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">CVV</label>
-                                                    <input type="text" class="form-control bg-dark text-white border-warning" placeholder="123" disabled>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="cvv" class="form-label">CVV</label>
+                                                    <input type="text" class="form-control bg-dark text-white border-warning" id="cvv" placeholder="123" required>
                                                 </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nombreTitular" class="form-label">Nombre del titular</label>
+                                                <input type="text" class="form-control bg-dark text-white border-warning" id="nombreTitular" placeholder="Como aparece en la tarjeta" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Transferencia -->
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="metodoPago" id="transferencia" value="transferencia">
-                                        <label class="form-check-label d-flex align-items-center" for="transferencia" data-bs-toggle="collapse" data-bs-target="#datosTransferencia">
+                                
+                                <!-- Transferencia Bancaria -->
+                                <div class="accordion-item bg-transparent border-warning mb-2">
+                                    <h2 class="accordion-header" id="headingTransferencia">
+                                        <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#datosTransferencia" aria-expanded="false" aria-controls="datosTransferencia">
                                             <i class="fas fa-university text-warning me-2"></i> Transferencia bancaria
-                                        </label>
-                                    </div>
-                                    <div id="datosTransferencia" class="collapse mt-2 ps-4">
-                                        <div class="card card-body bg-dark border-warning">
-                                            <p class="mb-2">Realiza una transferencia a la siguiente cuenta:</p>
-                                            <p class="mb-1">Banco: Tu Banco</p>
-                                            <p class="mb-1">IBAN: ESXX XXXX XXXX XXXX XXXX XXXX</p>
-                                            <p class="mb-1">Beneficiario: Nombre del Museo</p>
-                                            <p class="mb-1">Concepto: Entradas Museo - [Nº de referencia]</p>
-                                            <small class="text-muted">* Recuerda incluir el número de referencia en el concepto.</small>
+                                        </button>
+                                    </h2>
+                                    <div id="datosTransferencia" class="accordion-collapse collapse" aria-labelledby="headingTransferencia" data-bs-parent="#metodosPagoAccordion">
+                                        <div class="accordion-body">
+                                            <p>Realiza una transferencia a la siguiente cuenta bancaria:</p>
+                                            <div class="bg-dark p-3 rounded border border-warning">
+                                                <p class="mb-1"><strong>Banco:</strong> Banco Ejemplo</p>
+                                                <p class="mb-1"><strong>Titular:</strong> Museo de Arte Contemporáneo</p>
+                                                <p class="mb-1"><strong>IBAN:</strong> ES12 3456 7890 1234 5678 9012</p>
+                                                <p class="mb-1"><strong>SWIFT/BIC:</strong> BNAGESMMXXX</p>
+                                                <p class="mb-0"><strong>Concepto:</strong> Entrada @Model["TipoEntrada"] - [Tu nombre]</p>
+                                            </div>
+                                            <p class="mt-3">Una vez realizado el pago, envía el comprobante a <a href="mailto:reservas@museo.com" class="text-warning">reservas@museo.com</a></p>
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <!-- PayPal -->
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="metodoPago" id="paypal" value="paypal">
-                                        <label class="form-check-label d-flex align-items-center" for="paypal">
+                                <div class="accordion-item bg-transparent border-warning mb-2">
+                                    <h2 class="accordion-header" id="headingPaypal">
+                                        <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#datosPaypal" aria-expanded="false" aria-controls="datosPaypal">
                                             <i class="fab fa-paypal text-warning me-2"></i> PayPal
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <!-- Bizum -->
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="metodoPago" id="bizum" value="bizum">
-                                        <label class="form-check-label d-flex align-items-center" for="bizum" data-bs-toggle="collapse" data-bs-target="#datosBizum">
-                                            <i class="fas fa-mobile-alt text-warning me-2"></i> Bizum
-                                        </label>
-                                    </div>
-                                    <div id="datosBizum" class="collapse mt-2 ps-4">
-                                        <div class="card card-body bg-dark border-warning">
-                                            <p>Realiza el pago a través de Bizum al número:</p>
-                                            <h5 class="text-center text-warning">+34 600 000 000</h5>
-                                            <p class="text-center mb-0">Concepto: ENTRADAS</p>
+                                        </button>
+                                    </h2>
+                                    <div id="datosPaypal" class="accordion-collapse collapse" aria-labelledby="headingPaypal" data-bs-parent="#metodosPagoAccordion">
+                                        <div class="accordion-body">
+                                            <p>Serás redirigido a la plataforma segura de PayPal para completar tu pago.</p>
+                                            <button type="button" class="btn btn-warning w-100">
+                                                <i class="fab fa-paypal me-2"></i>Pagar con PayPal
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Pago en taquilla -->
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="metodoPago" id="taquilla" value="taquilla" checked>
-                                        <label class="form-check-label d-flex align-items-center" for="taquilla">
-                                            <i class="fas fa-ticket-alt text-warning me-2"></i> Pago en taquilla
-                                        </label>
+                                
+                                <!-- Bizum -->
+                                <div class="accordion-item bg-transparent border-warning mb-2">
+                                    <h2 class="accordion-header" id="headingBizum">
+                                        <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#datosBizum" aria-expanded="false" aria-controls="datosBizum">
+                                            <i class="fas fa-mobile-alt text-warning me-2"></i> Bizum
+                                        </button>
+                                    </h2>
+                                    <div id="datosBizum" class="accordion-collapse collapse" aria-labelledby="headingBizum" data-bs-parent="#metodosPagoAccordion">
+                                        <div class="accordion-body">
+                                            <p>Paga de forma rápida y segura con Bizum.</p>
+                                            <div class="mb-3">
+                                                <label for="telefonoBizum" class="form-label">Número de teléfono</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-dark text-white border-warning">+34</span>
+                                                    <input type="tel" class="form-control bg-dark text-white border-warning" id="telefonoBizum" placeholder="600 000 000" pattern="[0-9]{9}" required>
+                                                </div>
+                                                <small class="form-text text-muted">Introduce tu número de teléfono asociado a Bizum</small>
+                                            </div>
+                                            <button type="button" class="btn btn-warning w-100">
+                                                <i class="fas fa-mobile-alt me-2"></i>Pagar con Bizum
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Pago en Taquilla -->
+                                <div class="accordion-item bg-transparent border-warning">
+                                    <h2 class="accordion-header" id="headingTaquilla">
+                                        <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#datosTaquilla" aria-expanded="false" aria-controls="datosTaquilla">
+                                            <i class="fas fa-ticket-alt text-warning me-2"></i> Pago en Taquilla
+                                        </button>
+                                    </h2>
+                                    <div id="datosTaquilla" class="accordion-collapse collapse" aria-labelledby="headingTaquilla" data-bs-parent="#metodosPagoAccordion">
+                                        <div class="accordion-body">
+                                            <p>Puedes pagar directamente en taquilla al recoger tus entradas.</p>
+                                            <p class="mb-0"><i class="fas fa-info-circle text-warning me-2"></i>Las entradas se reservarán por 24 horas.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
+                        <!-- Total -->
+                        <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+                            <h4 class="mb-0">Total:</h4>
+                            <h3 class="text-warning mb-0" id="total">@precioTotal.ToString("0.00") €</h3>
+                        </div>
+                        
+                        <!-- Botones de acción -->
                         <div class="d-flex justify-content-between mt-4">
                             <a href="/Taquilla" class="btn btn-outline-warning">
                                 <i class="fas fa-arrow-left me-2"></i>Volver
                             </a>
-                            <div>
-                                <button type="button" id="btnPagar" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPago" disabled>
-                                    <i class="fas fa-credit-card me-2"></i>Pagar Ahora
-                                </button>
-                                <button type="submit" id="btnConfirmar" class="btn btn-success ms-2">
-                                    <i class="fas fa-check-circle me-2"></i>Confirmar Compra
-                                </button>
-                            </div>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-check me-2"></i>Confirmar Compra
+                            </button>
                         </div>
-                        
-                        <!-- Modal de pago -->
-                        <div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content bg-dark text-white">
-                                    <div class="modal-header border-warning">
-                                        <h5 class="modal-title">Procesando pago...</h5>
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <div id="paypal-button-container" class="d-none">
-                                            <!-- PayPal Button will be rendered here -->
-                                            <p>Redirigiendo a PayPal...</p>
-                                            <div class="spinner-border text-warning" role="status">
-                                                <span class="visually-hidden">Cargando...</span>
-                                            </div>
-                                        </div>
-                                        <div id="pagoOtros" class="d-none">
-                                            <p>Redirigiendo a la pasarela de pago...</p>
-                                            <div class="spinner-border text-warning" role="status">
-                                                <span class="visually-hidden">Cargando...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-warning">
+                <h5 class="modal-title" id="confirmacionModalLabel">Confirmar Compra</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas confirmar tu compra?</p>
+                <div class="mt-3">
+                    <p class="mb-1">Tipo de entrada: <span class="text-warning" id="modalTipoEntrada"></span></p>
+                    <p class="mb-1">Cantidad: <span class="text-warning" id="modalCantidad"></span></p>
+                    <p class="mb-1">Extras: <span class="text-warning" id="modalExtras"></span></p>
+                    <p class="mb-1">Total: <span class="text-warning fw-bold" id="modalTotal"></span></p>
                 </div>
+            </div>
+            <div class="modal-footer border-warning">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning" id="btnConfirmarCompra">Confirmar</button>
             </div>
         </div>
     </div>
@@ -213,175 +228,142 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Elementos del formulario
-            const formulario = document.getElementById('formularioCompra');
-            const cantidadInput = document.getElementById('cantidad');
-            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="extras"]');
-            const totalElement = document.getElementById('total');
-            const precioUnitarioInput = document.querySelector('input[name="precioUnitario"]');
-            const precioTotalInput = document.querySelector('input[name="precioTotal"]');
-            const btnPagar = document.getElementById('btnPagar');
-            const btnConfirmar = document.getElementById('btnConfirmar');
-            const metodosPago = document.querySelectorAll('input[name="metodoPago"]');
-            const modalPago = new bootstrap.Modal(document.getElementById('modalPago'));
-            
-            // Precios
-            const precioBase = parseFloat('@precioBase'.replace(',', '.')) || 0;
-            const preciosExtras = {
-                @foreach (var extra in extrasDisponibles)
-                {
-                    var extraKey = extrasMap.ContainsKey(extra.Key) ? extrasMap[extra.Key] : extra.Key;
-                    <text>'@extraKey': @extra.Value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),</text>
-                }
+            // Inicializar variables globales para el cálculo del total
+            window.precioBase = @precioBase;
+            window.preciosExtras = {
+                'audioguia': 2.50,
+                'visita': 4.00,
+                'foto': 1.50
             };
-            
-            // Función para calcular el total
-            function calcularTotal() {
-                let cantidad = parseInt(cantidadInput.value) || 1;
-                if (cantidad < 1) cantidad = 1;
+
+            // Función para formatear el precio
+            function formatearPrecio(precio) {
+                return new Intl.NumberFormat('es-ES', { 
+                    style: 'currency', 
+                    currency: 'EUR',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2 
+                }).format(precio);
+            }
+
+            // Función para actualizar el precio total
+            function actualizarPrecioTotal() {
+                const form = document.getElementById('formularioCompra');
+                if (!form) return;
                 
-                let subtotalEntradas = precioBase * cantidad;
+                // Obtener la cantidad
+                const cantidadInput = form.querySelector('input[name="cantidad"]');
+                let cantidad = 1;
+                if (cantidadInput && cantidadInput.value) {
+                    cantidad = parseInt(cantidadInput.value) || 1;
+                    if (cantidad < 1) cantidad = 1;
+                }
+                
+                // Calcular el subtotal de las entradas
+                const subtotalEntradas = window.precioBase * cantidad;
+                
+                // Calcular el subtotal de los extras
                 let subtotalExtras = 0;
-                let extrasSeleccionados = [];
-                
+                const checkboxes = form.querySelectorAll('input[type="checkbox"][name="extras"]:checked');
                 checkboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        const extra = checkbox.value;
-                        subtotalExtras += (preciosExtras[extra] || 0) * cantidad;
-                        extrasSeleccionados.push(extra);
-                    }
+                    const precio = parseFloat(checkbox.dataset.precio) || 0;
+                    subtotalExtras += precio * cantidad;
                 });
                 
+                // Calcular el total
                 const total = subtotalEntradas + subtotalExtras;
                 
-                // Actualizar campos ocultos
-                if (precioUnitarioInput) precioUnitarioInput.value = precioBase.toFixed(2);
-                if (precioTotalInput) precioTotalInput.value = total.toFixed(2);
-                
-                // Actualizar UI
-                totalElement.textContent = total.toLocaleString('es-ES', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                }) + ' €';
-                
-                return { cantidad, total, extrasSeleccionados };
-            }
-            
-            // Manejar cambio en métodos de pago
-            function actualizarBotonesPago() {
-                const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
-                
-                if (metodoSeleccionado === 'taquilla') {
-                    btnPagar.disabled = true;
-                    btnConfirmar.disabled = false;
-                } else {
-                    btnPagar.disabled = false;
-                    btnConfirmar.disabled = true;
+                // Actualizar el total en la interfaz
+                const totalElement = document.getElementById('total');
+                if (totalElement) {
+                    totalElement.textContent = formatearPrecio(total);
                 }
+                
+                // Actualizar el campo oculto del total
+                const precioTotalInput = form.querySelector('input[name="precioTotal"]');
+                if (!precioTotalInput) {
+                    const newInput = document.createElement('input');
+                    newInput.type = 'hidden';
+                    newInput.name = 'precioTotal';
+                    form.appendChild(newInput);
+                } else {
+                    precioTotalInput.value = total.toFixed(2);
+                }
+                
+                return total;
             }
             
-            // Inicializar
-            function inicializar() {
-                // Configurar eventos
-                cantidadInput.addEventListener('change', calcularTotal);
+            // Inicializar eventos
+            const form = document.getElementById('formularioCompra');
+            if (form) {
+                // Evento para el cambio en la cantidad
+                const cantidadInput = form.querySelector('input[name="cantidad"]');
+                if (cantidadInput) {
+                    cantidadInput.addEventListener('change', actualizarPrecioTotal);
+                    cantidadInput.addEventListener('input', actualizarPrecioTotal);
+                }
+                
+                // Evento para los checkboxes de extras
+                const checkboxes = form.querySelectorAll('input[type="checkbox"][name="extras"]');
                 checkboxes.forEach(checkbox => {
-                    checkbox.addEventListener('change', calcularTotal);
+                    checkbox.addEventListener('change', actualizarPrecioTotal);
                 });
                 
-                metodosPago.forEach(metodo => {
-                    metodo.addEventListener('change', actualizarBotonesPago);
-                });
-                
-                // Manejar clic en pagar
-                btnPagar?.addEventListener('click', function(e) {
+                // Evento para el envío del formulario
+                form.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
                     
-                    if (metodoSeleccionado === 'paypal') {
-                        document.getElementById('paypal-button-container').classList.remove('d-none');
-                        document.getElementById('pagoOtros').classList.add('d-none');
-                        // Aquí iría la integración con PayPal
-                        setTimeout(() => {
-                            alert('Redirigiendo a PayPal...');
-                            // En un caso real, aquí se redirigiría a PayPal
-                        }, 2000);
-                    } else {
-                        document.getElementById('paypal-button-container').classList.add('d-none');
-                        document.getElementById('pagoOtros').classList.remove('d-none');
-                        // Simular procesamiento de pago
-                        setTimeout(() => {
-                            alert('Pago procesado correctamente');
-                            modalPago.hide();
-                            // Habilitar confirmación después del pago
-                            btnConfirmar.disabled = false;
-                            btnPagar.disabled = true;
-                        }, 2000);
-                    }
-                });
-                
-                // Validación del formulario
-                formulario?.addEventListener('submit', function(e) {
-                    const cantidad = parseInt(cantidadInput.value) || 0;
-                    if (cantidad < 1) {
-                        e.preventDefault();
-                        alert('Por favor, introduce una cantidad válida.');
-                        cantidadInput.focus();
-                        return;
+                    // Actualizar el modal de confirmación
+                    const modalTipoEntrada = document.getElementById('modalTipoEntrada');
+                    const modalCantidad = document.getElementById('modalCantidad');
+                    const modalExtras = document.getElementById('modalExtras');
+                    const modalTotal = document.getElementById('modalTotal');
+                    
+                    if (modalTipoEntrada) modalTipoEntrada.textContent = '@Model["TipoEntrada"]';
+                    if (modalCantidad) modalCantidad.textContent = cantidadInput ? cantidadInput.value : '1';
+                    
+                    // Obtener los extras seleccionados
+                    const extrasSeleccionados = [];
+                    checkboxes.forEach(checkbox => {
+                        if (checkbox.checked) {
+                            const label = form.querySelector(`label[for="${checkbox.id}"]`);
+                            if (label) {
+                                extrasSeleccionados.push(label.textContent.trim().split(' ')[0]);
+                            }
+                        }
+                    });
+                    
+                    if (modalExtras) {
+                        modalExtras.textContent = extrasSeleccionados.length > 0 
+                            ? extrasSeleccionados.join(', ') 
+                            : 'Ninguno';
                     }
                     
-                    // Verificar método de pago
-                    const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
-                    if (metodoSeleccionado !== 'taquilla' && !btnConfirmar.disabled) {
-                        e.preventDefault();
-                        alert('Por favor, completa el proceso de pago antes de confirmar.');
-                        return;
+                    if (modalTotal) {
+                        const total = actualizarPrecioTotal();
+                        modalTotal.textContent = formatearPrecio(total);
+                    }
+                    
+                    // Mostrar el modal de confirmación
+                    const modal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
+                    modal.show();
+                    
+                    // Configurar el botón de confirmación
+                    const btnConfirmar = document.getElementById('btnConfirmarCompra');
+                    if (btnConfirmar) {
+                        btnConfirmar.onclick = function() {
+                            form.submit();
+                        };
                     }
                 });
-                
-                // Calcular total inicial
-                calcularTotal();
-                actualizarBotonesPago();
             }
             
-            // Inicializar la página
-            inicializar();
+            // Calcular el total inicial
+            actualizarPrecioTotal();
         });
     </script>
 }
 
 @section Styles {
-    <style>
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-        
-        .card {
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
-            color: #000;
-            font-weight: 600;
-        }
-        
-        .btn-outline-warning {
-            color: #ffc107;
-            border-color: #ffc107;
-        }
-        
-        .btn-outline-warning:hover {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: #ffc107;
-        }
-        
-        hr.bg-warning {
-            height: 2px;
-            opacity: 0.3;
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/compra-resumen.css" asp-append-version="true" />
 }

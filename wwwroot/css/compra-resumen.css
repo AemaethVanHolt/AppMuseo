@@ -1,0 +1,124 @@
+/* Estilos específicos para la vista de Resumen de Compra */
+
+/* Estilo para el título principal */
+.card-title {
+    color: #ffd700 !important; /* Amarillo dorado */
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 1rem 0 2.5rem 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Contenedor de la tarjeta */
+.card {
+    background-color: #1a1e21;
+    border: 1px solid #ffc107;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para los extras */
+.extras-simple {
+    background-color: #1a1e21;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ffc107;
+    margin: 1.25rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.extras-simple .form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background-color: rgba(26, 30, 33, 0.8);
+}
+
+.extras-simple .form-check:last-child {
+    margin-bottom: 0.25rem;
+}
+
+.extras-simple .form-check:hover {
+    background-color: rgba(255, 193, 7, 0.15);
+}
+
+.extras-simple .form-check-input {
+    width: 1.3em;
+    height: 1.3em;
+    margin-top: 0;
+    margin-right: 0.75rem;
+    background-color: #1a1e21;
+    border: 2px solid #ffc107;
+    cursor: pointer;
+}
+
+.extras-simple .form-check-input:checked {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.extras-simple .form-check-label {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 1.05rem;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.extras-simple .form-check-label:hover {
+    color: #ffd700;
+}
+
+.extras-simple .text-warning {
+    color: #ffd700 !important;
+    margin-left: auto;
+    font-weight: 600;
+    padding-left: 0.5rem;
+}
+
+/* Estilos para el selector de cantidad */
+.cantidad-container {
+    background-color: #1a1e21;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #ffc107;
+    margin: 2rem 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cantidad-container label {
+    color: #fff;
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.cantidad-container .input-group {
+    max-width: 200px;
+}
+
+.cantidad-container .form-control {
+    background-color: #2a2e32;
+    border: 1px solid #ffc107;
+    color: #fff;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+}
+
+.cantidad-container .form-text {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}

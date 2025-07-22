@@ -1,14 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AppMuseo.Data;
 using AppMuseo.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using QRCoder;
+using static QRCoder.PngByteQRCode;
 
 namespace AppMuseo.Controllers
 {
@@ -75,15 +80,16 @@ namespace AppMuseo.Controllers
 
                 // Datos para el gráfico
                 var ventasPorTipo = await _context.Entradas
-                    .GroupBy(e => e.TipoEntrada)
-                    .Select(g => new
-                    {
-                        Tipo = g.Key,
-                        Cantidad = g.Count(),
-                        Total = g.Sum(e => e.PrecioTotal)
-                    })
-                    .OrderByDescending(x => x.Cantidad)
-                    .ToListAsync();
+                .Where(e => string.IsNullOrEmpty(filtroTipo) || e.TipoEntrada.ToString() == filtroTipo)
+                .GroupBy(e => e.TipoEntrada)
+                .Select(g => new
+                {
+                    Tipo = g.Key,
+                    Cantidad = g.Count(),
+                    Total = g.Sum(e => e.Precio) 
+                })
+                .OrderByDescending(x => x.Cantidad)
+                .ToListAsync();
 
                 ViewBag.Labels = ventasPorTipo.Select(x => x.Tipo).ToArray();
                 ViewBag.Cantidades = ventasPorTipo.Select(x => x.Cantidad).ToArray();
@@ -116,6 +122,32 @@ namespace AppMuseo.Controllers
             if (entrada == null)
             {
                 return NotFound();
+            }
+
+            // Generar código QR con los datos de la entrada
+            string qrText = string.Format(
+                "ID: {0}{5}" +
+                "Fecha: {1:dd/MM/yyyy}{5}" +
+                "Hora: {2:hh\\:mm}{5}" +
+                "Tipo: {3}{5}" +
+                "Total: {4:C2}",
+                entrada.Id,
+                entrada.Fecha,
+                entrada.Hora,
+                entrada.TipoEntrada,
+                entrada.Total,
+                Environment.NewLine
+            );
+
+            // Generar código QR usando PngByteQRCode
+            using (var qrGenerator = new QRCodeGenerator())
+            using (var qrCodeData = qrGenerator.CreateQrCode(qrText, QRCodeGenerator.ECCLevel.Q))
+            using (var qrCode = new PngByteQRCode(qrCodeData))
+            {
+                var qrCodeImageAsBytes = qrCode.GetGraphic(10, new byte[] { 0, 0, 0 }, new byte[] { 255, 255, 255 }, true);
+                var qrCodeImageAsBase64 = Convert.ToBase64String(qrCodeImageAsBytes);
+                ViewBag.QRCodeImage = $"data:image/png;base64,{qrCodeImageAsBase64}";
+                ViewBag.QRCodeText = qrText;
             }
 
             return View(entrada);

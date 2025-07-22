@@ -1,28 +1,5 @@
-/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-.navbar {
-    background-color: #000 !important;
-    min-height: 80px;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-.navbar-brand img {
-    height: 70px !important;
-    max-height: 80px;
-    width: auto;
-}
-
-.navbar .btn.btn-outline-light {
-    border-radius: 2rem;
-    font-weight: 500;
-    margin-left: auto;
-}
-
-.navbar-nav.ms-auto {
-    margin-left: auto !important;
-}
+/* Estilos específicos para el navbar en _Layout */
+/* Se han eliminado estilos que podrían causar conflictos */
 
 a.navbar-brand {
   white-space: normal;

@@ -12,13 +12,30 @@ function formatearPrecio(precio) {
 
 // Función para actualizar el precio total
 function actualizarPrecioTotal(form) {
-    if (!form) return;
+    console.log('Actualizando precio total...');
+    if (!form) {
+        console.error('No se encontró el formulario');
+        return;
+    }
     
     // Obtener el precio base
-    const precioBaseInput = form.querySelector('input[name="precio"]');
-    if (!precioBaseInput) return;
+    const precioBaseInput = form.querySelector('input[name="precioUnitario"]') || form.querySelector('input[name="precio"]');
+    if (!precioBaseInput) {
+        console.error('No se encontró el campo de precio base');
+        return;
+    }
     
-    // Obtener el precio base del data-precio o del value
+    // Obtener la cantidad de entradas
+    const cantidadInput = form.querySelector('input[name="cantidad"]');
+    let cantidad = 1;
+    if (cantidadInput && cantidadInput.value) {
+        cantidad = parseInt(cantidadInput.value) || 1;
+        if (cantidad < 1) cantidad = 1;
+    }
+    
+    console.log('Cantidad de entradas:', cantidad);
+    
+    // Obtener el precio base
     let precioBase = 0;
     if (precioBaseInput.dataset.precio) {
         precioBase = parseFloat(precioBaseInput.dataset.precio);
@@ -27,27 +44,52 @@ function actualizarPrecioTotal(form) {
     }
     
     if (isNaN(precioBase)) precioBase = 0;
+    console.log('Precio base:', precioBase);
     
     let totalExtras = 0;
     
     // Sumar los precios de los extras seleccionados
     const checkboxes = form.querySelectorAll('input[type="checkbox"][name="extras"]:checked');
+    console.log('Extras seleccionados:', checkboxes.length);
+    
     checkboxes.forEach(checkbox => {
         const valorExtra = checkbox.value;
-        if (preciosExtras[valorExtra] !== undefined) {
-            totalExtras += parseFloat(preciosExtras[valorExtra]);
+        let precioExtra = 0;
+        
+        // Obtener el precio del extra del data-precio o del mapa de precios
+        if (checkbox.dataset.precio) {
+            precioExtra = parseFloat(checkbox.dataset.precio);
+            console.log(`Extra ${valorExtra}: ${precioExtra} (de data-precio)`);
+        } else if (window.preciosExtras && window.preciosExtras[valorExtra] !== undefined) {
+            precioExtra = parseFloat(window.preciosExtras[valorExtra]);
+            console.log(`Extra ${valorExtra}: ${precioExtra} (de preciosExtras)`);
         }
+        
+        totalExtras += precioExtra;
     });
     
-    // Calcular el total
-    const total = precioBase + totalExtras;
+    console.log('Total extras por entrada:', totalExtras);
+    
+    // Calcular el subtotal de los extras
+    const subtotalExtras = totalExtras * cantidad;
+    
+    // Calcular el total (precio base * cantidad + subtotal de extras)
+    const subtotalEntradas = precioBase * cantidad;
+    const total = subtotalEntradas + subtotalExtras;
+    
+    console.log('Subtotal entradas:', subtotalEntradas);
+    console.log('Subtotal extras:', subtotalExtras);
+    console.log('Total:', total);
     
     console.log('Precio base:', precioBase, 'Extras:', totalExtras, 'Total:', total);
     
     // Actualizar el precio mostrado
-    const precioElement = form.querySelector('.precio-total');
+    const precioElement = form.querySelector('.precio-total, #total');
     if (precioElement) {
         precioElement.textContent = formatearPrecio(total);
+        console.log('Precio actualizado en el elemento:', precioElement.textContent);
+    } else {
+        console.error('No se encontró el elemento para mostrar el precio total');
     }
     
     // Actualizar el campo oculto con el precio total
@@ -59,6 +101,14 @@ function actualizarPrecioTotal(form) {
         form.appendChild(precioTotalInput);
     }
     precioTotalInput.value = total.toFixed(2);
+    
+    console.log('Precio total guardado:', precioTotalInput.value);
+    
+    // Actualizar también el importe de transferencia si existe
+    const importeTransferencia = document.getElementById('importeTransferencia');
+    if (importeTransferencia) {
+        importeTransferencia.textContent = formatearPrecio(total);
+    }
     
     // Forzar actualización del formulario
     const event = new Event('change');
@@ -127,16 +177,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Inicializar precios totales para todos los formularios
     document.querySelectorAll('form[id^="form"]').forEach(form => {
-        // Agregar elemento para mostrar el precio total si no existe
-        const precioBaseElement = form.querySelector('h3 strong');
-        if (precioBaseElement) {
-            const precioTotalElement = document.createElement('div');
-            precioTotalElement.className = 'precio-total-container mt-2';
-            precioTotalElement.innerHTML = `<strong>Total: </strong><span class="precio-total">${precioBaseElement.textContent}</span>`;
-            precioBaseElement.parentNode.insertBefore(precioTotalElement, precioBaseElement.nextSibling);
-            
-            // Actualizar el precio total inicial
+        // Verificar si estamos en la página de Taquilla (no mostrar total)
+        if (!window.location.pathname.includes('Taquilla/ProcesarCompra')) {
+            // No mostrar el total en la página principal de Taquilla
             actualizarPrecioTotal(form);
+        } else {
+            // Mostrar el total en la página de ProcesarCompra
+            const precioBaseElement = form.querySelector('h3 strong');
+            if (precioBaseElement) {
+                const precioTotalElement = document.createElement('div');
+                precioTotalElement.className = 'precio-total-container mt-2';
+                precioTotalElement.innerHTML = `<strong>Total: </strong><span class="precio-total">${precioBaseElement.textContent}</span>`;
+                precioBaseElement.parentNode.insertBefore(precioTotalElement, precioBaseElement.nextSibling);
+                
+                // Actualizar el precio total inicial
+                actualizarPrecioTotal(form);
+            }
         }
     });
     

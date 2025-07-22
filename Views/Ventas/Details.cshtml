@@ -13,6 +13,14 @@
     <div class="ventas-container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
+                <!-- Notificación de éxito -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                        @TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
                 <div class="ventas-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Detalles de la Venta #@Model.Id</h4>
@@ -25,6 +33,11 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <h5 class="text-white mb-3">Información de la Venta</h5>
+                                <!-- Código QR -->
+                                <div class="text-center mb-4">
+                                    <img src="@ViewBag.QRCodeImage" alt="Código QR de la entrada" class="img-fluid" style="max-width: 200px; background: white; padding: 10px; border-radius: 8px;">
+                                    <p class="text-white-50 small mt-2">Presente este código QR en la entrada del museo</p>
+                                </div>
                                 <dl class="row">
                                     <dt class="col-sm-5 text-white-50">Fecha:</dt>
                                     <dd class="col-sm-7 text-white">@Model.Fecha.ToString("dd/MM/yyyy")</dd>

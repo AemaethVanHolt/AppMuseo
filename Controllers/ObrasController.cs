@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppMuseo.Data;
 using AppMuseo.Models;
@@ -19,7 +20,25 @@ namespace AppMuseo.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var obras = await _context.Obras.Include(o => o.Coleccion).ToListAsync();
+            var obras = await _context.Obras
+                .Include(o => o.Coleccion)
+                .OrderByDescending(o => o.Id)
+                .ToListAsync();
+                
+            // Verificar si el usuario actual es administrador
+            ViewBag.EsAdministrador = User.IsInRole("Administrador");
+            
+            return View(obras);
+        }
+
+        // GET: Obras/Admin
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Admin()
+        {
+            var obras = await _context.Obras
+                .Include(o => o.Coleccion)
+                .OrderByDescending(o => o.Id)
+                .ToListAsync();
             return View(obras);
         }
 
@@ -36,8 +55,14 @@ namespace AppMuseo.Controllers
 
         // GET: Obras/Create
         [Authorize(Roles="Administrador,Restaurador")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            // Obtener la lista de colecciones ordenadas por nombre
+            var colecciones = await _context.Colecciones
+                .OrderBy(c => c.Nombre)
+                .ToListAsync();
+                
+            ViewData["ColeccionId"] = new SelectList(colecciones, "Id", "Nombre");
             return View();
         }
 
@@ -61,12 +86,22 @@ namespace AppMuseo.Controllers
 
         // GET: Obras/Edit/5
         [Authorize(Roles="Administrador,Restaurador")]
-        // Null checks already present to avoid CS8602
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
-            var obra = await _context.Obras.FindAsync(id);
+            
+            var obra = await _context.Obras
+                .Include(o => o.Coleccion)
+                .FirstOrDefaultAsync(o => o.Id == id);
+                
             if (obra == null) return NotFound();
+            
+            // Obtener la lista de colecciones ordenadas por nombre
+            var colecciones = await _context.Colecciones
+                .OrderBy(c => c.Nombre)
+                .ToListAsync();
+                
+            ViewData["ColeccionId"] = new SelectList(colecciones, "Id", "Nombre", obra.ColeccionId);
             return View(obra);
         }
 

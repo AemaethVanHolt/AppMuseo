@@ -1,0 +1,327 @@
+/* Estilos para la página de Exposiciones */
+
+.exposiciones .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1518998053901-53485d3d0c0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 150px 0;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.exposiciones .hero-section h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.exposiciones .hero-section h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: #e74c3c;
+}
+
+.exposiciones .hero-section .lead {
+    font-size: 1.8rem;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Filtros */
+.filtros {
+    margin-bottom: 40px;
+}
+
+.filtros .btn {
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid #2c3e50;
+    margin: 0 5px 10px;
+}
+
+.filtros .btn:hover {
+    background-color: #2c3e50;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.filtros .btn.active {
+    background-color: #2c3e50;
+    color: white;
+    border-color: #2c3e50;
+}
+
+/* Tarjetas de exposiciones */
+.exposicion-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+}
+
+.exposicion-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.exposicion-imagen {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.exposicion-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.exposicion-card:hover .exposicion-imagen img {
+    transform: scale(1.05);
+}
+
+.exposicion-fecha, .exposicion-categoria {
+    position: absolute;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.exposicion-fecha {
+    top: 15px;
+    left: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #2c3e50;
+}
+
+.exposicion-categoria {
+    bottom: 15px;
+    right: 15px;
+    background-color: #e74c3c;
+    color: white;
+}
+
+.exposicion-info {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.exposicion-info h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.exposicion-artista {
+    color: #e74c3c;
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.exposicion-descripcion {
+    color: #555;
+    margin-bottom: 20px;
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Info destacada */
+.info-destacada {
+    background-color: #f8f9fa;
+    border-left: 4px solid #3498db;
+    margin: 40px 0;
+}
+
+.info-destacada h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Tabla de calendario */
+.calendario-exposiciones {
+    margin-top: 60px;
+}
+
+.calendario-exposiciones h2 {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.calendario-exposiciones h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #e74c3c;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #eee;
+}
+
+.table thead th {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-weight: 600;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+    border-color: #eee;
+}
+
+.badge {
+    padding: 6px 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 1199.98px) {
+    .exposiciones .hero-section {
+        padding: 120px 0;
+    }
+    
+    .exposicion-imagen {
+        height: 200px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .exposiciones .hero-section h1 {
+        font-size: 3rem;
+    }
+    
+    .exposicion-card {
+        margin-bottom: 30px;
+    }
+    
+    .info-destacada {
+        text-align: center;
+    }
+    
+    .info-destacada .btn {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .exposiciones .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .exposiciones .hero-section .lead {
+        font-size: 1.4rem;
+    }
+    
+    .table thead {
+        display: none;
+    }
+    
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .table tr {
+        margin-bottom: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .table td {
+        padding: 10px 15px;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+    
+    .table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        text-align: left;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .exposiciones .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .exposicion-info {
+        padding: 20px 15px;
+    }
+    
+    .exposicion-info h3 {
+        font-size: 1.3rem;
+    }
+    
+    .exposicion-descripcion {
+        font-size: 0.9rem;
+    }
+    
+    .filtros .btn {
+        padding: 6px 15px;
+        font-size: 0.9rem;
+    }
+}

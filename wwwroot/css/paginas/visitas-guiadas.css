@@ -1,0 +1,193 @@
+/* Estilos para la página de Visitas Guiadas */
+
+.visitas-guiadas .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1531913764164-f85c52d6e654?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 150px 0;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.visitas-guiadas .hero-section h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.visitas-guiadas .hero-section h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: #e74c3c;
+}
+
+.visitas-guiadas .hero-section .lead {
+    font-size: 1.8rem;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Tarjetas de visitas */
+.visita-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    background: white;
+    border: 1px solid #eee;
+}
+
+.visita-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.visita-card .card-img-top {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.visita-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.visita-card .card-body {
+    padding: 25px;
+}
+
+.visita-card .card-title {
+    color: #2c3e50;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.visita-card .list-unstyled li {
+    padding: 5px 0;
+    color: #555;
+}
+
+.visita-card .list-unstyled i {
+    color: #e74c3c;
+    width: 20px;
+    text-align: center;
+}
+
+/* Sección de información */
+.info-section {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 40px 0;
+    border-left: 4px solid #3498db;
+}
+
+.info-section h4 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section h4 i {
+    margin-right: 10px;
+    color: #e74c3c;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.alert h4 {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+}
+
+.alert i {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+/* Botón de reserva */
+.btn-primary {
+    background-color: #e74c3c;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .visitas-guiadas .hero-section {
+        padding: 120px 0;
+    }
+    
+    .visitas-guiadas .hero-section h1 {
+        font-size: 3rem;
+    }
+    
+    .visita-card {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .visitas-guiadas .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .visitas-guiadas .hero-section .lead {
+        font-size: 1.4rem;
+    }
+    
+    .info-section {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .visitas-guiadas .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .visita-card .card-title {
+        font-size: 1.4rem;
+    }
+    
+    .visita-card .list-unstyled li {
+        font-size: 0.95rem;
+    }
+}

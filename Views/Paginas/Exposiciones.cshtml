@@ -1,0 +1,173 @@
+@{
+    ViewData["Title"] = "Exposiciones";
+    Layout = "_Layout";
+}
+
+<div class="exposiciones">
+    <section class="hero-section">
+        <div class="container">
+            <h1>Exposiciones</h1>
+            <p class="lead">Descubre nuestras muestras temporales y colecciones permanentes</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="filtros mb-5">
+                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                        <button class="btn btn-outline-dark active" data-filter="todas">Todas</button>
+                        <button class="btn btn-outline-dark" data-filter="temporal">Temporales</button>
+                        <button class="btn btn-outline-dark" data-filter="permanente">Permanentes</button>
+                        <button class="btn btn-outline-dark" data-filter="proximas">Próximas</button>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <!-- Exposición 1 -->
+                    <div class="col-md-6 col-lg-4" data-categoria="temporal">
+                        <div class="exposicion-card">
+                            <div class="exposicion-imagen">
+                                <img src="https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Impresionismo Moderno" class="img-fluid">
+                                <div class="exposicion-fecha">Hasta 15 Nov 2023</div>
+                                <div class="exposicion-categoria">Temporal</div>
+                            </div>
+                            <div class="exposicion-info">
+                                <h3>Impresionismo Moderno</h3>
+                                <p class="exposicion-artista">Varios Artistas</p>
+                                <p class="exposicion-descripcion">Una exploración del movimiento impresionista y su influencia en el arte contemporáneo.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary">Planta 1</span>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Más información</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exposición 2 -->
+                    <div class="col-md-6 col-lg-4" data-categoria="permanente">
+                        <div class="exposicion-card">
+                            <div class="exposicion-imagen">
+                                <img src="https://images.unsplash.com/photo-1531913764164-f85c52d6e654?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Arte Clásico" class="img-fluid">
+                                <div class="exposicion-categoria">Permanente</div>
+                            </div>
+                            <div class="exposicion-info">
+                                <h3>Grandes Maestros</h3>
+                                <p class="exposicion-artista">Colección Permanente</p>
+                                <p class="exposicion-descripcion">Obras maestras desde el Renacimiento hasta el siglo XIX en nuestra colección permanente.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary">Planta 2</span>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Explorar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exposición 3 -->
+                    <div class="col-md-6 col-lg-4" data-categoria="proximas">
+                        <div class="exposicion-card">
+                            <div class="exposicion-imagen">
+                                <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Arte Digital" class="img-fluid">
+                                <div class="exposicion-fecha">Próximamente</div>
+                                <div class="exposicion-categoria">Temporal</div>
+                            </div>
+                            <div class="exposicion-info">
+                                <h3>Fronteras Digitales</h3>
+                                <p class="exposicion-artista">Artistas Contemporáneos</p>
+                                <p class="exposicion-descripcion">Explorando la intersección entre el arte y la tecnología en el siglo XXI.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-secondary">Próximamente</span>
+                                    <button class="btn btn-sm btn-outline-secondary" disabled>Próximamente</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-destacada p-4 rounded mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3>¿Quieres recibir información sobre nuestras exposiciones?</h3>
+                            <p class="mb-0">Suscríbete a nuestro boletín para estar al día de todas las novedades.</p>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                            <button class="btn btn-primary">Suscribirse</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calendario-exposiciones">
+                    <h2 class="text-center mb-4">Calendario de Exposiciones</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Exposición</th>
+                                    <th>Fechas</th>
+                                    <th>Ubicación</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Impresionismo Moderno</td>
+                                    <td>15 Jun - 15 Nov 2023</td>
+                                    <td>Sala de Exposiciones 1</td>
+                                    <td><span class="badge bg-warning text-dark">Temporal</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Grandes Maestros</td>
+                                    <td>Permanente</td>
+                                    <td>Planta 2</td>
+                                    <td><span class="badge bg-success">Permanente</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Fronteras Digitales</td>
+                                    <td>1 Dic 2023 - 28 Feb 2024</td>
+                                    <td>Sala de Nuevas Tecnologías</td>
+                                    <td><span class="badge bg-info">Próxima</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="/css/paginas/exposiciones.css">
+}
+
+@section Scripts {
+    <script>
+        // Filtrado de exposiciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const filtros = document.querySelectorAll('.filtros .btn');
+            const exposiciones = document.querySelectorAll('[data-categoria]');
+            
+            filtros.forEach(filtro => {
+                filtro.addEventListener('click', function() {
+                    // Remover clase activa de todos los botones
+                    filtros.forEach(btn => btn.classList.remove('active'));
+                    // Agregar clase activa al botón clickeado
+                    this.classList.add('active');
+                    
+                    const categoria = this.getAttribute('data-filter');
+                    
+                    exposiciones.forEach(expo => {
+                        if (categoria === 'todas' || expo.getAttribute('data-categoria') === categoria) {
+                            expo.style.display = 'block';
+                        } else {
+                            expo.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,242 @@
+/* Estilos para la página de Visitas en Grupo */
+
+.visitas-grupo .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1575505586569-646b2ca898fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 150px 0;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.visitas-grupo .hero-section h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.visitas-grupo .hero-section h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: #3498db;
+}
+
+.visitas-grupo .hero-section .lead {
+    font-size: 1.8rem;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Tarjetas de grupo */
+.grupo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px 25px;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.grupo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.grupo-icon {
+    width: 80px;
+    height: 80px;
+    background: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+    color: #3498db;
+    transition: all 0.3s ease;
+}
+
+.grupo-card:hover .grupo-icon {
+    background: #3498db;
+    color: white;
+    transform: rotate(360deg);
+}
+
+.grupo-card h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.grupo-card p {
+    color: #555;
+    margin-bottom: 20px;
+    min-height: 60px;
+}
+
+.grupo-card ul {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.grupo-card ul li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+    color: #555;
+}
+
+.grupo-card ul li i {
+    color: #3498db;
+    position: absolute;
+    left: 0;
+    top: 5px;
+}
+
+/* Sección de información */
+.info-section {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 50px 0;
+    border-left: 4px solid #e74c3c;
+}
+
+.info-section h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section h3 i {
+    margin-right: 10px;
+    color: #e74c3c;
+}
+
+.info-section ul li {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* Caja de reserva */
+.reserva-box {
+    background: #2c3e50;
+    color: white;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(44, 62, 80, 0.2);
+}
+
+.reserva-box h3 {
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.reserva-box p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+.reserva-box .btn-primary {
+    background-color: #e74c3c;
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.reserva-box .btn-primary:hover {
+    background-color: #c0392b;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .visitas-grupo .hero-section {
+        padding: 120px 0;
+    }
+    
+    .visitas-grupo .hero-section h1 {
+        font-size: 3rem;
+    }
+    
+    .grupo-card {
+        margin-bottom: 30px;
+    }
+    
+    .info-section {
+        margin: 30px 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .visitas-grupo .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .visitas-grupo .hero-section .lead {
+        font-size: 1.4rem;
+    }
+    
+    .info-section {
+        padding: 20px;
+    }
+    
+    .reserva-box {
+        padding: 25px 15px !important;
+    }
+    
+    .reserva-box h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .visitas-grupo .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .grupo-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .grupo-card p, .info-section ul li {
+        font-size: 0.95rem;
+    }
+    
+    .reserva-box h3 {
+        font-size: 1.3rem;
+    }
+    
+    .reserva-box p {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,105 @@
+@{
+    ViewData["Title"] = "Visitas en Grupo";
+    Layout = "_Layout";
+}
+
+<div class="visitas-grupo">
+    <section class="hero-section">
+        <div class="container">
+            <h1>Visitas en Grupo</h1>
+            <p class="lead">Experiencias personalizadas para grupos organizados</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="intro-text mb-5 text-center">
+                    <h2 class="section-title">Planifica tu visita grupal</h2>
+                    <p class="lead">Ofrecemos experiencias adaptadas a las necesidades de cada grupo, ya sean escolares, universitarios, adultos mayores o asociaciones culturales.</p>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="grupo-card">
+                            <div class="grupo-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>Grupos Escolares</h3>
+                            <p>Visitas adaptadas a diferentes niveles educativos, desde primaria hasta bachillerato, con material didáctico incluido.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle"></i> Recorridos temáticos</li>
+                                <li><i class="fas fa-check-circle"></i> Talleres educativos</li>
+                                <li><i class="fas fa-check-circle"></i> Material didáctico</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="grupo-card">
+                            <div class="grupo-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <h3>Estudiantes Universitarios</h3>
+                            <p>Recorridos especializados para carreras relacionadas con el arte, historia y humanidades.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle"></i> Enfoque académico</li>
+                                <li><i class="fas fa-check-circle"></i> Visitas técnicas</li>
+                                <li><i class="fas fa-check-circle"></i> Recursos para investigación</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="grupo-card">
+                            <div class="grupo-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Grupos de Adultos</h3>
+                            <p>Experiencias culturales para asociaciones, empresas o grupos de amigos.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check-circle"></i> Visitas temáticas</li>
+                                <li><i class="fas fa-check-circle"></i> Actividades interactivas</li>
+                                <li><i class="fas fa-check-circle"></i> Opción con guía privado</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section mb-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3><i class="fas fa-info-circle me-2"></i>Información General</h3>
+                            <ul class="list-unstyled">
+                                <li><strong>Tamaño del grupo:</strong> Mínimo 10, máximo 25 personas</li>
+                                <li><strong>Duración:</strong> 60-90 minutos según el tipo de visita</li>
+                                <li><strong>Idiomas:</strong> Español, inglés, francés y alemán</li>
+                                <li><strong>Accesibilidad:</strong> El museo es accesible para personas con movilidad reducida</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h3><i class="fas fa-euro-sign me-2"></i>Tarifas Especiales</h3>
+                            <ul class="list-unstyled">
+                                <li><strong>Grupos escolares:</strong> 5€ por estudiante (profesores gratis)</li>
+                                <li><strong>Grupos universitarios:</strong> 7€ por estudiante</li>
+                                <li><strong>Grupos de adultos:</strong> 10€ por persona</li>
+                                <li><strong>Guía privado:</strong> 60€ adicionales por grupo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reserva-box text-center p-4 rounded">
+                    <h3 class="mb-4">¿Quieres reservar una visita para tu grupo?</h3>
+                    <p>Completa el formulario de solicitud y nos pondremos en contacto contigo para confirmar la disponibilidad.</p>
+                    <button class="btn btn-primary btn-lg mt-3">Solicitar Reserva</button>
+                    <p class="small mt-2">O llámanos al +34 123 456 789</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="/css/paginas/visitas-grupo.css">
+}

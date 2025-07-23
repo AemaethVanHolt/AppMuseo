@@ -36,6 +36,16 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 var app = builder.Build();
 
+// Configurar el middleware para servir archivos estáticos
+app.UseStaticFiles();
+
+// Configurar el enrutamiento
+app.UseRouting();
+
+// Configurar autenticación y autorización
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Aplicar migraciones pendientes y seed inicial
 using (var scope = app.Services.CreateScope())
 {
@@ -49,20 +59,9 @@ using (var scope = app.Services.CreateScope())
         await context.Database.MigrateAsync();
         Console.WriteLine("Migraciones aplicadas correctamente.");
         
-        // Verificar si la tabla de obras está vacía
-        var obrasExisten = await context.Obras.AnyAsync();
-        
-        // Ejecutar seed inicial
+        // Ejecutar seed inicial completo
         Console.WriteLine("Inicializando datos...");
         await DbInitializer.InitializeAsync(services);
-        
-        // Si la tabla de obras estaba vacía, inicializar solo las obras
-        if (!obrasExisten)
-        {
-            Console.WriteLine("Inicializando datos de obras...");
-            await ObraInitializer.SeedObrasAsync(services);
-            Console.WriteLine("Datos de obras inicializados correctamente.");
-        }
         
         Console.WriteLine("Datos inicializados correctamente.");
     }

@@ -1,0 +1,82 @@
+@{
+    ViewData["Title"] = "Visitas Guiadas";
+    Layout = "_Layout";
+}
+
+<div class="visitas-guiadas">
+    <section class="hero-section">
+        <div class="container">
+            <h1>Visitas Guiadas</h1>
+            <p class="lead">Descubre nuestras colecciones con expertos en arte</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="intro-text mb-5">
+                    <h2 class="section-title">Explora el museo con nuestros guías expertos</h2>
+                    <p>Nuestras visitas guiadas ofrecen una experiencia enriquecedora a través de las colecciones del museo. Conoce las historias detrás de las obras maestras y descubre detalles que pasarían desapercibidos en una visita por tu cuenta.</p>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Visita guiada general">
+                            <div class="card-body">
+                                <h3 class="card-title">Visita General</h3>
+                                <p class="card-text">Un recorrido completo por nuestras colecciones permanentes, ideal para quienes visitan el museo por primera vez.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-clock me-2"></i> Duración: 90 minutos</li>
+                                    <li><i class="fas fa-users me-2"></i> Máximo 20 personas</li>
+                                    <li><i class="fas fa-language me-2"></i> Disponible en varios idiomas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1582556196327-543df778c11a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Visita temática">
+                            <div class="card-body">
+                                <h3 class="card-title">Visitas Temáticas</h3>
+                                <p class="card-text">Enfócate en movimientos artísticos específicos o periodos históricos con nuestros especialistas.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-clock me-2"></i> Duración: 60-75 minutos</li>
+                                    <li><i class="fas fa-palette me-2"></i> Temas rotativos cada mes</li>
+                                    <li><i class="fas fa-book me-2"></i> Material didáctico incluido</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section mb-5">
+                    <h3 class="mb-4">Información Práctica</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4><i class="far fa-clock me-2"></i>Horarios</h4>
+                            <p>Martes a domingo: 11:00, 13:00 y 17:00</p>
+                            <p>Viernes y sábado: Visita nocturna a las 20:00</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4><i class="fas fa-euro-sign me-2"></i>Precios</h4>
+                            <p>General: 15€ (incluye entrada al museo)</p>
+                            <p>Reducida: 10€ (estudiantes, mayores de 65 años)</p>
+                            <p>Menores de 12 años: Gratis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <h4><i class="fas fa-info-circle me-2"></i>Reservas</h4>
+                    <p>Se recomienda reservar con al menos 48 horas de antelación. Las visitas se realizan con un mínimo de 5 personas.</p>
+                    <button class="btn btn-primary mt-2">Reservar ahora</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="/css/paginas/visitas-guiadas.css">
+}

@@ -9,7 +9,7 @@
 <section class="hero-section">
     <div class="hero-image">
         <div class="hero-overlay"></div>
-        <div class="hero-content animate-fade-in-up">
+        <div class="hero-content">
             <h1 class="hero-title">Bienvenido al Museo Internacional</h1>
             <p class="hero-subtitle">Descubre obras maestras de todo el mundo en nuestra colección digital</p>
             <a href="/colecciones" class="btn btn-primary btn-lg">Explorar Colecciones</a>
@@ -67,17 +67,17 @@
 <!-- Contenedor principal para las tres secciones -->
 <div class="full-width-sections">
     <!-- NUEVA SECCIÓN GUÍA DEL MUSEO -->
-    <section class="guide-section py-5">
+    <section class="py-5 bg-light">
         <div class="container-fluid px-0">
             <div class="row g-0 align-items-center">
                 <div class="col-lg-6">
                     <img src="/img/obras/0.jpg" alt="Museo Internacional" class="img-fluid w-100 h-100" style="object-fit: cover; min-height: 500px;">
                 </div>
                 <div class="col-lg-6 p-5">
-                    <div class="guide-content">
+                    <div>
                         <h2 class="section-title mb-4">Guía para visitar el Museo Internacional: las 10 colecciones más importantes</h2>
                         <p class="lead mb-4">El Museo Internacional es una parada obligatoria dentro de tu visita a la ciudad, ya seas amante del arte o no, merece la pena visitarlo. Con más de 35.000 piezas exhibidas, elegir qué ver puede resultar abrumador. Por ello, hemos preparado una guía para que descubras las 10 obras más importantes del museo y aproveches al máximo tu visita.</p>
-                        <a href="#" class="btn btn-outline-primary">Seguir leyendo</a>
+                        <a href="/Paginas/GuiaMuseo" class="btn btn-outline-primary">Seguir leyendo</a>
                     </div>
                 </div>
             </div>
@@ -85,17 +85,17 @@
     </section>
 
     <!-- Sección Historia del Museo -->
-    <section class="history-section py-5 bg-white">
+    <section class="py-5 bg-white">
         <div class="container-fluid px-0">
             <div class="row g-0 align-items-center">
                 <div class="col-lg-6 order-lg-2">
                     <img src="/img/obras/20.jpg" alt="Historia del Museo Internacional" class="img-fluid w-100 h-100" style="object-fit: cover; min-height: 500px;">
                 </div>
                 <div class="col-lg-6 p-5 order-lg-1">
-                    <div class="history-content">
+                    <div>
                         <h2 class="section-title mb-4">Conoce la Historia del Museo Internacional</h2>
                         <p class="lead mb-4">El Museo Internacional es mucho más que una galería de arte; es un testimonio vivo de siglos de historia, cultura y evolución arquitectónica. Ha sido testigo de algunos de los eventos más importantes de la historia y del arte universal.</p>
-                        <a href="#" class="btn btn-outline-primary">Seguir leyendo</a>
+                        <a href="/Paginas/HistoriaMuseo" class="btn btn-outline-primary">Seguir leyendo</a>
                     </div>
                 </div>
             </div>
@@ -127,26 +127,9 @@
 
 @section Scripts {
     <script>
-        // Añadir clase de animación a los elementos al hacer scroll
+        // Eliminado el código de animación que causaba el efecto de rebote
         document.addEventListener('DOMContentLoaded', function() {
-            const animateElements = document.querySelectorAll('.card, .info-box');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '0';
-                        entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            animateElements.forEach(element => {
-                observer.observe(element);
-                element.style.opacity = '0';
-            });
+            // Código de inicialización si es necesario
         });
     </script>
 }

@@ -46,10 +46,11 @@ namespace AppMuseo.Controllers
             if (!string.IsNullOrEmpty(id) && isAdmin)
             {
                 // Si es admin y se proporciona un ID, editar ese usuario
+                if (id == null) return BadRequest("ID de usuario no proporcionado");
                 user = await _userManager.FindByIdAsync(id);
                 if (user == null)
                 {
-                    return NotFound();
+                    return NotFound("Usuario no encontrado");
                 }
             }
             else
@@ -69,15 +70,15 @@ namespace AppMuseo.Controllers
             var model = new EditProfileViewModel
             {
                 Id = user.Id,
-                Nombre = user.Nombre,
-                Apellidos = user.Apellidos,
-                Email = user.Email,
-                Telefono = user.PhoneNumber,
-                Direccion = user.Direccion,
-                Ciudad = user.Ciudad,
-                Provincia = user.Provincia,
-                CodigoPostal = user.CodigoPostal,
-                Pais = user.Pais,
+                Nombre = user.Nombre ?? string.Empty,
+                Apellidos = user.Apellidos ?? string.Empty,
+                Email = user.Email ?? string.Empty,
+                Telefono = user.PhoneNumber ?? string.Empty,
+                Direccion = user.Direccion ?? string.Empty,
+                Ciudad = user.Ciudad ?? string.Empty,
+                Provincia = user.Provincia ?? string.Empty,
+                CodigoPostal = user.CodigoPostal ?? string.Empty,
+                Pais = user.Pais ?? string.Empty,
                 Biografia = user.Biografia,
                 Intereses = user.Intereses,
                 FechaNacimiento = user.FechaNacimiento,
@@ -112,6 +113,10 @@ namespace AppMuseo.Controllers
             ApplicationUser user;
             if (!string.IsNullOrEmpty(model.Id) && isAdmin)
             {
+                if (string.IsNullOrEmpty(model.Id))
+                {
+                    return BadRequest("ID de usuario no proporcionado");
+                }
                 user = await _userManager.FindByIdAsync(model.Id);
                 if (user == null)
                 {

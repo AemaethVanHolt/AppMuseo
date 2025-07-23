@@ -15,6 +15,7 @@ namespace AppMuseo.Data
         public DbSet<Pago> Pagos { get; set; }
         public DbSet<Descuento> Descuentos { get; set; }
         public DbSet<Extra> Extras { get; set; }
+        public DbSet<VisitanteData> Visitantes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

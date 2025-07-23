@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AppMuseo.Controllers
 {
-    [Authorize]
     public class ColeccionesController : Controller
     {
         private readonly AppMuseoDbContext _context;
@@ -17,6 +16,7 @@ namespace AppMuseo.Controllers
         }
 
         // GET: Colecciones
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Colecciones.Include(c => c.Obras).ToListAsync());
@@ -24,6 +24,7 @@ namespace AppMuseo.Controllers
 
         // GET: Colecciones/Details/5
         // Null checks already present to avoid CS8602
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -49,7 +50,7 @@ namespace AppMuseo.Controllers
             {
                 coleccion.FechaCreacion = DateTime.Now;
                 coleccion.UltimaModificacion = DateTime.Now;
-                coleccion.CreadoPor = User.Identity.Name;
+                coleccion.CreadoPor = User.Identity?.Name ?? "Sistema";
                 _context.Add(coleccion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -59,7 +60,6 @@ namespace AppMuseo.Controllers
 
         // GET: Colecciones/Edit/5
         [Authorize(Roles="Administrador")]
-        // Null checks already present to avoid CS8602
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -117,6 +117,175 @@ namespace AppMuseo.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool ColeccionExists(int id)
+        {
+            return _context.Colecciones.Any(e => e.Id == id);
+        }
+
+        // Acciones para las vistas específicas de colección
+        
+        // GET: Colecciones/ArteModerno
+        [AllowAnonymous]
+        public IActionResult ArteModerno()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Arte Moderno");
+
+            if (coleccion == null)
+            {
+                // Si no existe, crea una colección temporal
+                coleccion = new Coleccion
+                {
+                    Nombre = "Arte Moderno",
+                    Descripcion = "Explora las obras más representativas del arte moderno del siglo XX.",
+                    Obras = new List<Obra>()
+                };
+            }
+
+            return View(coleccion);
+        }
+
+        // GET: Colecciones/Renacimiento
+        [AllowAnonymous]
+        public IActionResult Renacimiento()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Renacimiento");
+
+            if (coleccion == null)
+            {
+                coleccion = new Coleccion
+                {
+                    Nombre = "Renacimiento",
+                    Descripcion = "Descubre las obras maestras del Renacimiento, un período de renacimiento cultural en Europa que abarcó los siglos XIV al XVII.",
+                    Obras = new List<Obra>()
+                };
+            }
+            return View(coleccion);
+        }
+
+        // GET: Colecciones/ArteAsiatico
+        [AllowAnonymous]
+        public IActionResult ArteAsiatico()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Arte Asiático");
+
+            if (coleccion == null)
+            {
+                coleccion = new Coleccion
+                {
+                    Nombre = "Arte Asiático",
+                    Descripcion = "Explora la rica tradición artística de Asia, desde la antigüedad hasta la época contemporánea.",
+                    Obras = new List<Obra>()
+                };
+            }
+            return View(coleccion);
+        }
+
+        // GET: Colecciones/PintoresFlamencos
+        [AllowAnonymous]
+        public IActionResult PintoresFlamencos()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Pintores Flamencos");
+
+            if (coleccion == null)
+            {
+                coleccion = new Coleccion
+                {
+                    Nombre = "Pintores Flamencos",
+                    Descripcion = "Admira las obras maestras de los pintores flamencos de los siglos XV al XVII, conocidos por su detallismo y uso del color.",
+                    Obras = new List<Obra>()
+                };
+            }
+            return View(coleccion);
+        }
+
+        // GET: Colecciones/PintoresSigloXIX
+        [AllowAnonymous]
+        public IActionResult PintoresSigloXIX()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Pintores del Siglo XIX");
+
+            if (coleccion == null)
+            {
+                coleccion = new Coleccion
+                {
+                    Nombre = "Pintores del Siglo XIX",
+                    Descripcion = "Descubre la evolución del arte en el siglo XIX, desde el Neoclasicismo hasta el Postimpresionismo.",
+                    Obras = new List<Obra>()
+                };
+            }
+            return View(coleccion);
+        }
+
+        // GET: Colecciones/PintoresRenacentistas
+        [AllowAnonymous]
+        public IActionResult PintoresRenacentistas()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Pintores Renacentistas");
+
+            if (coleccion == null)
+            {
+                coleccion = new Coleccion
+                {
+                    Nombre = "Pintores Renacentistas",
+                    Descripcion = "Explora las obras maestras de los grandes maestros del Renacimiento que revolucionaron el arte occidental.",
+                    Obras = new List<Obra>()
+                };
+            }
+            return View(coleccion);
+        }
+
+        // GET: Colecciones/ColeccionTemporal
+        [AllowAnonymous]
+        public IActionResult ColeccionTemporal()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Colección Temporal");
+
+            if (coleccion == null)
+            {
+                coleccion = new Coleccion
+                {
+                    Nombre = "Colección Temporal",
+                    Descripcion = "Exposiciones temporales que presentan obras de diferentes períodos, estilos y artistas de todo el mundo.",
+                    Obras = new List<Obra>()
+                };
+            }
+            return View(coleccion);
+        }
+
+        // GET: Colecciones/ColeccionPermanente
+        [AllowAnonymous]
+        public IActionResult ColeccionPermanente()
+        {
+            var coleccion = _context.Colecciones
+                .Include(c => c.Obras)
+                .FirstOrDefault(c => c.Nombre == "Colección Permanente");
+
+            if (coleccion == null)
+            {
+                coleccion = new Coleccion
+                {
+                    Nombre = "Colección Permanente",
+                    Descripcion = "Nuestra colección permanente incluye obras maestras de todos los tiempos, desde la antigüedad hasta el arte contemporáneo.",
+                    Obras = new List<Obra>()
+                };
+            }
+            return View(coleccion);
         }
     }
 }

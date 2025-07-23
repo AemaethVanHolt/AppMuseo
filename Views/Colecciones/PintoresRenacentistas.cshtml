@@ -1,0 +1,112 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Pintores Renacentistas";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4 text-center mb-5">Pintores Renacentistas</h1>
+            <div class="text-center mb-5">
+                <img src="/img/obras/21.jpg" alt="Pintura renacentista" class="img-fluid rounded shadow-lg mb-4" style="max-height: 500px; width: auto; object-fit: cover;">
+            </div>
+            <div class="bg-light p-4 rounded shadow-sm mb-5">
+                <h2 class="h3 mb-4">El Renacimiento: Un nuevo amanecer para el arte</h2>
+                <p class="lead">El Renacimiento marcó un período de renacimiento cultural que transformó el arte europeo. Nuestra colección muestra obras maestras que ejemplifican la búsqueda de la belleza ideal, el dominio de la perspectiva y el redescubrimiento de la antigüedad clásica.</p>
+                
+                <h3 class="h4 mt-5 mb-3">Artistas icónicos</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/img/obras/22.jpg" class="card-img-top" alt="Leonardo da Vinci">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Leonardo da Vinci</h4>
+                                <p class="card-text">El genio del Alto Renacimiento, maestro de la técnica del sfumato.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/img/obras/23.jpg" class="card-img-top" alt="Miguel Ángel">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Miguel Ángel</h4>
+                                <p class="card-text">Escultor y pintor que plasmó la grandeza del cuerpo humano.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/img/obras/24.jpg" class="card-img-top" alt="Rafael">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Rafael</h4>
+                                <p class="card-text">Maestro de la composición armónica y la belleza ideal.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="h4 mt-5 mb-3">Características del arte renacentista</h3>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-drafting-compass fa-2x text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="h6 mb-1">Perspectiva lineal</h5>
+                                <p class="small mb-0">Técnica que crea la ilusión de profundidad en superficies planas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-child fa-2x text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="h6 mb-1">Humanismo</h5>
+                                <p class="small mb-0">El ser humano como medida de todas las cosas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-sun fa-2x text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="h6 mb-1">Claroscuro</h5>
+                                <p class="small mb-0">Uso de luces y sombras para crear volumen.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-book fa-2x text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="h6 mb-1">Temas clásicos</h5>
+                                <p class="small mb-0">Recuperación de la mitología y la filosofía grecorromanas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <a href="/colecciones" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                    </a>
+                    <a href="/taquilla" class="btn btn-primary">
+                        <i class="fas fa-ticket-alt me-2"></i>Reservar visita guiada
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/colecciones/PintoresRenacentistas.css" />
+}

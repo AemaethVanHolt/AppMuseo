@@ -1,0 +1,127 @@
+@model AppMuseo.Models.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Registro de Usuario";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-dark text-center py-3">
+                    <h3 class="text-light mb-0">Crear una cuenta</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Nombre" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" placeholder="Apellidos" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="correo@ejemplo.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" class="form-control" placeholder="Mínimo 6 caracteres" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label asp-for="ConfirmPassword" class="form-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirma tu contraseña" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-check mb-4">
+                            <input asp-for="TermsAccepted" class="form-check-input" id="termsCheck" />
+                            <label class="form-check-label" for="termsCheck">
+                                Acepto los <a href="#" class="text-decoration-none">términos y condiciones</a>
+                            </label>
+                            <span asp-validation-for="TermsAccepted" class="d-block text-danger"></span>
+                        </div>
+                        
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
+                        </div>
+                        
+                        <div class="text-center">
+                            <p class="mb-0">¿Ya tienes una cuenta? <a asp-action="Login" class="text-decoration-none">Inicia sesión</a></p>
+                        </div>
+                        
+                        @Html.AntiForgeryToken()
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .card {
+            border: none;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: #000 !important;
+            border-bottom: 2px solid #FFD700;
+        }
+        
+        .form-control:focus {
+            border-color: #FFD700;
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: #000;
+            border-color: #FFD700;
+            color: #FFD700;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #FFD700;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+        
+        a {
+            color: #FFD700;
+            transition: all 0.2s ease;
+        }
+        
+        a:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .form-check-input:checked {
+            background-color: #FFD700;
+            border-color: #FFD700;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

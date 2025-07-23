@@ -1,0 +1,98 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Pintores del Siglo XIX";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4 text-center mb-5">Pintores del Siglo XIX</h1>
+            <div class="text-center mb-5">
+                <img src="/img/obras/20.jpg" alt="Pintura del siglo XIX" class="img-fluid rounded shadow-lg mb-4" style="max-height: 500px; width: auto; object-fit: cover;">
+            </div>
+            <div class="bg-light p-4 rounded shadow-sm mb-5">
+                <h2 class="h3 mb-4">La revolución del arte en el siglo XIX</h2>
+                <p class="lead">El siglo XIX fue una época de extraordinaria innovación en el arte, que vio nacer movimientos como el Romanticismo, el Realismo y el Impresionismo. Nuestra colección muestra la evolución del arte a lo largo de este siglo fascinante.</p>
+                
+                <h3 class="h4 mt-5 mb-3">Movimientos destacados</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Romanticismo</h4>
+                                <p class="card-text">Énfasis en la emoción, la naturaleza y lo sublime.</p>
+                                <p class="text-muted small">Artistas: Eugène Delacroix, Francisco de Goya</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Realismo</h4>
+                                <p class="card-text">Representación objetiva de la vida cotidiana.</p>
+                                <p class="text-muted small">Artistas: Gustave Courbet, Jean-François Millet</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Impresionismo</h4>
+                                <p class="card-text">Captura de la luz y el momento efímero.</p>
+                                <p class="text-muted small">Artistas: Claude Monet, Pierre-Auguste Renoir</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="h4 mt-5 mb-3">Obras destacadas</h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Obra</th>
+                                <th>Artista</th>
+                                <th>Año</th>
+                                <th>Estilo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>La libertad guiando al pueblo</td>
+                                <td>Eugène Delacroix</td>
+                                <td>1830</td>
+                                <td>Romanticismo</td>
+                            </tr>
+                            <tr>
+                                <td>Los espigadores</td>
+                                <td>Jean-François Millet</td>
+                                <td>1857</td>
+                                <td>Realismo</td>
+                            </tr>
+                            <tr>
+                                <td>Impresión, sol naciente</td>
+                                <td>Claude Monet</td>
+                                <td>1872</td>
+                                <td>Impresionismo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-5">
+                    <a href="/colecciones" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                    </a>
+                    <a href="/taquilla" class="btn btn-primary">
+                        <i class="fas fa-ticket-alt me-2"></i>Reservar entrada
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/colecciones/PintoresSigloXIX.css" />
+}

@@ -1,0 +1,136 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Arte Renacentista";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4 text-center mb-5" style="font-weight: bold; color: #FFD700;">Arte Renacentista</h1>
+            <div class="text-center mb-5">
+                <img src="/img/obras/11.jpg" alt="Arte Renacentista" class="img-fluid rounded shadow-lg mb-4" style="max-height: 500px; width: auto; object-fit: cover;">
+            </div>
+            <div class="bg-light p-4 rounded shadow-sm mb-5">
+                <h2 class="h3 mb-4">Descubre las maravillas del Renacimiento</h2>
+                <p class="lead">El Renacimiento marcó un renacer del arte y la cultura clásica en Europa. Nuestra colección incluye obras maestras que ejemplifican la perfección técnica, la perspectiva y el humanismo que definieron esta época dorada del arte.</p>
+                
+                <h3 class="h4 mt-5 mb-3">Características principales</h3>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="h5 card-title"><i class="fas fa-drafting-compass me-2"></i>Perspectiva lineal</h4>
+                                <p class="card-text">Los artistas del Renacimiento dominaron la técnica de la perspectiva para crear la ilusión de profundidad en superficies planas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="h5 card-title"><i class="fas fa-child me-2"></i>Humanismo</h4>
+                                <p class="card-text">El ser humano se convirtió en el centro del universo artístico, con representaciones más realistas y expresivas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="h5 card-title"><i class="fas fa-palette me-2"></i>Técnica del claroscuro</h4>
+                                <p class="card-text">Uso magistral de la luz y la sombra para crear volumen y dramatismo en las composiciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="h5 card-title"><i class="fas fa-book me-2"></i>Temas clásicos</h4>
+                                <p class="card-text">Recuperación de la mitología grecorromana y temas bíblicos con un enfoque humanista.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="h4 mt-5 mb-3">Obras destacadas</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <img src="/img/obras/12.jpg" class="card-img-top" alt="Obra renacentista 1">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">La Anunciación</h4>
+                                <p class="card-text text-muted">Leonardo da Vinci, c. 1472-1475</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <img src="/img/obras/14.jpg" class="card-img-top" alt="Obra renacentista 2">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">El Nacimiento de Venus</h4>
+                                <p class="card-text text-muted">Sandro Botticelli, c. 1485</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <img src="/img/obras/15.jpg" class="card-img-top" alt="Obra renacentista 3">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">La Escuela de Atenas</h4>
+                                <p class="card-text text-muted">Rafael, 1509-1511</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <a href="/colecciones" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                    </a>
+                    <a href="/taquilla" class="btn btn-primary">
+                        <i class="fas fa-ticket-alt me-2"></i>Reservar visita guiada
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .lead {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .card-title i {
+            color: #8b5a2b;
+        }
+    </style>
+}

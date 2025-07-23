@@ -1,0 +1,159 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Colección Permanente";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="text-center mb-5">
+                <span class="badge bg-primary mb-3">COLECCIÓN PERMANENTE</span>
+                <h1 class="display-4 fw-bold mb-3">@Model.Nombre</h1>
+                <p class="lead text-muted max-w-3xl mx-auto">@Model.Descripcion</p>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-palette fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Pintura</h3>
+                            <p class="text-muted">Desde el Renacimiento hasta las vanguardias del siglo XX, nuestra colección de pintura abarca los principales movimientos artísticos de la historia.</p>
+                            <a href="#pintura" class="btn btn-sm btn-outline-primary mt-2">Ver obras</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-monument fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Escultura</h3>
+                            <p class="text-muted">Una selección de esculturas que abarcan desde la antigüedad clásica hasta las expresiones contemporáneas más innovadoras.</p>
+                            <a href="#escultura" class="btn btn-sm btn-outline-primary mt-2">Ver obras</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-vase fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Artes decorativas</h3>
+                            <p class="text-muted">Muebles, cerámicas, vidrieras y otros objetos que reflejan el diseño y la artesanía a lo largo de los siglos.</p>
+                            <a href="#artes-decorativas" class="btn btn-sm btn-outline-primary mt-2">Ver obras</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5" id="pintura">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h3 mb-0">Pintura</h2>
+                    <a href="#" class="small text-muted text-decoration-none">Ver todo <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="/img/obras/30.jpg" class="card-img-top" alt="Obra de pintura">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Retrato de dama</h4>
+                                <p class="card-text text-muted small">Anónimo flamenco, siglo XVI</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="/img/obras/31.jpg" class="card-img-top" alt="Obra de pintura">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Paisaje invernal</h4>
+                                <p class="card-text text-muted small">Escuela holandesa, siglo XVII</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="/img/obras/32.jpg" class="card-img-top" alt="Obra de pintura">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Naturaleza muerta</h4>
+                                <p class="card-text text-muted small">Escuela española, siglo XVIII</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5" id="escultura">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h3 mb-0">Escultura</h2>
+                    <a href="#" class="small text-muted text-decoration-none">Ver todo <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="/img/obras/33.jpg" class="card-img-top" alt="Obra de escultura">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Busto de mujer</h4>
+                                <p class="card-text text-muted small">Mármol, siglo I d.C.</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="/img/obras/34.jpg" class="card-img-top" alt="Obra de escultura">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Figura ecuestre</h4>
+                                <p class="card-text text-muted small">Bronce, siglo XVI</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="/img/obras/35.jpg" class="card-img-top" alt="Obra de escultura">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Formas abstractas</h4>
+                                <p class="card-text text-muted small">Acero, siglo XX</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-light p-4 rounded-3 mb-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="h4 mb-3">Visita guiada a la colección permanente</h3>
+                        <p class="mb-0">Descubre las obras maestras de nuestra colección permanente con nuestros expertos guías. Visitas disponibles en varios idiomas.</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                        <a href="/visitas-guiadas" class="btn btn-primary">Reservar visita</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="/colecciones" class="btn btn-outline-secondary me-3">
+                    <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                </a>
+                <a href="/taquilla" class="btn btn-primary">
+                    <i class="fas fa-ticket-alt me-2"></i>Comprar entrada
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/colecciones/ColeccionPermanente.css" />
+}

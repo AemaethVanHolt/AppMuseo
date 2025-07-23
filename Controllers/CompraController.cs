@@ -4,10 +4,10 @@ using System.Diagnostics;
 
 namespace AppMuseo.Controllers
 {
-    [Authorize]
     public class CompraController : Controller
     {
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Resumen()
         {
             return View();

@@ -308,6 +308,11 @@ namespace AppMuseo.Data
             // Crear visitantes
             foreach (var (i, visitante) in visitantes.Select((v, i) => (i, v)))
             {
+                if (string.IsNullOrEmpty(visitante.Email)) 
+                {
+                    logger.LogWarning("Se encontró un visitante sin correo electrónico, omitiendo...");
+                    continue;
+                }
                 var existingUser = await userManager.FindByEmailAsync(visitante.Email);
                 if (existingUser != null)
                 {
@@ -332,7 +337,7 @@ namespace AppMuseo.Data
                         PhoneNumber = visitante.Telefono, // Corregido: usar PhoneNumber en lugar de Telefono
                         ImageUrl = visitante.ImageUrl,
                         FechaCreacion = DateTime.Now.AddDays(-random.Next(1, 180)),
-                        FechaNacimiento = visitante.FechaNacimiento,
+                        FechaNacimiento = visitante.FechaNacimiento ?? DateTime.Now.AddYears(-20),
                         FechaRegistro = DateTime.Now.AddDays(-random.Next(1, 365)),
                         Activo = true,
                         Biografia = visitante.Biografia,
@@ -359,7 +364,7 @@ namespace AppMuseo.Data
                     try
                     {
                         // Determinar si el usuario tiene derecho a algún descuento (70% de probabilidad)
-                        Descuento descuento = null;
+                        Descuento? descuento = null;
                         if (random.Next(10) < 7) // 70% de probabilidad
                         {
                             // Lista de posibles descuentos con sus probabilidades
@@ -460,7 +465,7 @@ namespace AppMuseo.Data
                         for (int j = 0; j < entradasCount; j++)
                         {
                             var tiposDisponibles = Enum.GetValues(typeof(TipoEntrada));
-                            var tipoEntrada = (TipoEntrada)tiposDisponibles.GetValue(random.Next(tiposDisponibles.Length));
+                            var tipoEntrada = (TipoEntrada)(tiposDisponibles.GetValue(random.Next(tiposDisponibles.Length)) ?? TipoEntrada.Normal);
                             var fecha = DateTime.Now.AddDays(-random.Next(1, 30));
                             var hora = new TimeSpan(random.Next(9, 19), random.Next(0, 60), 0);
                             
@@ -546,7 +551,7 @@ namespace AppMuseo.Data
                                 IncluyeTienda = extra.Tienda,
                                 Total = Math.Round(total, 2), // Redondear a 2 decimales
                                 UserId = user.Id,
-                                DescuentoId = descuento.Id,
+                                DescuentoId = descuento?.Id,
                                 ExtraId = extra.Id,
                                 FechaCreacion = DateTime.Now,
                                 UltimaModificacion = DateTime.Now,

@@ -112,7 +112,12 @@ namespace AppMuseo.Data
                 {
                     // Seleccionar tipo de entrada aleatorio
                     var tiposEntrada = Enum.GetValues(typeof(TipoEntrada));
-                    var tipoEntrada = (TipoEntrada)tiposEntrada.GetValue(random.Next(tiposEntrada.Length));
+                    if (tiposEntrada == null || tiposEntrada.Length == 0)
+                    {
+                        logger.LogWarning("No se encontraron tipos de entrada disponibles, usando valor predeterminado");
+                        continue;
+                    }
+                    var tipoEntrada = (TipoEntrada)(tiposEntrada.GetValue(random.Next(tiposEntrada.Length)) ?? TipoEntrada.Normal);
 
                     // Calcular precio base según tipo de entrada
                     decimal precioBase = tipoEntrada switch

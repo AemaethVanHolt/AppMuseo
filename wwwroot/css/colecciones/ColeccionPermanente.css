@@ -1,0 +1,242 @@
+/* Estilos específicos para la vista de Colección Permanente */
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    border: none;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-block;
+    background-color: #2c3e50;
+}
+
+h1 {
+    color: #2c3e50;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+h1:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #2c3e50, #4a6fa5);
+    border-radius: 3px;
+}
+
+.lead {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #6c757d;
+    margin-bottom: 3rem;
+}
+
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background-color: rgba(74, 111, 165, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a6fa5;
+    font-size: 1.75rem;
+    transition: all 0.3s ease;
+}
+
+.card:hover .icon-wrapper {
+    background-color: rgba(74, 111, 165, 0.2);
+    transform: scale(1.1);
+}
+
+.btn-outline-primary {
+    border-width: 2px;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    color: #4a6fa5;
+    border-color: #4a6fa5;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4a6fa5;
+    border-color: #4a6fa5;
+}
+
+.btn-primary {
+    background-color: #4a6fa5;
+    border-color: #3d5d8a;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #3d5d8a;
+    border-color: #304c73;
+}
+
+/* Estilos para la sección de categorías */
+.category-card {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+}
+
+.category-card:hover {
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
+}
+
+.category-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem;
+    color: #2c3e50;
+}
+
+.category-description {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* Estilos para la galería de obras */
+.artwork-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.artwork-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.artwork-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.artwork-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.artwork-info {
+    padding: 1.25rem;
+}
+
+.artwork-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #2c3e50;
+}
+
+.artwork-artist {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.artwork-year {
+    font-size: 0.85rem;
+    color: #95a5a6;
+    font-style: italic;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .lead {
+        font-size: 1.1rem;
+    }
+    
+    .artwork-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    
+    .icon-wrapper {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Estilos para la sección de información adicional */
+.info-section {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+    margin: 3rem 0;
+    border-radius: 12px;
+}
+
+.info-item {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.info-icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(74, 111, 165, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    color: #4a6fa5;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.info-content h4 {
+    margin-bottom: 0.25rem;
+    color: #2c3e50;
+}
+
+.info-content p {
+    margin-bottom: 0;
+    color: #6c757d;
+}

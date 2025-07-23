@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AppMuseo.Controllers
 {
-    [Authorize]
     public class EntradasController : Controller
     {
         private readonly AppMuseoDbContext _context;
@@ -17,6 +16,7 @@ namespace AppMuseo.Controllers
         }
 
         // GET: Entradas
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var entradas = await _context.Entradas.Include(e => e.User).ToListAsync();
@@ -25,6 +25,7 @@ namespace AppMuseo.Controllers
 
         // GET: Entradas/Details/5
         // Null checks already present to avoid CS8602
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -50,7 +51,7 @@ namespace AppMuseo.Controllers
             {
                 entrada.FechaCreacion = DateTime.Now;
                 entrada.UltimaModificacion = DateTime.Now;
-                entrada.CreadoPor = User.Identity.Name;
+                entrada.CreadoPor = User.Identity?.Name ?? "Sistema";
                 _context.Add(entrada);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

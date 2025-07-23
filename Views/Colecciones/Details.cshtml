@@ -5,19 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1>@Model.Nombre</h1>
-            <p class="text-muted">@Model.Tipo</p>
-        </div>
+<div class="container mt-4" style="color: #fff; min-height: 100vh; padding: 20px;">
+    <div class="d-flex flex-column align-items-center text-center mb-4">
+        <h1 style="color: #FFD700; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">@Model.Nombre</h1>
+        <p style="color: #FFD700; font-weight: 500;">@Model.Tipo</p>
+    </div>
+    <div class="d-flex justify-content-end mb-4">
         <div>
             <a asp-action="Index" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i> Volver
             </a>
             @if (User.IsInRole("Administrador"))
             {
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn" style="background-color: #D4AF37; color: #000; border: 1px solid #FFD700;">
                     <i class="fas fa-edit"></i> Editar
                 </a>
             }
@@ -29,71 +29,85 @@
             <h5 class="card-title">Descripción</h5>
             <p class="card-text">@Model.Descripcion</p>
             
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <h5>Información de la Colección</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="fas fa-paint-brush me-2"></i>Número de Obras</span>
-                            <span class="badge bg-primary rounded-pill">@Model.Obras?.Count</span>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="far fa-calendar-plus me-2"></i>
-                            <strong>Creada el:</strong> @Model.FechaCreacion.ToString("dd/MM/yyyy")
-                        </li>
-                        <li class="list-group-item">
-                            <i class="far fa-calendar-check me-2"></i>
-                            <strong>Última modificación:</strong> @Model.UltimaModificacion.ToString("dd/MM/yyyy")
-                        </li>
-                        @if (!string.IsNullOrEmpty(Model.CreadoPor))
-                        {
-                            <li class="list-group-item">
-                                <i class="fas fa-user me-2"></i>
-                                <strong>Creada por:</strong> @Model.CreadoPor
+            @if (User.IsInRole("Administrador"))
+            {
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5>Información de la Colección</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-paint-brush me-2"></i>Número de Obras</span>
+                                <span class="badge bg-primary rounded-pill">@Model.Obras?.Count</span>
                             </li>
-                        }
-                    </ul>
+                            <li class="list-group-item">
+                                <i class="far fa-calendar-plus me-2"></i>
+                                <strong>Creada el:</strong> @Model.FechaCreacion.ToString("dd/MM/yyyy")
+                            </li>
+                            <li class="list-group-item">
+                                <i class="far fa-calendar-check me-2"></i>
+                                <strong>Última modificación:</strong> @Model.UltimaModificacion.ToString("dd/MM/yyyy")
+                            </li>
+                            @if (!string.IsNullOrEmpty(Model.CreadoPor))
+                            {
+                                <li class="list-group-item">
+                                    <i class="fas fa-user-edit me-2"></i>
+                                    <strong>Creado por:</strong> @Model.CreadoPor
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 
     @if (Model.Obras != null && Model.Obras.Any())
     {
-        <div class="card shadow-sm">
-            <div class="card-header">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
                 <h5 class="mb-0">Obras en esta colección</h5>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Artista</th>
-                                <th>Año</th>
-                                <th>Técnica</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var obra in Model.Obras)
-                            {
-                                <tr>
-                                <td>@(obra.Titulo ?? "Sin título")</td>
-                                <td>@(obra.Autor ?? "Desconocido")</td>
-                                <td>@(obra.Anio > 0 ? obra.Anio.ToString() : "N/A")</td>
-                                <td>@(obra.Estado.ToString() ?? "N/A")</td>
-                                <td>
-                                    <a asp-controller="Obras" asp-action="Details" asp-route-id="@obra.Id" 
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach (var obra in Model.Obras)
+                    {
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-img-container">
+                                    @{
+                                        var imagePath = obra.ImageUrl ?? "/img/obras/default.jpg";
+                                        // Asegurarse de que la ruta comience con /
+                                        if (!string.IsNullOrEmpty(imagePath) && !imagePath.StartsWith("/"))
+                                        {
+                                            imagePath = "/" + imagePath.TrimStart('~').TrimStart('/');
+                                        }
+                                        // Asegurarse de que la ruta de la imagen sea accesible desde la web
+                                        imagePath = imagePath.Replace("wwwroot", "");
+                                        
+                                        // Codificar la URL para manejar espacios y caracteres especiales
+                                        var encodedImagePath = Url.Content(imagePath);
+                                    }
+                                    <img src="@encodedImagePath"
+                                         class="card-img-zoom"
+                                         alt="@obra.Titulo"
+                                         onerror="this.onerror=null; this.src='@Url.Content("/img/obras/default.jpg")';">
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title" style="color: #ffffff;">@(obra.Titulo ?? "Sin título")</h5>
+                                    <h6 class="card-subtitle mb-2" style="color: #ffffff;">@(obra.Autor ?? "Artista desconocido")</h6>
+                                    <p class="card-text" style="color: #ffffff;">
+                                        <strong style="color: #FFD700;">Año:</strong> @(obra.Anio > 0 ? obra.Anio.ToString() : "Desconocido")<br>
+                                        <strong style="color: #FFD700;">Ubicación:</strong> @obra.UbicacionActual
+                                    </p>
+                                    <div>
+                                        <small style="color: #ffffff;">
+                                            @obra.UbicacionActual
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -106,16 +120,77 @@
     }
 </div>
 
+<div id="lightbox" class="lightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); z-index: 1000; justify-content: center; align-items: center;">
+    <span class="close-btn" style="position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+    <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%; object-fit: contain;">
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.querySelector('.close-btn');
+            const images = document.querySelectorAll('.card-img-zoom');
+
+            images.forEach(img => {
+                img.addEventListener('click', function() {
+                    lightboxImg.src = this.src;
+                    lightbox.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+}
+
 @section Styles {
     <style>
         .card {
-            border: none;
-            border-radius: 10px;
+            background-color: #0000000b;
+            border: 1px solid #373a3c69;
+            color: #ecf0f1;
+            overflow: hidden;
         }
+        
+        .card-img-container {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            background-color: #1a1a1a;
+            cursor: pointer;
+        }
+        
+        .card-img-zoom {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .card-img-zoom {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
         .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #eee;
+            background-color: #1e2023 !important;
+            color: #FFD700 !important;
+            border-bottom: 1px solid #2c3e50;
         }
+
         .list-group-item {
             border-left: none;
             border-right: none;

@@ -32,5 +32,9 @@ namespace AppMuseo.Models
         public DateTime FechaCreacion { get; set; }
         public DateTime UltimaModificacion { get; set; }
         public string? CreadoPor { get; set; }
+        
+        // Validación de entrada
+        public bool Utilizada { get; set; }
+        public DateTime? FechaUso { get; set; }
     }
 }

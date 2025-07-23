@@ -84,8 +84,8 @@
                             {
                                 var roles = userRoles.ContainsKey(user.Id) ? userRoles[user.Id] : new List<string>();
                                 <tr>
-                                    <td>@(user.Nombre + " " + user.Apellidos)</td>
-                                    <td>@user.Email</td>
+                                    <td>@(string.Concat(user.Nombre ?? string.Empty, " ", user.Apellidos ?? string.Empty).Trim())</td>
+                                    <td>@(user.Email ?? string.Empty)</td>
                                     <td>@(string.IsNullOrEmpty(user.PhoneNumber) ? "No especificado" : user.PhoneNumber)</td>
                                     <td>
                                         @if (roles.Any())

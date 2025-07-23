@@ -35,9 +35,26 @@
                                 <h5 class="text-white mb-3">Información de la Venta</h5>
                                 <!-- Código QR -->
                                 <div class="text-center mb-4">
-                                    <img src="@ViewBag.QRCodeImage" alt="Código QR de la entrada" class="img-fluid" style="max-width: 200px; background: white; padding: 10px; border-radius: 8px;">
+                                    <div class="bg-white p-3 rounded-3 shadow-sm mb-3" style="display: inline-block;">
+                                        <img src="@ViewBag.QRCodeImage" alt="Código QR de la entrada" class="img-fluid" style="max-width: 200px;">
+                                    </div>
                                     <p class="text-white-50 small mt-2">Presente este código QR en la entrada del museo</p>
+                                    
+                                    @if (ViewBag.UrlValidacion != null)
+                                    {
+                                        <div class="mt-3 p-3 bg-dark rounded-3">
+                                            <p class="small text-white-50 mb-2">URL de validación:</p>
+                                            <div class="input-group">
+                                                <input type="text" id="urlValidacion" class="form-control form-control-sm bg-dark text-white" value="@ViewBag.UrlValidacion" readonly>
+                                                <button class="btn btn-sm btn-outline-light" onclick="copiarUrl()">
+                                                    <i class="far fa-copy"></i>
+                                                </button>
+                                            </div>
+                                            <p class="small text-white-50 mt-2">Esta URL puede ser utilizada para validar la entrada.</p>
+                                        </div>
+                                    }
                                 </div>
+                                
                                 <dl class="row">
                                     <dt class="col-sm-5 text-white-50">Fecha:</dt>
                                     <dd class="col-sm-7 text-white">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
@@ -159,3 +176,34 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        // Función para copiar la URL de validación al portapapeles
+        function copiarUrl() {
+            // Seleccionar el elemento de entrada
+            const urlInput = document.getElementById('urlValidacion');
+            
+            // Seleccionar el texto
+            urlInput.select();
+            urlInput.setSelectionRange(0, 99999); // Para dispositivos móviles
+            
+            // Copiar el texto al portapapeles
+            document.execCommand('copy');
+            
+            // Mostrar notificación
+            const boton = event.target.closest('button');
+            const iconoOriginal = boton.innerHTML;
+            boton.innerHTML = '<i class="fas fa-check"></i>';
+            boton.classList.remove('btn-outline-light');
+            boton.classList.add('btn-success');
+            
+            // Restaurar el botón después de 2 segundos
+            setTimeout(() => {
+                boton.innerHTML = iconoOriginal;
+                boton.classList.remove('btn-success');
+                boton.classList.add('btn-outline-light');
+            }, 2000);
+        }
+    </script>
+}

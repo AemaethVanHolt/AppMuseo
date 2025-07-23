@@ -1,0 +1,78 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Pintores Flamencos";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4 text-center mb-5">Pintores Flamencos</h1>
+            <div class="text-center mb-5">
+                <img src="/img/obras/16.jpg" alt="Pintura flamenca" class="img-fluid rounded shadow-lg mb-4" style="max-height: 500px; width: auto; object-fit: cover;">
+            </div>
+            <div class="bg-light p-4 rounded shadow-sm mb-5">
+                <h2 class="h3 mb-4">El esplendor del arte flamenco</h2>
+                <p class="lead">Nuestra colección de pintura flamenca abarca desde los primitivos flamencos del siglo XV hasta los maestros del Barroco del siglo XVII. Descubre la riqueza de detalles, el dominio de la luz y el color, y la profunda espiritualidad que caracterizan a estas obras maestras.</p>
+                
+                <h3 class="h4 mt-5 mb-3">Artistas destacados</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/img/obras/17.jpg" class="card-img-top" alt="Jan van Eyck">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Jan van Eyck</h4>
+                                <p class="card-text">Maestro del detalle y pionero en la técnica al óleo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/img/obras/18.jpg" class="card-img-top" alt="Pieter Brueghel el Viejo">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Pieter Brueghel</h4>
+                                <p class="card-text">Maestro de escenas campesinas y paisajes invernales.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/img/obras/19.jpg" class="card-img-top" alt="Peter Paul Rubens">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Peter Paul Rubens</h4>
+                                <p class="card-text">Máximo exponente del Barroco flamenco.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="h4 mt-5 mb-3">Características de la pintura flamenca</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-palette me-2"></i>Uso innovador de la pintura al óleo</li>
+                    <li class="mb-2"><i class="fas fa-eye me-2"></i>Extraordinario detallismo y realismo</li>
+                    <li class="mb-2"><i class="fas fa-sun me-2"></i>Manejo magistral de la luz y el color</li>
+                    <li class="mb-2"><i class="fas fa-cross me-2"></i>Temas religiosos y retratos burgueses</li>
+                    <li class="mb-2"><i class="fas fa-search-plus me-2"></i>Simbolismo oculto en los detalles</li>
+                </ul>
+
+                <div class="alert alert-info mt-4">
+                    <h4 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Visita guiada especial</h4>
+                    <p>Únase a nuestro recorrido guiado los martes y jueves a las 11:00 para descubrir los secretos de los maestros flamencos.</p>
+                </div>
+
+                <div class="mt-5">
+                    <a href="/colecciones" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                    </a>
+                    <a href="/taquilla" class="btn btn-primary">
+                        <i class="fas fa-ticket-alt me-2"></i>Reservar entrada
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/colecciones/PintoresFlamencos.css" />
+}

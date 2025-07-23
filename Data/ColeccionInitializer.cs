@@ -60,6 +60,24 @@ namespace AppMuseo.Data
                     FechaCreacion = DateTime.Now,
                     UltimaModificacion = DateTime.Now,
                     CreadoPor = "admin"
+                },
+                new Coleccion
+                {
+                    Nombre = "Arte Moderno",
+                    Tipo = TipoColeccion.Permanente,
+                    Descripcion = "Obras de arte moderno de los siglos XX y XXI.",
+                    FechaCreacion = DateTime.Now,
+                    UltimaModificacion = DateTime.Now,
+                    CreadoPor = "admin"
+                },
+                new Coleccion
+                {
+                    Nombre = "Arte Asiático",
+                    Tipo = TipoColeccion.Permanente,
+                    Descripcion = "Arte tradicional y contemporáneo de Asia, incluyendo pinturas, esculturas y grabados.",
+                    FechaCreacion = DateTime.Now,
+                    UltimaModificacion = DateTime.Now,
+                    CreadoPor = "admin"
                 }
             };
 
@@ -74,15 +92,19 @@ namespace AppMuseo.Data
             await context.SaveChangesAsync();
 
             // Devolver dic Nombre -> Id
-            // Safe: only assign to dic[col.Nombre] if dbCol != null
             var dic = new Dictionary<string, int>();
             foreach (var col in colecciones)
             {
                 try
                 {
-                    var dbCol = await context.Colecciones.FirstOrDefaultAsync(c => c.Nombre == col.Nombre);
-                    if (dbCol != null)
-                        dic[col.Nombre] = dbCol.Id;
+                    if (col.Nombre != null)
+                    {
+                        var dbCol = await context.Colecciones.FirstOrDefaultAsync(c => c.Nombre == col.Nombre);
+                        if (dbCol != null)
+                        {
+                            dic[col.Nombre] = dbCol.Id;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {

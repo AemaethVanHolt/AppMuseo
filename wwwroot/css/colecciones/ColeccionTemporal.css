@@ -1,0 +1,202 @@
+/* Estilos específicos para la vista de Colección Temporal */
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: none;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+h1 {
+    background: linear-gradient(90deg, #2c3e50, #4a6fa5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.lead {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #6c757d;
+    margin-bottom: 3rem;
+}
+
+.fa-arrow-right {
+    opacity: 0.5;
+}
+
+.btn-outline-primary {
+    border-width: 2px;
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-primary {
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    background-color: #4a6fa5;
+    border-color: #3d5d8a;
+}
+
+.btn-primary:hover {
+    background-color: #3d5d8a;
+    border-color: #304c73;
+}
+
+/* Estilos para la sección de artistas */
+.artist-card {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.artist-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+    border: 4px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.artist-card:hover .artist-avatar {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.artist-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #2c3e50;
+}
+
+.artist-country {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Estilos para la tabla de horarios y precios */
+.info-card {
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.info-card .card-body {
+    padding: 1.5rem;
+}
+
+.info-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.info-card h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #4a6fa5, #2c3e50);
+    border-radius: 3px;
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .lead {
+        font-size: 1.1rem;
+    }
+    
+    .artist-avatar {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Estilos para la sección de ubicación */
+.location-section {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+    margin: 3rem 0;
+    border-radius: 12px;
+}
+
+.location-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.location-icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(74, 111, 165, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    color: #4a6fa5;
+    font-size: 1.25rem;
+}
+
+.location-text h4 {
+    margin-bottom: 0.25rem;
+    color: #2c3e50;
+}
+
+.location-text p {
+    margin-bottom: 0;
+    color: #6c757d;
+}

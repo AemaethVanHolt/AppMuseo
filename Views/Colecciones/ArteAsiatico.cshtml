@@ -1,0 +1,157 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Arte Asiático";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4 text-center mb-5">Arte Asiático</h1>
+            <div class="text-center mb-5">
+                <img src="/img/obras/13.jpg" alt="Arte Asiático" class="img-fluid rounded shadow-lg mb-4" style="max-height: 500px; width: auto; object-fit: cover;">
+            </div>
+            <div class="bg-light p-4 rounded shadow-sm mb-5">
+                <h2 class="h3 mb-4">Un viaje por el arte milenario de Asia</h2>
+                <p class="lead">Nuestra colección de arte asiático abarca más de 5,000 años de historia, desde las antiguas civilizaciones del valle del Indo hasta las refinadas tradiciones artísticas de China, Japón, Corea y el sudeste asiático. Descubre la belleza, la espiritualidad y la maestría técnica que definen el arte de este vasto continente.</p>
+                
+                <h3 class="h4 mt-5 mb-3">Culturas representadas</h3>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-yin-yang fa-3x mb-3" style="color: #8b0000;"></i>
+                                <h4 class="h5 card-title">Arte Chino</h4>
+                                <p class="card-text">Desde la antigua dinastía Shang hasta el período moderno, incluyendo cerámica, caligrafía y pintura de paisajes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-torii-gate fa-3x mb-3" style="color: #8b0000;"></i>
+                                <h4 class="h5 card-title">Arte Japonés</h4>
+                                <p class="card-text">Grabados ukiyo-e, cerámica, espadas samuráis y pinturas de tinta que capturan la esencia del Japón tradicional.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-om fa-3x mb-3" style="color: #8b0000;"></i>
+                                <h4 class="h5 card-title">Arte de la India</h4>
+                                <p class="card-text">Esculturas religiosas, pinturas en miniatura y textiles que reflejan la rica herencia cultural del subcontinente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="h4 mt-5 mb-3">Obras destacadas</h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Obra</th>
+                                <th>Origen</th>
+                                <th>Período</th>
+                                <th>Material</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Buda Amitābha</td>
+                                <td>China, Dinastía Tang</td>
+                                <td>Siglo VIII</td>
+                                <td>Bronce dorado</td>
+                            </tr>
+                            <tr>
+                                <td>La gran ola de Kanagawa</td>
+                                <td>Japón, Período Edo</td>
+                                <td>1830-1833</td>
+                                <td>Grabado en madera</td>
+                            </tr>
+                            <tr>
+                                <td>Diosa Durga</td>
+                                <td>India, Período Chola</td>
+                                <td>Siglo XII</td>
+                                <td>Piedra</td>
+                            </tr>
+                            <tr>
+                                <td>Vasija ritual</td>
+                                <td>Corea, Período Joseon</td>
+                                <td>Siglo XVIII</td>
+                                <td>Porcelana blanca</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-info mt-4">
+                    <h4 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Visita guiada especial</h4>
+                    <p>No te pierdas nuestro recorrido guiado los viernes por la tarde, donde exploraremos las conexiones culturales entre las diferentes tradiciones artísticas de Asia.</p>
+                    <hr>
+                    <p class="mb-0">Duración: 90 minutos | Incluye: Guía experto y material didáctico</p>
+                </div>
+
+                <div class="mt-5">
+                    <a href="/colecciones" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                    </a>
+                    <a href="/taquilla" class="btn btn-primary">
+                        <i class="fas fa-ticket-alt me-2"></i>Reservar entrada
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #8b0000;
+        }
+        
+        h1 {
+            color: #8b0000;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-family: 'Noto Sans', sans-serif;
+        }
+        
+        .lead {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .table {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .table thead th {
+            background-color: #8b0000;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(139, 0, 0, 0.05);
+        }
+        
+        .alert {
+            border-left: 5px solid #8b0000;
+        }
+    </style>
+}

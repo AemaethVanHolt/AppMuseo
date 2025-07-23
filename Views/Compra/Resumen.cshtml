@@ -48,16 +48,20 @@
                         <!-- Sección de Extras -->
                         <div class="extras-simple mb-4">
                             <h5 class="text-warning mb-3">Extras</h5>
-                            @foreach (var extra in extrasDisponibles)
+                            @if (extrasDisponibles != null)
                             {
-                                var checkboxValue = extrasMap.ContainsKey(extra.Key) ? extrasMap[extra.Key] : extra.Key;
-                                var isChecked = extrasSeleccionados.Contains(checkboxValue);
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="extras" value="@checkboxValue" id="extra-@checkboxValue" data-precio="@extra.Value" @(isChecked ? "checked" : "")>
-                                    <label class="form-check-label" for="extra-@checkboxValue">
-                                        @extra.Key <span class="text-warning">+@extra.Value.ToString("0.00") €</span>
-                                    </label>
-                                </div>
+                                foreach (var extra in extrasDisponibles)
+                                {
+                                    if (extra.Key == null) continue;
+                                    var checkboxValue = extrasMap != null && extrasMap.ContainsKey(extra.Key) ? extrasMap[extra.Key] : extra.Key;
+                                    var isChecked = extrasSeleccionados?.Contains(checkboxValue) ?? false;
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras" value="@checkboxValue" id="extra-@checkboxValue" data-precio="@extra.Value" @(isChecked ? "checked" : "")>
+                                        <label class="form-check-label" for="extra-@checkboxValue">
+                                            @extra.Key <span class="text-warning">+@extra.Value.ToString("0.00") €</span>
+                                        </label>
+                                    </div>
+                                }
                             }
                         </div>
                         

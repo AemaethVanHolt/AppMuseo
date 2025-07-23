@@ -1,0 +1,102 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Arte Moderno";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4 text-center mb-5" style="font-weight: bold; color: #FFD700;">Arte Moderno</h1>
+            <div class="text-center mb-5">
+                <img src="/img/obras/10.jpg" alt="Arte Moderno" class="img-fluid rounded shadow-lg mb-4" style="max-height: 500px; width: auto; object-fit: cover;">
+            </div>
+            <div class="bg-light p-4 rounded shadow-sm mb-5">
+                <h2 class="h3 mb-4">Explora nuestra colección de arte moderno</h2>
+                <p class="lead">Sumérgete en el fascinante mundo del arte moderno con nuestra exclusiva colección que abarca los siglos XIX y XX. Descubre cómo los artistas rompieron con las convenciones tradicionales para crear obras que cambiaron el curso de la historia del arte.</p>
+                
+                <h3 class="h4 mt-5 mb-3">Movimientos destacados</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <img src="/img/obras/impresionismo.jpg" class="card-img-top" alt="Impresionismo">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Impresionismo</h4>
+                                <p class="card-text">Capturando la luz y el momento con pinceladas sueltas y colores vibrantes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <img src="/img/obras/2.png" class="card-img-top" alt="Cubismo">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Cubismo</h4>
+                                <p class="card-text">Descomponiendo la realidad en formas geométricas y múltiples perspectivas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <img src="/img/obras/surrealismo.jpg" class="card-img-top" alt="Surrealismo">
+                            <div class="card-body">
+                                <h4 class="h5 card-title">Surrealismo</h4>
+                                <p class="card-text">Explorando el subconsciente y los sueños a través de imágenes oníricas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="h4 mt-5 mb-3">Artistas destacados</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-palette me-2"></i>Pablo Picasso - Figura clave del cubismo</li>
+                    <li class="mb-2"><i class="fas fa-palette me-2"></i>Vincent van Gogh - Maestro del postimpresionismo</li>
+                    <li class="mb-2"><i class="fas fa-palette me-2"></i>Salvador Dalí - Icono del surrealismo</li>
+                    <li class="mb-2"><i class="fas fa-palette me-2"></i>Wassily Kandinsky - Pionero del arte abstracto</li>
+                    <li class="mb-2"><i class="fas fa-palette me-2"></i>Frida Kahlo - Símbolo del arte mexicano moderno</li>
+                </ul>
+
+                <div class="mt-5">
+                    <a href="/colecciones" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                    </a>
+                    <a href="/taquilla" class="btn btn-primary">
+                        <i class="fas fa-ticket-alt me-2"></i>Comprar entradas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .lead {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+        }
+    </style>
+}

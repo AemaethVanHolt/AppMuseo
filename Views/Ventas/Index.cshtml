@@ -77,9 +77,12 @@
                         <form asp-action="Index" method="get" class="mb-0">
                             <div class="input-group">
                                 <select name="filtroTipo" class="form-select" onchange="this.form.submit()">
-                                    @foreach (var filtro in ViewBag.Filtros as List<SelectListItem>)
+                                    @if (ViewBag.Filtros is List<SelectListItem> filtros && filtros.Any())
                                     {
-                                        <!option value="@filtro.Value" @(filtro.Value == ViewBag.FiltroSeleccionado ? "selected" : "")>@filtro.Text</!option>
+                                        foreach (var filtro in filtros)
+                                        {
+                                            <!option value="@filtro.Value" @(filtro.Value == ViewBag.FiltroSeleccionado ? "selected" : "")>@filtro.Text</!option>
+                                        }
                                     }
                                 </select>
                                 <button type="submit" class="btn btn-primary">

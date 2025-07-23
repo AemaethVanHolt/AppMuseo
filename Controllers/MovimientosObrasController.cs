@@ -47,7 +47,7 @@ namespace AppMuseo.Controllers
             {
                 movimientoObra.FechaCreacion = DateTime.Now;
                 movimientoObra.UltimaModificacion = DateTime.Now;
-                movimientoObra.CreadoPor = User.Identity.Name;
+                movimientoObra.CreadoPor = User.Identity?.Name ?? "Sistema";
                 _context.Add(movimientoObra);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

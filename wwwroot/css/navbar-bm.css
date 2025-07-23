@@ -153,7 +153,7 @@
   border-radius: 50px !important;
   border: 2px solid #fff !important;
   color: #ffffff !important;
-  background-color: rgba(0, 0, 0, 0.3) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   transition: all 0.3s ease !important;
   margin: 0 0.5rem !important;
   display: inline-flex !important;
@@ -168,6 +168,8 @@
   vertical-align: middle !important;
   cursor: pointer !important;
   -webkit-user-select: none !important;
+  position: relative;
+  z-index: 1000;
   -moz-user-select: none !important;
   user-select: none !important;
   -webkit-appearance: button !important;
@@ -336,6 +338,26 @@
   margin-bottom: 0.25rem !important;
 }
 
+.dropdown-menu .btn-registro {
+    background-color: #FFD700;
+    color: #000;
+    border: 1px solid #FFD700;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.dropdown-menu .btn-registro:hover {
+    background-color: #e6c200;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .dropdown-menu .btn-primary {
   background-color: #FFD700 !important;
   border: none !important;
@@ -439,10 +461,25 @@
 }
 
 .navbar-museo .btn-outline-light:hover {
-  background-color: rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(255, 215, 0, 0.8) !important;
+  color: #000000 !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: #ffffff !important; /* Aseguramos que el color se mantenga blanco en hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  border-color: #FFD700 !important;
+  text-shadow: none !important;
+}
+
+/* Asegurar que el dropdown se muestre al hacer hover */
+.dropdown:hover > .dropdown-menu {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Asegurar que el dropdown de login esté por encima de otros elementos */
+.dropdown-menu {
+  z-index: 1000 !important;
 }
 
 /* ===== MENÚ MÓVIL ===== */
@@ -669,4 +706,191 @@
   background-color: rgba(255, 255, 255, 0.1);
   border-color: #ffffff;
   color: #ffffff;
+}
+
+/* ===== ESTILOS DEL FORMULARIO DE INICIO DE SESIÓN ===== */
+#loginDropdown + .dropdown-menu {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  min-width: 320px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  margin-top: 10px !important;
+}
+
+#loginDropdown {
+  z-index: 1001;
+}
+
+#loginDropdown + .dropdown-menu {
+  z-index: 1000 !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  border: 1px solid #333;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#loginDropdown + .dropdown-menu .form-label {
+  color: #FFD700 !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 500 !important;
+}
+
+#loginDropdown + .dropdown-menu .form-control {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+  padding: 0.5rem 0.75rem !important;
+  margin-bottom: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+#loginDropdown + .dropdown-menu .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border-color: #FFD700 !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.1) !important;
+}
+
+/* Estilo para el botón de inicio de sesión en el dropdown */
+#loginForm .btn-primary {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  border: 2px solid #FFD700 !important;
+  font-weight: 600 !important;
+  padding: 8px 20px !important;
+  border-radius: 50px !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+  margin: 10px 0 !important;
+}
+
+#loginForm .btn-primary:hover {
+  background-color: #e6c200 !important;
+  border-color: #e6c200 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Estilo para el botón de registro en el dropdown */
+.dropdown-menu .dropdown-item.text-primary {
+  background-color: #000000 !important;
+  color: #FFD700 !important;
+  border: 2px solid #FFD700 !important;
+  border-radius: 50px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  width: 100% !important;
+  margin-top: 1rem !important;
+  font-size: 0.9rem !important;
+}
+
+.dropdown-menu .dropdown-item.text-primary:hover {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4) !important;
+  text-decoration: none !important;
+}
+
+#loginDropdown + .dropdown-menu input[type="submit"] {
+  background-color: #000000 !important;
+  color: #FFD700 !important;
+  border: 2px solid #FFD700 !important;
+  border-radius: 50px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+  margin-top: 0.5rem !important;
+  font-size: 0.9rem !important;
+}
+
+#loginDropdown + .dropdown-menu .btn-primary:hover,
+#loginDropdown + .dropdown-menu input[type="submit"]:hover {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4) !important;
+}
+
+/* Estilo para el botón de Registrarse */
+.btn-registro {
+  background-color: transparent !important;
+  color: #FFD700 !important;
+  border: 2px solid #FFD700 !important;
+  border-radius: 50px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  width: 100% !important;
+  margin-top: 1rem !important;
+  font-size: 0.9rem !important;
+}
+
+.btn-registro:hover {
+  background-color: #FFD700 !important;
+  color: #000000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4) !important;
+  text-decoration: none !important;
+}
+
+/* Estilo para el enlace de "¿Olvidaste tu contraseña?" */
+#loginDropdown + .dropdown-menu .forgot-password {
+  color: #FFD700 !important;
+  text-decoration: none !important;
+  font-size: 0.85rem !important;
+  display: block !important;
+  text-align: center !important;
+  margin-top: 1rem !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500 !important;
+}
+
+#loginDropdown + .dropdown-menu .forgot-password:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+  transform: translateY(-1px);
+}
+
+/* Estilos para el checkbox de Recordarme */
+#loginDropdown + .dropdown-menu .form-check-input:checked {
+  background-color: #FFD700 !important;
+  border-color: #FFD700 !important;
+}
+
+#loginDropdown + .dropdown-menu .form-check-label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+}
+
+/* Separador */
+#loginDropdown + .dropdown-menu hr {
+  border-color: rgba(255, 215, 0, 0.2) !important;
+  margin: 1.25rem 0 !important;
+}
+
+/* Texto de registro */
+#loginDropdown + .dropdown-menu .register-text {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.9rem !important;
+  text-align: center !important;
+  margin-bottom: 0.75rem !important;
 }

@@ -1,0 +1,158 @@
+@model AppMuseo.Models.Coleccion
+@{
+    ViewData["Title"] = "Colección Temporal";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="text-center mb-5">
+                <span class="badge bg-warning text-dark mb-3">EXHIBICIÓN TEMPORAL</span>
+                <h1 class="display-4 fw-bold">@Model.Nombre</h1>
+                <p class="lead text-muted">@Model.Descripcion</p>
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <div class="text-center">
+                        <div class="fs-1 fw-bold text-primary">23</div>
+                        <div class="text-uppercase small">JULIO</div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-arrow-right fa-2x text-muted"></i>
+                    </div>
+                    <div class="text-center">
+                        <div class="fs-1 fw-bold text-primary">15</div>
+                        <div class="text-uppercase small">OCTUBRE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="/img/obras/25.jpg" class="card-img-top" alt="Obra destacada">
+                        <div class="card-body">
+                            <h3 class="h4">Obras internacionales</h3>
+                            <p>Una selección exclusiva de piezas provenientes de museos y colecciones privadas de todo el mundo, muchas de las cuales se exhiben por primera vez en el país.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="/img/obras/26.jpg" class="card-img-top" alt="Experiencia inmersiva">
+                        <div class="card-body">
+                            <h3 class="h4">Experiencia inmersiva</h3>
+                            <p>Instalaciones interactivas y tecnología de vanguardia que te permitirán sumergirte en el proceso creativo de los artistas contemporáneos más destacados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-light p-4 rounded-3 mb-5">
+                <h2 class="h3 mb-4">Artistas participantes</h2>
+                <div class="row g-4">
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="text-center">
+                            <div class="rounded-circle overflow-hidden mb-3 mx-auto" style="width: 120px; height: 120px;">
+                                <img src="/img/obras/27.jpg" alt="Artista 1" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                            </div>
+                            <h4 class="h6 mb-1">Ana Martínez</h4>
+                            <p class="small text-muted">España</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="text-center">
+                            <div class="rounded-circle overflow-hidden mb-3 mx-auto" style="width: 120px; height: 120px;">
+                                <img src="/img/obras/28.jpg" alt="Artista 2" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                            </div>
+                            <h4 class="h6 mb-1">Thomas Weber</h4>
+                            <p class="small text-muted">Alemania</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="text-center">
+                            <div class="rounded-circle overflow-hidden mb-3 mx-auto" style="width: 120px; height: 120px;">
+                                <img src="/img/obras/29.jpg" alt="Artista 3" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                            </div>
+                            <h4 class="h6 mb-1">Yuki Tanaka</h4>
+                            <p class="small text-muted">Japón</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="text-center">
+                            <div class="rounded-circle overflow-hidden mb-3 mx-auto bg-secondary d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+                                <span class="text-white">+12 más</span>
+                            </div>
+                            <h4 class="h6 mb-1">Y muchos más</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h3 class="h4 mb-4">Horarios</h3>
+                            <ul class="list-unstyled">
+                                <li class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Lunes</span>
+                                    <span class="text-muted">Cerrado</span>
+                                </li>
+                                <li class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Martes a Viernes</span>
+                                    <span class="text-muted">10:00 - 20:00</span>
+                                </li>
+                                <li class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Sábado y Domingo</span>
+                                    <span class="text-muted">09:00 - 21:00</span>
+                                </li>
+                            </ul>
+                            <div class="alert alert-warning mt-4">
+                                <i class="fas fa-exclamation-circle me-2"></i>Último acceso 1 hora antes del cierre
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h3 class="h4 mb-4">Precios</h3>
+                            <ul class="list-unstyled">
+                                <li class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Entrada general</span>
+                                    <span class="fw-bold">€15.00</span>
+                                </li>
+                                <li class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Estudiantes y mayores de 65</span>
+                                    <span class="fw-bold">€10.00</span>
+                                </li>
+                                <li class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Menores de 12 años</span>
+                                    <span class="fw-bold">Gratis</span>
+                                </li>
+                                <li class="d-flex justify-content-between py-2">
+                                    <span>Visita guiada (adicional)</span>
+                                    <span class="fw-bold">€5.00</span>
+                                </li>
+                            </ul>
+                            <a href="/taquilla" class="btn btn-primary w-100 mt-3">Comprar entradas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="/colecciones" class="btn btn-outline-secondary me-3">
+                    <i class="fas fa-arrow-left me-2"></i>Volver a las colecciones
+                </a>
+                <a href="/contacto" class="btn btn-outline-primary">
+                    <i class="fas fa-envelope me-2"></i>Contacto
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/colecciones/ColeccionTemporal.css" />
+}

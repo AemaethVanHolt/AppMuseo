@@ -22,7 +22,7 @@ namespace AppMuseo.Data
 
                 var obras = new List<Obra>
                 {
-                    // ===== PINTORES RENACENTISTAS =====
+        // ===== PINTORES RENACENTISTAS =====
                     new Obra
                     {
                         ImageUrl = "/img/obras/Retrato de Giovanna Tornabuoni.jpg",
@@ -103,7 +103,7 @@ namespace AppMuseo.Data
                     },
                     new Obra
                     {
-                        ImageUrl = "/img/obras/Creación de Adán.jpg",
+                        ImageUrl = "/img/obras/La creación de Adán.jpg",
                         Titulo = "La creación de Adán",
                         Autor = "Miguel Ángel",
                         Anio = 1512,
@@ -114,8 +114,21 @@ namespace AppMuseo.Data
                         UltimaModificacion = fechaActual,
                         CreadoPor = "admin"
                     },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/La Venus de Urbino.jpg",
+                        Titulo = "La Venus de Urbino",
+                        Autor = "Tiziano",
+                        Anio = 1538,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Renacimiento Veneciano, Planta 1",
+                        ColeccionId = colecciones["Pintores renacentistas"],
+                        FechaCreacion = fechaActual.AddYears(-487),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
                     
-                    // ===== PINTORES FLAMENCOS =====
+        // ===== PINTORES FLAMENCOS =====
                     new Obra
                     {
                         ImageUrl = "/img/obras/La lechera.jpg",
@@ -157,7 +170,7 @@ namespace AppMuseo.Data
                     },
                     new Obra
                     {
-                        ImageUrl = "/img/obras/El descendimiento.jpg",
+                        ImageUrl = "/img/obras/El descendimiento de la cruz.jpg",
                         Titulo = "El descendimiento de la cruz",
                         Autor = "Rogier van der Weyden",
                         Anio = 1435,
@@ -181,8 +194,21 @@ namespace AppMuseo.Data
                         UltimaModificacion = fechaActual,
                         CreadoPor = "admin"
                     },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El matrimonio Arnolfini.png",
+                        Titulo = "El matrimonio Arnolfini",
+                        Autor = "Jan van Eyck",
+                        Anio = 1434,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Gótico Flamenco, Planta 1",
+                        ColeccionId = colecciones["Pintores flamencos"],
+                        FechaCreacion = fechaActual.AddYears(-591),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
                     
-                    // ===== PINTORES SIGLO XIX =====
+        // ===== PINTORES SIGLO XIX =====
                     new Obra
                     {
                         ImageUrl = "/img/obras/La Libertad guiando al pueblo.jpg",
@@ -248,8 +274,21 @@ namespace AppMuseo.Data
                         UltimaModificacion = fechaActual,
                         CreadoPor = "admin"
                     },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El bulevar de Montmartre, efecto de noche.png",
+                        Titulo = "El bulevar de Montmartre, efecto de noche",
+                        Autor = "Camille Pissarro",
+                        Anio = 1897,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Impresionismo, Planta 1",
+                        ColeccionId = colecciones["Pintores del siglo 19"],
+                        FechaCreacion = fechaActual.AddYears(-128),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
                     
-                    // ===== COLECCIÓN PERMANENTE =====
+        // ===== COLECCIÓN PERMANENTE =====
                     new Obra
                     {
                         ImageUrl = "/img/obras/El caballero de la mano en el pecho.jpg",
@@ -289,7 +328,46 @@ namespace AppMuseo.Data
                         UltimaModificacion = fechaActual,
                         CreadoPor = "admin"
                     },
-                    // ===== ARTE MODERNO =====
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/Las dos hermanas.jpg",
+                        Titulo = "Las dos hermanas",
+                        Autor = "William-Adolphe Bouguereau",
+                        Anio = 1881,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Academicismo, Planta 2",
+                        ColeccionId = colecciones["Colección permanente"],
+                        FechaCreacion = fechaActual.AddYears(-144),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El beso.jpg",
+                        Titulo = "El beso",
+                        Autor = "Gustav Klimt",
+                        Anio = 1908,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Modernista, Planta 1",
+                        ColeccionId = colecciones["Colección permanente"],
+                        FechaCreacion = fechaActual.AddYears(-117),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/La aparición.jpg",
+                        Titulo = "La aparición",
+                        Autor = "Gustave Moreau",
+                        Anio = 1876,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Simbolismo, Planta 2",
+                        ColeccionId = colecciones["Colección permanente"],
+                        FechaCreacion = fechaActual.AddYears(-149),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+        // ===== ARTE MODERNO =====
                     new Obra
                     {
                         ImageUrl = "/img/obras/Guernica.jpg",
@@ -331,7 +409,7 @@ namespace AppMuseo.Data
                     },
                     new Obra
                     {
-                        ImageUrl = "/img/obras/La Persistencia de la Memoria.jpg",
+                        ImageUrl = "/img/obras/La Persistencia de la Memoria.png",
                         Titulo = "La Persistencia de la Memoria",
                         Autor = "Salvador Dalí",
                         Anio = 1931,
@@ -357,7 +435,7 @@ namespace AppMuseo.Data
                     },
                     new Obra
                     {
-                        ImageUrl = "/img/obras/Composición VIII.jpg",
+                        ImageUrl = "/img/obras/Composición VIII.png",
                         Titulo = "Composición VIII",
                         Autor = "Wassily Kandinsky",
                         Anio = 1923,
@@ -369,7 +447,7 @@ namespace AppMuseo.Data
                         CreadoPor = "admin"
                     },
 
-                    // ===== ARTE ASIÁTICO =====
+        // ===== ARTE ASIÁTICO =====
                     new Obra
                     {
                         ImageUrl = "/img/obras/La Gran Ola de Kanagawa.jpg",
@@ -409,6 +487,45 @@ namespace AppMuseo.Data
                         UltimaModificacion = fechaActual,
                         CreadoPor = "admin"
                     },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El monte Fuji en días claros.jpg",
+                        Titulo = "El monte Fuji en días claros",
+                        Autor = "Katsushika Hokusai",
+                        Anio = 1830,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala de Arte Asiático, Planta 1",
+                        ColeccionId = colecciones["Arte Asiático"],
+                        FechaCreacion = fechaActual.AddYears(-193),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El jardín de los melocotoneros en flor.jpg",
+                        Titulo = "El jardín de los melocotoneros en flor",
+                        Autor = "Ogata Kōrin",
+                        Anio = 1705,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala de Arte Asiático, Planta 1",
+                        ColeccionId = colecciones["Arte Asiático"],
+                        FechaCreacion = fechaActual.AddYears(-318),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El tigre bajo la lluvia.jpg",
+                        Titulo = "El tigre bajo la lluvia",
+                        Autor = "Maruyama Ōkyo",
+                        Anio = 1780,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala de Arte Asiático, Planta 1",
+                        ColeccionId = colecciones["Arte Asiático"],
+                        FechaCreacion = fechaActual.AddYears(-243),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
 
                     // ===== COLECCIÓN TEMPORAL =====
                     new Obra
@@ -429,6 +546,58 @@ namespace AppMuseo.Data
                         ImageUrl = "/img/obras/Figura en una ventana.jpg",
                         Titulo = "Figura en una ventana",
                         Autor = "Salvador Dalí",
+                        Anio = 1925,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Temporal 1, Planta -1",
+                        ColeccionId = colecciones["Colección temporal"],
+                        FechaCreacion = fechaActual.AddYears(-96),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El hijo del hombre.png",
+                        Titulo = "El hijo del hombre",
+                        Autor = "René Magritte",
+                        Anio = 1964,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Temporal 1, Planta -1",
+                        ColeccionId = colecciones["Colección temporal"],
+                        FechaCreacion = fechaActual.AddYears(-61),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/La danza.png",
+                        Titulo = "La danza",
+                        Autor = "Henri Matisse",
+                        Anio = 1910,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Temporal 1, Planta -1",
+                        ColeccionId = colecciones["Colección temporal"],
+                        FechaCreacion = fechaActual.AddYears(-115),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El caminante sobre el mar de nubes.jpg",
+                        Titulo = "El caminante sobre el mar de nubes",
+                        Autor = "Caspar David Friedrich",
+                        Anio = 1818,
+                        Estado = EstadoObra.EnMuseo,
+                        UbicacionActual = "Sala Temporal 1, Planta -1",
+                        ColeccionId = colecciones["Colección temporal"],
+                        FechaCreacion = fechaActual.AddYears(-207),
+                        UltimaModificacion = fechaActual,
+                        CreadoPor = "admin"
+                    },
+                    new Obra
+                    {
+                        ImageUrl = "/img/obras/El nacimiento del mundo.jpg",
+                        Titulo = "El nacimiento del mundo",
+                        Autor = "Joan Miró",
                         Anio = 1925,
                         Estado = EstadoObra.EnMuseo,
                         UbicacionActual = "Sala Temporal 1, Planta -1",

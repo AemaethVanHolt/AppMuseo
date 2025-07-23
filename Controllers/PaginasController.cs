@@ -36,5 +36,12 @@ namespace AppMuseo.Controllers
         {
             return View("~/Views/Paginas/Exposiciones.cshtml");
         }
+
+        // Páginas de restauración
+        [Route("Paginas/TallerRestauracion")]
+        public IActionResult TallerRestauracion()
+        {
+            return View("~/Views/Paginas/TallerRestauracion.cshtml");
+        }
     }
 }

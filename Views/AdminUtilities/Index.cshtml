@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Utilidades de Administración";
+}
+
+<div class="container mt-5">
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Reinicializar Base de Datos</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Esta acción eliminará todos los datos de la base de datos y la volverá a crear con los datos iniciales.</p>
+                    <p class="text-danger"><strong>¡Advertencia!</strong> Esta acción no se puede deshacer y todos los datos actuales se perderán.</p>
+                    
+                    <form asp-action="ReiniciarBaseDatos" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea reinicializar la base de datos? Esta acción no se puede deshacer.');">
+                            <i class="fas fa-database"></i> Reinicializar Base de Datos
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Activar Todos los Usuarios</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Activa todos los usuarios inactivos en el sistema.</p>
+                    
+                    <form asp-action="ActivarTodosUsuarios" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-users"></i> Activar Todos los Usuarios
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

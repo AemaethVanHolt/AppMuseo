@@ -1,0 +1,235 @@
+@{
+    ViewData["Title"] = "Taller de Restauración";
+    ViewData["ActivePage"] = "TallerRestauracion";
+    
+    // Lista de servicios de restauración
+    var servicios = new[]
+    {
+        new {
+            Titulo = "Pintura Antigua",
+            Imagen = "/img/restauracion/restauracion_pintura1.jpg",
+            Descripcion = "Restauración de Óleo sobre lienzo: Son la mayoría de obras que trabajamos al ser el patrimonio más abundante en nuestro país. También restauramos pintura sobre tabla, sobre temple, óleo sobre cobre, etc."
+        },
+        new {
+            Titulo = "Pintura Mural",
+            Imagen = "/img/restauracion/arte_restauracion_1357593657_17.jpg",
+            Descripcion = "Como expertos en restauración de pintura mural, nos dedicamos a rescatar y preservar la belleza de estas obras maestras, que a menudo han sufrido daños y deterioro debido a la exposición a agentes ambientales."
+        },
+        new {
+            Titulo = "Pintura Contemporánea",
+            Imagen = "/img/restauracion/rest_05_g.jpg",
+            Descripcion = "Limpieza, recuperación y corrección de daños. Los materiales y procedimientos actuales son diferentes a los tradicionales, por lo que cada obra requiere un enfoque personalizado."
+        },
+        new {
+            Titulo = "Escultura",
+            Imagen = "/img/restauracion/images.jpg",
+            Descripcion = "Restauración de cualquier objeto de bulto normalmente en madera pero también en cualquier otro tipo de material como escultura en metal y piedra. Especialistas en talla policromada."
+        },
+        new {
+            Titulo = "Documento Gráfico",
+            Imagen = "/img/restauracion/09_pasisaje.jpg",
+            Descripcion = "Dibujos, tintas, acuarelas, grabados de todo tipo, pasteles, encuadernación, mapas, etc. Todo lo que tenga que ver con papel y normalmente soportes de celulosa."
+        },
+        new {
+            Titulo = "Arqueología y Cerámica",
+            Imagen = "/img/restauracion/1366_2000.jpg",
+            Descripcion = "Otras áreas de intervención como piezas de arqueología, vídrio, marfil, cerámica y porcelana."
+        },
+        new {
+            Titulo = "Objetos Artísticos",
+            Imagen = "/img/restauracion/screen-shot-2022-04-27-at-3-31-53-pm-73.png",
+            Descripcion = "Objetos de todo tipo que no podemos clasificar en el resto de categorías. Muchos de ellos decorativos pero originalmente con una función concreta como juguetes, relojes, abanicos, muebles, etc."
+        },
+        new {
+            Titulo = "Retablos y Artesonados",
+            Imagen = "/img/restauracion/rest_05_g.jpg",
+            Descripcion = "Elementos decorativos en madera que han sufrido a lo largo de los siglos. Intervenimos para recuperar su estado de conservación óptimo."
+        }
+    };
+    
+    // Proyectos destacados
+    var proyectos = new[]
+    {
+        new { 
+            Titulo = "Restauración de pintura al óleo", 
+            Imagen = "/img/restauracion/restauracion_pintura1.jpg",
+            Descripcion = "Intervención en obra del siglo XVIII" 
+        },
+        new { 
+            Titulo = "Conservación de escultura", 
+            Imagen = "/img/restauracion/images.jpg",
+            Descripcion = "Tratamiento preventivo en mármol" 
+        },
+        new { 
+            Titulo = "Restauración de marco dorado", 
+            Imagen = "/img/restauracion/arte_restauracion_1357593657_17.jpg",
+            Descripcion = "Siglo XIX, estilo barroco" 
+        },
+        new { 
+            Titulo = "Documento gráfico", 
+            Imagen = "/img/restauracion/09_pasisaje.jpg",
+            Descripcion = "Restauración de mapa antiguo" 
+        },
+        new { 
+            Titulo = "Cerámica arqueológica", 
+            Imagen = "/img/restauracion/1366_2000.jpg",
+            Descripcion = "Intervención en pieza del siglo X" 
+        },
+        new { 
+            Titulo = "Pintura contemporánea", 
+            Imagen = "/img/restauracion/rest_05_g.jpg",
+            Descripcion = "Limpieza y consolidación" 
+        }
+    };
+}
+
+<div class="taller-restauracion py-5">
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold mb-3 text-gold">Taller de Restauración</h1>
+                <p class="lead mb-4">Preservando el patrimonio artístico para las generaciones futuras</p>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <p class="mb-4">Nos dedicamos a la restauración, conservación y recuperación de obras de pintura, escultura, cerámica, retablos, pintura mural, documento gráfico. En nuestro taller empleamos las técnicas más avanzadas y siguiendo los criterios de actuación vigentes en la actualidad. Trabajamos para entidades y particulares.</p>
+                    </div>
+                </div>
+                <hr class="my-4 bg-gold" style="height: 2px; width: 100px; margin: 2rem auto;">
+            </div>
+        </div>
+
+        <!-- Servicios de Restauración -->
+        <div class="row mb-5">
+            <div class="col-12 text-center mb-5">
+                <h2 class="h3 mb-3 text-gold">Servicios de Restauración de Arte</h2>
+                <p class="lead">Ofrecemos una amplia gama de servicios de restauración de arte, incluyendo la limpieza de barniz oxidado, la reparación de golpes, grietas y la restauración de pintura sobre tabla.</p>
+                <div class="alert alert-dark mt-4" role="alert">
+                    <h4 class="alert-heading">¿Necesitas restaurar una obra de arte?</h4>
+                    <p class="mb-0">Contáctanos hoy mismo para obtener un presupuesto personalizado.</p>
+                </div>
+            </div>
+            
+            <div class="col-12 mb-5">
+                <h3 class="h4 mb-4 text-center">Estamos especializados en las siguientes áreas:</h3>
+                <div class="services-grid">
+                    @foreach (var servicio in servicios)
+                    {
+                        <div class="service-card">
+                            <div class="service-img-container">
+                                <img src="@servicio.Imagen" alt="@servicio.Titulo" class="img-fluid">
+                            </div>
+                            <div class="service-content">
+                                <h4>@servicio.Titulo</h4>
+                                <p>@servicio.Descripcion</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Proyectos Destacados -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm bg-dark text-white">
+                    <div class="card-body p-4">
+                        <h2 class="h3 mb-4 text-center text-gold">Proyectos Destacados</h2>
+                        <p class="text-center mb-4">Una muestra de algunos de nuestros trabajos más recientes en restauración y conservación de obras de arte.</p>
+                        
+                        <div class="gallery-container">
+                            @foreach (var proyecto in proyectos)
+                            {
+                                <div class="gallery-item">
+                                    <img src="@proyecto.Imagen" alt="@proyecto.Titulo" class="img-fluid">
+                                    <div class="gallery-caption">
+                                        <h5>@proyecto.Titulo</h5>
+                                        <p>@proyecto.Descripcion</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sobre nosotros -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm bg-dark text-white">
+                    <div class="card-body p-4">
+                        <h2 class="h3 mb-4 text-center text-gold">Sobre Nuestro Trabajo</h2>
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <p class="lead text-center mb-4">A lo largo del tiempo el hombre ha utilizado la tecnología de que disponía para la comunicación de su estado espiritual, social y económico. Estos objetos han logrado traspasar la barrera inicial para la que fueron creados llegando a alcanzar el estatus de "Obra de Arte".</p>
+                                <p class="text-center">Es nuestro deber mantener, restaurar y comunicar todas esas obras que pasan por nuestras manos, para una mayor difusión de las mismas. Desde nuestro taller empleamos las últimas tecnologías en mostrar procesos de Restauración en pintura, escultura y papel ejecutados a lo largo de muchos años de trabajo.</p>
+                                
+                                <div class="text-center mt-5">
+                                    <h4 class="h5 text-gold mb-3">Contacto</h4>
+                                    <p>Para cualquier consulta sobre restauración de pintura o escultura, puede contactarnos por teléfono o correo electrónico.</p>
+                                    <p class="h5"><i class="fas fa-phone-alt me-2"></i> Telf. +34 639 848 711</p>
+                                    <p class="h5"><i class="fas fa-envelope me-2"></i> info@museo-restauracion.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm bg-dark text-white">
+                    <div class="card-body p-4">
+                        <h3 class="h4 mb-3 text-gold"><i class="fas fa-info-circle me-2"></i>Nuestra Filosofía</h3>
+                        <p>A lo largo del tiempo el hombre ha utilizado la tecnología de que disponía para la comunicación de su estado espiritual, social y económico. Estos objetos han logrado traspasar la barrera inicial para la que fueron creados llegando a alcanzar el estatus de "Obra de Arte".</p>
+                        <p>Es nuestro deber mantener, restaurar y comunicar todas esas obras que pasan por nuestras manos, para una mayor difusión de las mismas. Desde nuestro taller empleamos las últimas tecnologías en mostrar procesos de Restauración en pintura, escultura y papel ejecutados a lo largo de muchos años de trabajo.</p>
+                        
+                        <h4 class="mt-4 mb-3 text-gold">Nuestro Proceso de Trabajo</h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="process-step text-center p-3 h-100">
+                                    <div class="process-icon mb-3">
+                                        <i class="fas fa-search fa-2x text-gold"></i>
+                                    </div>
+                                    <h4 class="h5">1. Diagnóstico</h4>
+                                    <p class="small">Análisis exhaustivo de la obra mediante técnicas no invasivas para determinar su estado de conservación.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="process-step text-center p-3 h-100">
+                                    <div class="process-icon mb-3">
+                                        <i class="fas fa-flask fa-2x text-gold"></i>
+                                    </div>
+                                    <h4 class="h5">2. Propuesta</h4>
+                                    <p class="small">Elaboración de un informe detallado con el plan de intervención y las técnicas a emplear.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="process-step text-center p-3 h-100">
+                                    <div class="process-icon mb-3">
+                                        <i class="fas fa-paint-brush fa-2x text-gold"></i>
+                                    </div>
+                                    <h4 class="h5">3. Intervención</h4>
+                                    <p class="small">Aplicación de los tratamientos necesarios siguiendo los principios de reversibilidad y mínima intervención.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-3 border-top border-secondary">
+                            <h4 class="h5 text-gold">Contacto</h4>
+                            <p>Para cualquier consulta sobre restauración de pintura o escultura, puede contactarnos por teléfono o correo electrónico.</p>
+                            <p><i class="fas fa-phone-alt me-2"></i> Telf. +34 639 848 711</p>
+                            <p><i class="fas fa-envelope me-2"></i> info@museo-restauracion.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/paginas/restauracion.css" />
+}

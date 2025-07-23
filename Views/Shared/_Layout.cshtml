@@ -36,11 +36,12 @@
                                 Visitas
                             </a>
                             <ul class="dropdown-menu bg-dark bg-opacity-90 border-0 rounded-0 mt-0" aria-labelledby="visitasDropdown">
-                                <li><a class="dropdown-item text-white" href="#">En grupo</a></li>
-                                <li><a class="dropdown-item text-white" href="#">En familia</a></li>
-                                <li><a class="dropdown-item text-white" href="#">Las salas abiertas</a></li>
+                                <li><a class="dropdown-item text-white" asp-controller="Paginas" asp-action="VisitasGrupo">En grupo</a></li>
+                                <li><a class="dropdown-item text-white" asp-controller="Paginas" asp-action="VisitasGrupo" asp-route-tipo="familia">En familia</a></li>
+                                <li><a class="dropdown-item text-white" asp-controller="Paginas" asp-action="VisitasGuiadas">Visitas guiadas</a></li>
+                                <li><a class="dropdown-item text-white" asp-controller="Paginas" asp-action="GuiaMuseo">Guía del Museo</a></li>
                                 <li><hr class="dropdown-divider bg-secondary"></li>
-                                <li><a class="dropdown-item text-white" href="#">Servicios</a></li>
+                                <li><a class="dropdown-item text-white" asp-controller="Paginas" asp-action="HistoriaMuseo">Nuestro Museo</a></li>
                             </ul>
                         </li>
 
@@ -51,8 +52,17 @@
                             </a>
                             <ul class="dropdown-menu bg-dark bg-opacity-90 border-0 rounded-0 mt-0" aria-labelledby="exposicionesDropdown">
                                 <li><a class="dropdown-item text-white" asp-controller="Colecciones" asp-action="Index">Colecciones</a></li>
-                                <li><a class="dropdown-item text-white" href="#">Exposiciones</a></li>
-                                <li><a class="dropdown-item text-white" href="#">Visitas guiadas</a></li>
+                                <li><a class="dropdown-item text-white" asp-controller="Paginas" asp-action="Exposiciones">Exposiciones</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Restauración -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link fs-5 px-3 dropdown-toggle" href="#" id="restauracionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Restauración
+                            </a>
+                            <ul class="dropdown-menu bg-dark bg-opacity-90 border-0 rounded-0 mt-0" aria-labelledby="restauracionDropdown">
+                                <li><a class="dropdown-item text-white" asp-controller="Paginas" asp-action="TallerRestauracion">Taller de Restauración</a></li>
                             </ul>
                         </li>
 
@@ -159,6 +169,7 @@
                                     <li><a class="dropdown-item text-uppercase px-3 py-2" href="#">RESTAURACIONES</a></li>
                                     <li><a class="dropdown-item text-uppercase px-3 py-2" asp-controller="Users" asp-action="Index">USUARIOS REGISTRADOS</a></li>
                                     <li><a class="dropdown-item text-uppercase px-3 py-2" asp-controller="Ventas" asp-action="Index">VENTAS</a></li>
+                                    <li><a class="dropdown-item text-uppercase px-3 py-2 text-warning" asp-controller="AdminUtilities" asp-action="Index"><i class="fas fa-tools me-1"></i> HERRAMIENTAS</a></li>
                                     <li><hr class="dropdown-divider m-0"></li>
                                 }
                                 <li>

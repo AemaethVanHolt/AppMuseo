@@ -1,0 +1,448 @@
+/* Estilos para la página de Taller de Restauración */
+
+/* Estilos generales */
+.taller-restauracion {
+    background-color: #1a1e21;
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 2rem 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                      url('/img/backgrounds/restauracion-bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.7;
+}
+
+/* Asegurar que todo el texto sea blanco */
+.taller-restauracion,
+.taller-restauracion p,
+.taller-restauracion h1,
+.taller-restauracion h2,
+.taller-restauracion h3,
+.taller-restauracion h4,
+.taller-restauracion h5,
+.taller-restauracion h6,
+.taller-restauracion .card,
+.taller-restauracion .card-body,
+.taller-restauracion .gallery-caption,
+.taller-restauracion .service-card,
+.taller-restauracion .process-step {
+    color: #ffffff !important;
+}
+
+/* Asegurar que los enlaces sean visibles */
+.taller-restauracion a {
+    color: #d4a762 !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.taller-restauracion a:hover {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+/* Estilos para el encabezado */
+.taller-restauracion h1 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.taller-restauracion h2 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.taller-restauracion h2:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #d4a762;
+}
+
+.taller-restauracion h3 {
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+}
+
+/* Estilos para las tarjetas */
+.taller-restauracion .card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+    background: rgba(26, 30, 33, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.taller-restauracion .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para la cuadrícula de servicios */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.service-img-container {
+    height: 220px;
+    overflow: hidden;
+}
+
+.service-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-img-container img {
+    transform: scale(1.05);
+}
+
+.service-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-content h4 {
+    color: #d4a762 !important;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.service-content p {
+    margin-bottom: 0;
+    flex-grow: 1;
+}
+
+/* Estilos para la alerta */
+.alert-dark {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #d4a762;
+    color: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.alert-dark .alert-heading {
+    color: #d4a762;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos para los títulos */
+.display-4 {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-gold {
+    color: #d4a762 !important;
+}
+
+/* Estilos para las tarjetas */
+.card {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background-color: rgba(33, 37, 41, 0.9);
+    border: 1px solid rgba(212, 167, 98, 0.3);
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(212, 167, 98, 0.6);
+}
+
+/* Estilos para el divisor personalizado */
+.divider-custom {
+    margin: 1.25rem 0 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider-custom .divider-custom-line {
+    width: 100%;
+    max-width: 7rem;
+    height: 0.25rem;
+    background-color: #d4a762;
+    border-radius: 1rem;
+    border-color: #d4a762;
+}
+
+.divider-custom .divider-custom-line:first-child {
+    margin-right: 1rem;
+}
+
+.divider-custom .divider-custom-line:last-child {
+    margin-left: 1rem;
+}
+
+.divider-custom .divider-custom-icon {
+    color: #d4a762;
+    font-size: 2rem;
+}
+
+/* Galería de proyectos */
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(26, 30, 33, 0.9);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid rgba(212, 167, 98, 0.2);
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(212, 167, 98, 0.2);
+    z-index: 2;
+    border-color: rgba(212, 167, 98, 0.5);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+.gallery-caption {
+    padding: 1.8rem;
+    background: rgba(26, 30, 33, 0.95);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-caption:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #d4a762, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption:before {
+    opacity: 1;
+}
+
+.gallery-caption h5 {
+    color: #d4a762 !important;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.gallery-caption h5:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background: #d4a762;
+    transition: width 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption h5:after {
+    width: 60px;
+}
+
+.gallery-caption p {
+    color: #e9ecef;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    flex-grow: 1;
+    opacity: 0.9;
+}
+
+/* Estilos para la sección de contacto */
+.contact-section {
+    background: rgba(26, 30, 33, 0.8);
+    padding: 3rem;
+    border-radius: 10px;
+    margin-top: 3rem;
+    text-align: center;
+    border: 1px solid rgba(212, 167, 98, 0.2);
+    transition: all 0.3s ease;
+}
+
+.contact-section:hover {
+    border-color: rgba(212, 167, 98, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.contact-section h3 {
+    color: #d4a762 !important;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.contact-info {
+    margin-top: 2rem;
+}
+
+.contact-info p {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-info i {
+    color: #d4a762;
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .taller-restauracion h1 {
+        font-size: 2rem;
+    }
+    
+    .taller-restauracion h2 {
+        font-size: 1.5rem;
+    }
+    
+    .service-card, 
+    .gallery-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-section {
+        padding: 1.5rem;
+    }
+}
+
+/* Efectos de animación */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Estilos responsivos */
+@media (max-width: 992px) {
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2.2rem;
+    }
+    
+    .gallery-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .process-step {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}

@@ -16,34 +16,77 @@
     };
 }
 
-<div class="container mt-4">
+<div class="resumen-compra-container">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <div class="card bg-dark text-white">
                 <form asp-action="ConfirmarCompra" method="post" id="formularioCompra">
                     @Html.AntiForgeryToken()
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         <h1 class="card-title">Completa tu Compra</h1>
                         
                         <input type="hidden" name="tipoEntrada" value="@Model["TipoEntrada"]" />
                         <input type="hidden" name="precioUnitario" value="@Model["PrecioTotal"]" />
                         <input type="hidden" name="precio" value="@Model["PrecioTotal"]" />
+                        <input type="hidden" id="extrasSeleccionados" name="extras" value="@Newtonsoft.Json.JsonConvert.SerializeObject(extrasSeleccionados)" />
                         
                         <!-- Detalles de la compra -->
-                        <div class="mb-4">
-                            <h5>Tipo de entrada: <span class="text-warning">@Model["TipoEntrada"]</span></h5>
-                            <p class="mb-1">Precio base: <span class="text-warning">@precioBase.ToString("0.00") €</span></p>
-                            <p class="mb-1">Precio total: <span class="text-warning fw-bold">@precioTotal.ToString("0.00") €</span></p>
-                            
-                            <!-- Selector de Cantidad -->
-                            <div class="cantidad-container">
-                                <label for="cantidad" class="form-label">Cantidad de entradas:</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" value="1" required>
+                        <div class="resumen-compra">
+                            <div class="resumen-header">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h4 class="mb-2">Resumen de tu compra</h4>
+                                        <p class="mb-1">Tipo de entrada: <span class="text-warning fw-bold">@Model["TipoEntrada"]</span></p>
+                                        <p class="mb-0">Precio base: <span class="text-warning">@precioBase.ToString("0.00") €</span></p>
+                                    </div>
+                                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                        <div class="d-inline-block bg-dark p-3 rounded-3 border border-warning">
+                                            <p class="mb-0 text-warning">Total a pagar:</p>
+                                            <h3 class="mb-0 text-warning fw-bold">@precioTotal.ToString("0.00") €</h3>
+                                        </div>
+                                    </div>
                                 </div>
-                                <small class="form-text">(Mínimo: 1)</small>
                             </div>
-                        </div>
+                            
+                            <!-- Sección de Fecha, Hora y Cantidad -->
+                            <div class="fila-campos">
+                                <div class="campo-grupo">
+                                    <div class="row g-3">
+                                        <!-- Fecha -->
+                                        <div class="col-md-4">
+                                            <label for="fechaVisita" class="form-label fw-medium">Fecha de visita</label>
+                                            <div class="input-group">
+                                                <input type="date" class="form-control" id="fechaVisita" name="fechaVisita" required>
+                                            </div>
+                                            <small class="text-muted">Martes a sábado</small>
+                                        </div>
+                                        
+                                        <!-- Hora -->
+                                        <div class="col-md-4">
+                                            <label for="horaVisita" class="form-label fw-medium">Hora</label>
+                                            <select class="form-select" id="horaVisita" name="horaVisita" required>
+                                                <option value="">Selecciona hora</option>
+                                                @for (int i = 10; i <= 20; i++)
+                                                {
+                                                    <option value="@($"{i:00}:00")">@($"{i:00}:00")</option>
+                                                }
+                                            </select>
+                                            <small class="text-muted">10:00 - 20:00</small>
+                                        </div>
+                                        
+                                        <!-- Cantidad -->
+                                        <div class="col-md-4">
+                                            <label for="cantidad" class="form-label fw-medium">Cantidad</label>
+                                            <div class="d-flex align-items-center">
+                                                <button type="button" class="btn btn-link p-0 me-2 text-warning" data-action="decrement" style="font-size: 1.5rem; width: 30px; height: 30px; line-height: 20px;">-</button>
+                                                <input type="number" class="form-control text-center border-0 bg-transparent" id="cantidad" name="cantidad" min="1" max="10" value="1" required style="max-width: 60px;">
+                                                <button type="button" class="btn btn-link p-0 ms-2 text-warning" data-action="increment" style="font-size: 1.5rem; width: 30px; height: 30px; line-height: 20px;">+</button>
+                                            </div>
+                                            <small class="text-muted">Máx. 10 entradas</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         
                         <!-- Sección de Extras -->
                         <div class="extras-simple mb-4">
@@ -69,15 +112,22 @@
                         <div class="metodos-pago mt-4">
                             <h5 class="mb-3">Método de pago:</h5>
                             
+                            <div class="d-grid gap-2 mb-4">
+                                <button type="button" class="btn btn-warning btn-lg py-3" id="btnPagoTaquilla">
+                                    <i class="fas fa-ticket-alt me-2"></i> Confirmar pago en taquilla
+                                </button>
+                                <p class="text-center text-muted">o selecciona otro método de pago</p>
+                            </div>
+
                             <div class="accordion accordion-flush" id="metodosPagoAccordion">
                                 <!-- Tarjeta -->
                                 <div class="accordion-item bg-transparent border-warning mb-2">
                                     <h2 class="accordion-header" id="headingTarjeta">
-                                        <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#datosTarjeta" aria-expanded="true" aria-controls="datosTarjeta">
+                                        <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#datosTarjeta" aria-expanded="false" aria-controls="datosTarjeta">
                                             <i class="fas fa-credit-card text-warning me-2"></i> Tarjeta de crédito/débito
                                         </button>
                                     </h2>
-                                    <div id="datosTarjeta" class="accordion-collapse collapse show" aria-labelledby="headingTarjeta" data-bs-parent="#metodosPagoAccordion">
+                                    <div id="datosTarjeta" class="accordion-collapse collapse" aria-labelledby="headingTarjeta" data-bs-parent="#metodosPagoAccordion">
                                         <div class="accordion-body">
                                             <div class="mb-3">
                                                 <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
@@ -182,10 +232,31 @@
                             </div>
                         </div>
                         
-                        <!-- Total -->
-                        <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
-                            <h4 class="mb-0">Total:</h4>
-                            <h3 class="text-warning mb-0" id="total">@precioTotal.ToString("0.00") €</h3>
+                        <!-- Desglose de precios -->
+                        <div class="bg-dark p-3 rounded border border-warning mb-4">
+                            <h5 class="text-warning mb-3">Resumen de tu compra</h5>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Tipo de entrada: @Model["TipoEntrada"]</span>
+                                <span>@precioBase.ToString("0.00") €</span>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Precio base (<span id="cantidad-entradas">1</span> x @precioBase.ToString("0.00") €):</span>
+                                <span id="precio-base">@precioBase.ToString("0.00") €</span>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Extras:</span>
+                                <span id="total-extras">0,00 €</span>
+                            </div>
+                            
+                            <hr class="border-warning my-3">
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Total a pagar:</h5>
+                                <h4 class="text-warning mb-0" id="total-pagar">@precioBase.ToString("0.00") €</h4>
+                            </div>
                         </div>
                         
                         <!-- Botones de acción -->
@@ -232,6 +303,347 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Precios
+            const precios = {
+                entrada: @precioBase, // Precio base de la entrada
+                foto: 3.00,
+                guia: 5.00,
+                tienda: 2.00
+            };
+
+            // Elementos del DOM
+            const cantidadInput = document.getElementById('cantidad');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="extras"]');
+            const totalElement = document.getElementById('total-pagar');
+            const precioBaseElement = document.getElementById('precio-base');
+            const totalExtrasElement = document.getElementById('total-extras');
+
+            // Función para formatear moneda
+            function formatCurrency(amount) {
+                return amount.toFixed(2).replace('.', ',') + ' €';
+            }
+
+            // Función para calcular el total
+            function calcularTotal() {
+                const cantidad = parseInt(cantidadInput.value) || 1;
+                let totalExtras = 0;
+                
+                // Actualizar la cantidad de entradas en el resumen
+                const cantidadEntradasElement = document.getElementById('cantidad-entradas');
+                if (cantidadEntradasElement) {
+                    cantidadEntradasElement.textContent = cantidad;
+                }
+                
+                // Sumar extras seleccionados
+                const extrasSeleccionados = [];
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        totalExtras += precios[checkbox.value];
+                        extrasSeleccionados.push(checkbox.value);
+                    }
+                });
+                
+                // Calcular totales
+                const subtotalEntrada = precios.entrada * cantidad;
+                const subtotalExtras = totalExtras * cantidad;
+                const total = subtotalEntrada + subtotalExtras;
+                
+                // Actualizar la interfaz
+                if (precioBaseElement) {
+                    precioBaseElement.textContent = formatCurrency(subtotalEntrada);
+                }
+                
+                if (totalExtrasElement) {
+                    totalExtrasElement.textContent = formatCurrency(subtotalExtras);
+                }
+                
+                if (totalElement) {
+                    totalElement.textContent = formatCurrency(total);
+                }
+                
+                // Actualizar campos ocultos del formulario
+                document.querySelector('input[name="cantidad"]').value = cantidad;
+                document.querySelector('input[name="precio"]').value = total.toFixed(2);
+                document.querySelector('input[name="precioUnitario"]').value = (total / cantidad).toFixed(2);
+                
+                // Actualizar extras en el formulario
+                const extrasInput = document.createElement('input');
+                extrasInput.type = 'hidden';
+                extrasInput.name = 'extras';
+                extrasInput.value = JSON.stringify(extrasSeleccionados);
+                
+                // Eliminar inputs de extras anteriores
+                document.querySelectorAll('input[name="extras"]').forEach(input => input.remove());
+                
+                // Agregar el nuevo input de extras
+                document.getElementById('formularioCompra').appendChild(extrasInput);
+            }
+
+            // Función para manejar el incremento/decremento
+            function handleQuantityChange(action) {
+                let value = parseInt(cantidadInput.value) || 1;
+                
+                if (action === 'increment' && value < 10) {
+                    value++;
+                } else if (action === 'decrement' && value > 1) {
+                    value--;
+                }
+                
+                cantidadInput.value = value;
+                calcularTotal();
+                
+                // Disparar evento de cambio
+                const event = new Event('change');
+                cantidadInput.dispatchEvent(event);
+            }
+
+            // Asignar manejadores de eventos
+            document.querySelector('[data-action="increment"]').addEventListener('click', function() {
+                handleQuantityChange('increment');
+            });
+
+            document.querySelector('[data-action="decrement"]').addEventListener('click', function() {
+                handleQuantityChange('decrement');
+            });
+
+            // Validar entrada manual
+            cantidadInput.addEventListener('change', function() {
+                let value = parseInt(this.value) || 1;
+                if (value < 1) value = 1;
+                if (value > 10) value = 10;
+                this.value = value;
+                calcularTotal();
+            });
+
+            // Escuchar cambios en los checkboxes de extras
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calcularTotal);
+            });
+
+            // Configurar la fecha mínima (hoy)
+            const hoy = new Date().toISOString().split('T')[0];
+            document.getElementById('fechaVisita').min = hoy;
+            
+            // Inicializar el cálculo del total
+            calcularTotal();
+            
+            // Manejar cambios en los checkboxes de extras
+            const checkboxesExtras = document.querySelectorAll('input[name="extras"]');
+            checkboxesExtras.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    // Actualizar el array de extras seleccionados
+                    const selectedExtras = [];
+                    checkboxesExtras.forEach(cb => {
+                        if (cb.checked) {
+                            selectedExtras.push(cb.value);
+                        }
+                    });
+                    
+                    // Actualizar el campo oculto de extras
+                    document.getElementById('extrasSeleccionados').value = JSON.stringify(selectedExtras);
+                    
+                    // Recalcular el total
+                    calcularTotal();
+                });
+            });
+            
+            function calcularTotal() {
+                const cantidad = parseInt(document.getElementById('cantidad').value) || 1;
+                const precioBase = @precioBase;
+                let total = precioBase * cantidad;
+                let subtotalExtras = 0;
+                
+                // Calcular subtotal de extras
+                document.querySelectorAll('input[name="extras"]:checked').forEach(extra => {
+                    const precioExtra = parseFloat(extra.getAttribute('data-precio') || '0');
+                    subtotalExtras += precioExtra * cantidad;
+                });
+                
+                // Calcular total general
+                total += subtotalExtras;
+                
+                // Actualizar el desglose de precios
+                document.getElementById('cantidad-entradas').textContent = cantidad;
+                document.getElementById('precio-base').textContent = (precioBase * cantidad).toFixed(2) + ' €';
+                document.getElementById('total-extras').textContent = subtotalExtras.toFixed(2) + ' €';
+                document.getElementById('total-pagar').textContent = total.toFixed(2) + ' €';
+                
+                // Actualizar los campos ocultos
+                const precioTotalInput = document.querySelector('input[name="precioTotal"]');
+                if (precioTotalInput) {
+                    precioTotalInput.value = total.toFixed(2);
+                }
+                
+                const precioInput = document.querySelector('input[name="precio"]');
+                if (precioInput) {
+                    precioInput.value = total.toFixed(2);
+                }
+                
+                // Actualizar el campo oculto de extras
+                const selectedExtras = [];
+                document.querySelectorAll('input[name="extras"]:checked').forEach(checkbox => {
+                    selectedExtras.push(checkbox.value);
+                });
+                
+                const extrasSeleccionadosInput = document.getElementById('extrasSeleccionados');
+                if (extrasSeleccionadosInput) {
+                    extrasSeleccionadosInput.value = JSON.stringify(selectedExtras);
+                }
+            }
+        });
+    </script>
+    <!-- Bootstrap Datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Funcionalidad para los botones de incremento/decremento
+            document.querySelectorAll('[data-action="increment"], [data-action="decrement"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    const cantidadInput = document.getElementById('cantidad');
+                    let cantidad = parseInt(cantidadInput.value) || 1;
+                    
+                    if (action === 'increment' && cantidad < 10) {
+                        cantidad++;
+                    } else if (action === 'decrement' && cantidad > 1) {
+                        cantidad--;
+                    }
+                    
+                    cantidadInput.value = cantidad;
+                    actualizarPrecioTotal();
+                    
+                    // Deshabilitar botón de decremento si llegamos al mínimo
+                    const decrementBtn = document.querySelector('[data-action="decrement"]');
+                    if (cantidad <= 1) {
+                        decrementBtn.classList.add('text-muted');
+                        decrementBtn.style.cursor = 'not-allowed';
+                    } else {
+                        decrementBtn.classList.remove('text-muted');
+                        decrementBtn.style.cursor = 'pointer';
+                    }
+                    
+                    // Deshabilitar botón de incremento si llegamos al máximo
+                    const incrementBtn = document.querySelector('[data-action="increment"]');
+                    if (cantidad >= 10) {
+                        incrementBtn.classList.add('text-muted');
+                        incrementBtn.style.cursor = 'not-allowed';
+                    } else {
+                        incrementBtn.classList.remove('text-muted');
+                        incrementBtn.style.cursor = 'pointer';
+                    }
+                });
+            });
+            
+            // Validar manualmente la entrada del usuario
+            const cantidadInput = document.getElementById('cantidad');
+            if (cantidadInput) {
+                // Configurar estado inicial de los botones
+                const decrementBtn = document.querySelector('[data-action="decrement"]');
+                const incrementBtn = document.querySelector('[data-action="increment"]');
+                
+                // Estado inicial del botón de decremento
+                if (parseInt(cantidadInput.value) <= 1) {
+                    decrementBtn.classList.add('text-muted');
+                    decrementBtn.style.cursor = 'not-allowed';
+                }
+                
+                // Estado inicial del botón de incremento
+                if (parseInt(cantidadInput.value) >= 10) {
+                    incrementBtn.classList.add('text-muted');
+                    incrementBtn.style.cursor = 'not-allowed';
+                }
+                
+                cantidadInput.addEventListener('change', function() {
+                    let value = parseInt(this.value) || 1;
+                    if (value < 1) value = 1;
+                    if (value > 10) value = 10;
+                    this.value = value;
+                    actualizarPrecioTotal();
+                    
+                    // Actualizar estado de los botones
+                    if (value <= 1) {
+                        decrementBtn.classList.add('text-muted');
+                        decrementBtn.style.cursor = 'not-allowed';
+                    } else {
+                        decrementBtn.classList.remove('text-muted');
+                        decrementBtn.style.cursor = 'pointer';
+                    }
+                    
+                    if (value >= 10) {
+                        incrementBtn.classList.add('text-muted');
+                        incrementBtn.style.cursor = 'not-allowed';
+                    } else {
+                        incrementBtn.classList.remove('text-muted');
+                        incrementBtn.style.cursor = 'pointer';
+                    }
+                });
+            }
+            // Inicializar el datepicker con estilos personalizados
+            $('#datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'es',
+                autoclose: true,
+                todayHighlight: true,
+                startDate: '0d',
+                endDate: '+1y',
+                daysOfWeekDisabled: '0', // Deshabilitar domingos
+                datesDisabled: ['01/01/2025', '06/01/2025', '01/05/2025', '15/08/2025', '12/10/2025', '01/11/2025', '06/12/2025', '08/12/2025', '25/12/2025'],
+                orientation: 'bottom',
+                container: '.datepicker-container',
+                templates: {
+                    leftArrow: '<i class="fas fa-chevron-left"></i>',
+                    rightArrow: '<i class="fas fa-chevron-right"></i>'
+                }
+            }).on('show', function(e) {
+                // Asegurar que el datepicker se muestre correctamente
+                $('.datepicker').addClass('datepicker-theme-dark');
+            });
+
+            // Inicializar el timepicker
+            $('#timepicker').timepicker({
+                minuteStep: 30,
+                showMeridian: false,
+                showInputs: false,
+                disableFocus: true,
+                defaultTime: '10:00',
+                minTime: '10:00',
+                maxTime: '19:30',
+                explicitMode: true,
+                modalBackdrop: true
+            });
+            
+            // Aplicar estilos al timepicker
+            $('.bootstrap-timepicker-widget').addClass('timepicker-theme-dark');
+            
+            // Establecer la fecha mínima como hoy
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            today = dd + '/' + mm + '/' + yyyy;
+            $('#fechaVisita').val(today);
+            
+            // Establecer la hora predeterminada
+            $('#horaVisita').val('10:00');
+            // Manejador para el botón de pago en taquilla
+            const btnPagoTaquilla = document.getElementById('btnPagoTaquilla');
+            if (btnPagoTaquilla) {
+                btnPagoTaquilla.addEventListener('click', function() {
+                    // Agregar un campo oculto para indicar que es pago en taquilla
+                    let inputPagoTaquilla = document.createElement('input');
+                    inputPagoTaquilla.type = 'hidden';
+                    inputPagoTaquilla.name = 'metodoPago';
+                    inputPagoTaquilla.value = 'taquilla';
+                    document.getElementById('formularioCompra').appendChild(inputPagoTaquilla);
+                    
+                    // Enviar el formulario
+                    document.getElementById('formularioCompra').submit();
+                });
+            }
+
             // Inicializar variables globales para el cálculo del total
             window.precioBase = @precioBase;
             window.preciosExtras = {
@@ -301,9 +713,18 @@
             const form = document.getElementById('formularioCompra');
             if (form) {
                 // Evento para el cambio en la cantidad
-                const cantidadInput = form.querySelector('input[name="cantidad"]');
+                const cantidadInput = document.getElementById('cantidad');
                 if (cantidadInput) {
-                    cantidadInput.addEventListener('change', actualizarPrecioTotal);
+                    cantidadInput.addEventListener('change', function() {
+                        // Asegurar que el valor esté dentro de los límites
+                        let value = parseInt(this.value) || 1;
+                        if (value < 1) value = 1;
+                        if (value > 10) value = 10;
+                        this.value = value;
+                        
+                        // Actualizar el total
+                        actualizarPrecioTotal();
+                    });
                     cantidadInput.addEventListener('input', actualizarPrecioTotal);
                 }
                 
@@ -370,4 +791,8 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/compra-resumen.css" asp-append-version="true" />
+    <!-- Bootstrap Datepicker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <!-- Bootstrap Timepicker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
 }

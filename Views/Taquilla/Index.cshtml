@@ -61,7 +61,9 @@
                 </div>
         </div>
             <div class="col-md-6">
-                <img src="/img/obras/12.jpg" alt="Entrada General" class="img-fluid rounded shadow">
+                <div class="img-container">
+                    <img src="/img/obras/12.jpg" alt="Entrada General" class="img-fluid rounded">
+                </div>
             </div>
         </div>
     </div>
@@ -117,7 +119,9 @@
                 </div>
             </div>
             <div class="col-md-6 order-md-1">
-                <img src="/img/obras/14.jpg" alt="Entrada Familiar" class="img-fluid rounded shadow">
+                <div class="img-container">
+                    <img src="/img/obras/14.jpg" alt="Entrada Familiar" class="img-fluid rounded">
+                </div>
             </div>
         </div>
     </div>
@@ -177,7 +181,9 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <img src="/img/obras/18.jpg" alt="Entrada Reducida" class="img-fluid rounded shadow">
+                <div class="img-container">
+                    <img src="/img/obras/18.jpg" alt="Entrada Reducida" class="img-fluid rounded">
+                </div>
             </div>
         </div>
     </div>
@@ -218,27 +224,20 @@
                 });
             }
 
-            // Manejar clic en botones de compra
-            document.querySelectorAll('.btn-taquilla').forEach(button => {
-                button.addEventListener('click', function() {
-                    const card = this.closest('.card');
-                    const tipoEntrada = card.querySelector('.card-title').textContent;
-                    let mensaje = `Has seleccionado: ${tipoEntrada}\n\n`;
-                    
-                    // Obtener extras seleccionados
-                    const extras = [];
-                    card.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
-                        extras.push(checkbox.nextElementSibling.textContent.trim());
-                    });
-                    
-                    if (extras.length > 0) {
-                        mensaje += 'Extras seleccionados:\n' + extras.join('\n');
-                    } else {
-                        mensaje += 'Sin extras seleccionados.';
+            // Validar formularios antes de enviar
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    // Validar que se haya seleccionado al menos un tipo de entrada
+                    const tipoEntrada = form.querySelector('input[name="tipoEntrada"]');
+                    if (!tipoEntrada) {
+                        e.preventDefault();
+                        document.getElementById('mensajeError').classList.remove('d-none');
+                        return false;
                     }
                     
-                    mensaje += '\n\nEsta funcionalidad está en desarrollo.';
-                    alert(mensaje);
+                    // Si todo está bien, el formulario se envía normalmente
+                    document.getElementById('mensajeError').classList.add('d-none');
+                    return true;
                 });
             });
         });

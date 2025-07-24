@@ -1,5 +1,12 @@
 /* Estilos para la página de Visitas en Grupo */
 
+/* Asegurar que el texto de la sección de introducción sea blanco */
+.visitas-grupo .intro-text,
+.visitas-grupo .intro-text h2,
+.visitas-grupo .intro-text .lead {
+    color: white !important;
+}
+
 .visitas-grupo .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                 url('https://images.unsplash.com/photo-1575505586569-646b2ca898fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
@@ -18,7 +25,7 @@
     font-size: 4rem;
     font-weight: 800;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.472);
     letter-spacing: 1px;
     position: relative;
     display: inline-block;
@@ -33,7 +40,7 @@
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: #3498db;
+    background: #ffbf00;
 }
 
 .visitas-grupo .hero-section .lead {
@@ -47,68 +54,72 @@
 
 /* Tarjetas de grupo */
 .grupo-card {
-    background: white;
+    background: #1e21246b; /* Fondo oscuro */
     border-radius: 12px;
     padding: 30px 25px;
     height: 100%;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    border: 1px solid #eee;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border: 2px solid #ffd000d6; /* Borde dorado */
     text-align: center;
+    color: #ecf0f1; /* Texto claro */
+    transition: none; /* Eliminamos la transición del hover */
 }
 
+/* Eliminamos el efecto de hover */
 .grupo-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transform: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .grupo-icon {
     width: 80px;
     height: 80px;
-    background: #f8f9fa;
+    background: rgba(255, 215, 0, 0.1); /* Fondo dorado claro */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
     font-size: 32px;
-    color: #3498db;
-    transition: all 0.3s ease;
+    color: #FFD700; /* Icono amarillo dorado */
+    border: 2px solid #FFD700; /* Borde dorado para el ícono */
 }
 
-.grupo-card:hover .grupo-icon {
-    background: #3498db;
-    color: white;
-    transform: rotate(360deg);
+/* Eliminamos la animación del ícono en hover */
+.grupo-card .grupo-icon {
+    transform: none;
 }
 
 .grupo-card h3 {
-    color: #2c3e50;
+    color: #FFD700; /* Título en dorado */
     font-size: 1.5rem;
     margin-bottom: 15px;
     font-weight: 700;
 }
 
 .grupo-card p {
-    color: #555;
+    color: #ecf0f1; /* Texto claro */
     margin-bottom: 20px;
     min-height: 60px;
+    opacity: 0.9;
 }
 
 .grupo-card ul {
     text-align: left;
     margin-top: 20px;
+    padding-left: 0;
 }
 
 .grupo-card ul li {
     margin-bottom: 10px;
     padding-left: 25px;
     position: relative;
-    color: #555;
+    color: #ecf0f1; /* Texto claro */
+    list-style-type: none;
 }
 
 .grupo-card ul li i {
-    color: #3498db;
+    color: #FFD700; /* Icono de lista en dorado */
     position: absolute;
     left: 0;
     top: 5px;
@@ -116,24 +127,62 @@
 
 /* Sección de información */
 .info-section {
-    background-color: #f8f9fa;
+    background-color: rgba(33, 37, 41, 0.85); /* Fondo oscuro semitransparente */
     border-radius: 12px;
-    padding: 30px;
-    margin: 50px 0;
-    border-left: 4px solid #e74c3c;
+    padding: 35px 40px;
+    margin: 40px 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: #ffffff; /* Texto blanco */
+    backdrop-filter: blur(5px);
 }
 
 .info-section h3 {
-    color: #2c3e50;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    color: #FFD700; /* Dorado para los títulos */
+    font-size: 1.8rem;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
 }
 
 .info-section h3 i {
     margin-right: 10px;
     color: #e74c3c;
+}
+
+.info-section .list-unstyled {
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.info-section .list-unstyled li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff; /* Texto blanco */
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.info-section .list-unstyled li:hover {
+    transform: translateX(5px);
+}
+
+.info-section .list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.info-section .list-unstyled strong {
+    color: #FFD700; /* Dorado para los textos fuertes */
+    min-width: 140px;
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: 500;
 }
 
 .info-section ul li {
@@ -143,23 +192,54 @@
 
 /* Caja de reserva */
 .reserva-box {
-    background: #2c3e50;
+    background: rgba(33, 37, 41, 0.9); /* Fondo oscuro más opaco */
     color: white;
     max-width: 800px;
-    margin: 0 auto;
-    box-shadow: 0 10px 30px rgba(44, 62, 80, 0.2);
+    margin: 50px auto 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
+
+.reserva-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+    background-size: 200% auto;
+    animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .reserva-box h3 {
-    color: white;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
+    color: #FFD700; /* Dorado para el título */
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .reserva-box p {
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff; /* Texto blanco puro */
     font-size: 1.1rem;
-    margin-bottom: 0;
+    margin-bottom: 25px;
+    text-align: center;
+    line-height: 1.7;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .reserva-box .btn-primary {

@@ -20,7 +20,6 @@ namespace AppMuseo.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Relaciones y configuraciones personalizadas aquí
         }
     }
 }

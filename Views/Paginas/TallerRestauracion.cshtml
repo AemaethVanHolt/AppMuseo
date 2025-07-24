@@ -2,8 +2,8 @@
     ViewData["Title"] = "Taller de Restauración";
     ViewData["ActivePage"] = "TallerRestauracion";
     
-    // Lista de servicios de restauración
-    var servicios = new[]
+    // Proyectos destacados
+    var proyectos = new[]
     {
         new {
             Titulo = "Pintura Antigua",
@@ -17,68 +17,38 @@
         },
         new {
             Titulo = "Pintura Contemporánea",
-            Imagen = "/img/restauracion/rest_05_g.jpg",
+            Imagen = "/img/restauracion/contemporanea.jpg",
             Descripcion = "Limpieza, recuperación y corrección de daños. Los materiales y procedimientos actuales son diferentes a los tradicionales, por lo que cada obra requiere un enfoque personalizado."
         },
         new {
             Titulo = "Escultura",
-            Imagen = "/img/restauracion/images.jpg",
+            Imagen = "/img/restauracion/escultura.jpg",
             Descripcion = "Restauración de cualquier objeto de bulto normalmente en madera pero también en cualquier otro tipo de material como escultura en metal y piedra. Especialistas en talla policromada."
         },
         new {
             Titulo = "Documento Gráfico",
-            Imagen = "/img/restauracion/09_pasisaje.jpg",
+            Imagen = "/img/restauracion/documento.jpg",
             Descripcion = "Dibujos, tintas, acuarelas, grabados de todo tipo, pasteles, encuadernación, mapas, etc. Todo lo que tenga que ver con papel y normalmente soportes de celulosa."
         },
         new {
             Titulo = "Arqueología y Cerámica",
-            Imagen = "/img/restauracion/1366_2000.jpg",
+            Imagen = "/img/restauracion/arqueologia.jpg",
             Descripcion = "Otras áreas de intervención como piezas de arqueología, vídrio, marfil, cerámica y porcelana."
         },
         new {
             Titulo = "Objetos Artísticos",
-            Imagen = "/img/restauracion/screen-shot-2022-04-27-at-3-31-53-pm-73.png",
+            Imagen = "/img/restauracion/objetos.jpg",
             Descripcion = "Objetos de todo tipo que no podemos clasificar en el resto de categorías. Muchos de ellos decorativos pero originalmente con una función concreta como juguetes, relojes, abanicos, muebles, etc."
         },
         new {
             Titulo = "Retablos y Artesonados",
-            Imagen = "/img/restauracion/rest_05_g.jpg",
+            Imagen = "/img/restauracion/retablo.jpg",
             Descripcion = "Elementos decorativos en madera que han sufrido a lo largo de los siglos. Intervenimos para recuperar su estado de conservación óptimo."
-        }
-    };
-    
-    // Proyectos destacados
-    var proyectos = new[]
-    {
-        new { 
-            Titulo = "Restauración de pintura al óleo", 
-            Imagen = "/img/restauracion/restauracion_pintura1.jpg",
-            Descripcion = "Intervención en obra del siglo XVIII" 
         },
-        new { 
-            Titulo = "Conservación de escultura", 
-            Imagen = "/img/restauracion/images.jpg",
-            Descripcion = "Tratamiento preventivo en mármol" 
-        },
-        new { 
-            Titulo = "Restauración de marco dorado", 
-            Imagen = "/img/restauracion/arte_restauracion_1357593657_17.jpg",
-            Descripcion = "Siglo XIX, estilo barroco" 
-        },
-        new { 
-            Titulo = "Documento gráfico", 
-            Imagen = "/img/restauracion/09_pasisaje.jpg",
-            Descripcion = "Restauración de mapa antiguo" 
-        },
-        new { 
-            Titulo = "Cerámica arqueológica", 
-            Imagen = "/img/restauracion/1366_2000.jpg",
-            Descripcion = "Intervención en pieza del siglo X" 
-        },
-        new { 
-            Titulo = "Pintura contemporánea", 
-            Imagen = "/img/restauracion/rest_05_g.jpg",
-            Descripcion = "Limpieza y consolidación" 
+        new {
+            Titulo = "Textiles Históricos",
+            Imagen = "/img/restauracion/textiles.jpg",
+            Descripcion = "Conservación y restauración de tejidos históricos, tapices, bordados y vestimenta antigua. Utilizamos técnicas tradicionales para preservar la integridad de cada pieza textil."
         }
     };
 }
@@ -99,35 +69,6 @@
             </div>
         </div>
 
-        <!-- Servicios de Restauración -->
-        <div class="row mb-5">
-            <div class="col-12 text-center mb-5">
-                <h2 class="h3 mb-3 text-gold">Servicios de Restauración de Arte</h2>
-                <p class="lead">Ofrecemos una amplia gama de servicios de restauración de arte, incluyendo la limpieza de barniz oxidado, la reparación de golpes, grietas y la restauración de pintura sobre tabla.</p>
-                <div class="alert alert-dark mt-4" role="alert">
-                    <h4 class="alert-heading">¿Necesitas restaurar una obra de arte?</h4>
-                    <p class="mb-0">Contáctanos hoy mismo para obtener un presupuesto personalizado.</p>
-                </div>
-            </div>
-            
-            <div class="col-12 mb-5">
-                <h3 class="h4 mb-4 text-center">Estamos especializados en las siguientes áreas:</h3>
-                <div class="services-grid">
-                    @foreach (var servicio in servicios)
-                    {
-                        <div class="service-card">
-                            <div class="service-img-container">
-                                <img src="@servicio.Imagen" alt="@servicio.Titulo" class="img-fluid">
-                            </div>
-                            <div class="service-content">
-                                <h4>@servicio.Titulo</h4>
-                                <p>@servicio.Descripcion</p>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
 
         <!-- Proyectos Destacados -->
         <div class="row mb-5">
@@ -164,13 +105,6 @@
                             <div class="col-lg-8 mx-auto">
                                 <p class="lead text-center mb-4">A lo largo del tiempo el hombre ha utilizado la tecnología de que disponía para la comunicación de su estado espiritual, social y económico. Estos objetos han logrado traspasar la barrera inicial para la que fueron creados llegando a alcanzar el estatus de "Obra de Arte".</p>
                                 <p class="text-center">Es nuestro deber mantener, restaurar y comunicar todas esas obras que pasan por nuestras manos, para una mayor difusión de las mismas. Desde nuestro taller empleamos las últimas tecnologías en mostrar procesos de Restauración en pintura, escultura y papel ejecutados a lo largo de muchos años de trabajo.</p>
-                                
-                                <div class="text-center mt-5">
-                                    <h4 class="h5 text-gold mb-3">Contacto</h4>
-                                    <p>Para cualquier consulta sobre restauración de pintura o escultura, puede contactarnos por teléfono o correo electrónico.</p>
-                                    <p class="h5"><i class="fas fa-phone-alt me-2"></i> Telf. +34 639 848 711</p>
-                                    <p class="h5"><i class="fas fa-envelope me-2"></i> info@museo-restauracion.com</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,12 +151,7 @@
                             </div>
                         </div>
                         
-                        <div class="mt-4 pt-3 border-top border-secondary">
-                            <h4 class="h5 text-gold">Contacto</h4>
-                            <p>Para cualquier consulta sobre restauración de pintura o escultura, puede contactarnos por teléfono o correo electrónico.</p>
-                            <p><i class="fas fa-phone-alt me-2"></i> Telf. +34 639 848 711</p>
-                            <p><i class="fas fa-envelope me-2"></i> info@museo-restauracion.com</p>
-                        </div>
+
                     </div>
                 </div>
             </div>

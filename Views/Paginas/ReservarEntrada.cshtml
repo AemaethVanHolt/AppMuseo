@@ -1,0 +1,204 @@
+@model AppMuseo.Models.ViewModels.ReservarEntradaViewModel
+@{
+    ViewData["Title"] = "Reservar Entrada - " + Model.Titulo;
+    Layout = "_Layout";
+    
+    // Calcular fechas mínima y máxima para el datepicker
+    var fechaActual = DateTime.Today;
+    var fechaMaxima = fechaActual.AddMonths(3);
+    var fechaMinimaStr = fechaActual.ToString("yyyy-MM-dd");
+    var fechaMaximaStr = fechaMaxima.ToString("yyyy-MM-dd");
+}
+
+<div class="reserva-container">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="text-center mb-5">Reservar Entrada</h1>
+                
+                <div class="reserva-card">
+                    <div class="row g-0">
+                        <!-- Imagen de la exposición -->
+                        <div class="col-lg-6">
+                            <div class="reserva-imagen" style="background-image: url('@Model.Imagen')">
+                                <div class="reserva-categoria">@Model.Fecha</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Formulario de reserva -->
+                        <div class="col-lg-6">
+                            <div class="reserva-formulario p-4">
+                                <h2>@Model.Titulo</h2>
+                                <p class="reserva-artista">@Model.Artista</p>
+                                <p class="reserva-descripcion">@Model.Descripcion</p>
+                                <p class="reserva-ubicacion"><i class="fas fa-map-marker-alt me-2"></i>@Model.Ubicacion</p>
+                                
+                                <hr class="my-4">
+                                
+                                <form asp-action="ReservarEntrada" method="post" id="formReserva" class="needs-validation" novalidate>
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" asp-for="Id" />
+                                    <input type="hidden" asp-for="Titulo" />
+                                    <input type="hidden" asp-for="Artista" />
+                                    <input type="hidden" asp-for="Fecha" />
+                                    <input type="hidden" asp-for="Descripcion" />
+                                    <input type="hidden" asp-for="Ubicacion" />
+                                    <input type="hidden" asp-for="Imagen" />
+                                    
+                                    <div class="mb-3">
+                                        <label asp-for="Cantidad" class="form-label">Cantidad de entradas</label>
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-outline-secondary" id="btnMenos">-</button>
+                                            <input type="number" class="form-control text-center" asp-for="Cantidad" min="1" max="10" required>
+                                            <button type="button" class="btn btn-outline-secondary" id="btnMas">+</button>
+                                        </div>
+                                        <span asp-validation-for="Cantidad" class="text-danger"></span>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="FechaVisita" class="form-label">Fecha de visita</label>
+                                            <input type="date" class="form-control" asp-for="FechaVisita" 
+                                                   min="@fechaMinimaStr" max="@fechaMaximaStr" required>
+                                            <span asp-validation-for="FechaVisita" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="HoraVisita" class="form-label">Hora de visita</label>
+                                            <input type="time" class="form-control" asp-for="HoraVisita" 
+                                                   min="10:00" max="20:00" step="1800" required>
+                                            <span asp-validation-for="HoraVisita" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h5 class="mb-3">Opciones adicionales</h5>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" asp-for="IncluirAudioGuia" id="audioGuia">
+                                            <label class="form-check-label" for="audioGuia">
+                                                Audioguía (+@Model.PrecioAudioGuia.ToString("C") por persona)
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" asp-for="IncluirVisitaGuiada" id="visitaGuiada">
+                                            <label class="form-check-label" for="visitaGuiada">
+                                                Visita guiada (+@Model.PrecioVisitaGuiada.ToString("C") por persona)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" asp-for="IncluirExposicionTemporal" id="expoTemporal">
+                                            <label class="form-check-label" for="expoTemporal">
+                                                Acceso a exposición temporal (+@Model.PrecioExposicionTemporal.ToString("C") por persona)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="alert alert-info mb-4">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <strong>Total estimado:</strong>
+                                            <span id="precioTotal">@Model.PrecioTotal.ToString("C")</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary w-100 py-3">
+                                        <i class="fas fa-ticket-alt me-2"></i>Confirmar Reserva
+                                    </button>
+                                </form>
+                                
+                                <!-- Mensaje de confirmación (inicialmente oculto) -->
+                                <div id="mensajeExito" class="text-center mt-4 d-none">
+                                    <div class="alert alert-success">
+                                        <i class="fas fa-check-circle fa-2x mb-3"></i>
+                                        <h4>¡Reserva realizada con éxito!</h4>
+                                        <p>Hemos enviado los detalles de tu reserva al correo electrónico proporcionado.</p>
+                                        <a href="/Paginas/Exposiciones" class="btn btn-outline-success mt-2">Volver a Exposiciones</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="/Paginas/Exposiciones" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Volver a Exposiciones
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="/css/paginas/reservar-entrada.css">
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        // Validación del formulario
+        
+        // Actualizar precio total al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarPrecioTotal();
+            
+            // Configurar botones de cantidad
+            document.getElementById('btnMas').addEventListener('click', function() {
+                var cantidadInput = document.getElementById('Cantidad');
+                if (parseInt(cantidadInput.value) < 10) {
+                    cantidadInput.value = parseInt(cantidadInput.value) + 1;
+                    cantidadInput.dispatchEvent(new Event('change'));
+                }
+            });
+            
+            document.getElementById('btnMenos').addEventListener('click', function() {
+                var cantidadInput = document.getElementById('Cantidad');
+                if (parseInt(cantidadInput.value) > 1) {
+                    cantidadInput.value = parseInt(cantidadInput.value) - 1;
+                    cantidadInput.dispatchEvent(new Event('change'));
+                }
+            });
+            
+            // Actualizar precio cuando cambian los valores
+            document.getElementById('Cantidad').addEventListener('change', actualizarPrecioTotal);
+            document.getElementById('audioGuia').addEventListener('change', actualizarPrecioTotal);
+            document.getElementById('visitaGuiada').addEventListener('change', actualizarPrecioTotal);
+            document.getElementById('expoTemporal').addEventListener('change', actualizarPrecioTotal);
+        });
+        
+        function actualizarPrecioTotal() {
+            var cantidad = parseInt(document.getElementById('Cantidad').value) || 0;
+            var precioBase = @Model.PrecioBase;
+            var precioAudioGuia = document.getElementById('audioGuia').checked ? @Model.PrecioAudioGuia : 0;
+            var precioVisitaGuiada = document.getElementById('visitaGuiada').checked ? @Model.PrecioVisitaGuiada : 0;
+            var precioExpoTemporal = document.getElementById('expoTemporal').checked ? @Model.PrecioExposicionTemporal : 0;
+            
+            var precioPorPersona = precioBase + precioAudioGuia + precioVisitaGuiada + precioExpoTemporal;
+            var precioTotal = cantidad * precioPorPersona;
+            
+            document.getElementById('precioTotal').textContent = '€' + precioTotal.toFixed(2).replace('.', ',');
+        }
+        (function () {
+            'use strict'
+            
+            var form = document.getElementById('formReserva')
+            
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                } else {
+                    event.preventDefault()
+                    // Ocultar formulario y mostrar mensaje de éxito
+                    document.querySelector('.reserva-formulario form').classList.add('d-none')
+                    document.getElementById('mensajeExito').classList.remove('d-none')
+                    
+                    // Scroll al mensaje de éxito
+                    document.getElementById('mensajeExito').scrollIntoView({ behavior: 'smooth' })
+                }
+                
+                form.classList.add('was-validated')
+            }, false)
+        })()
+    </script>
+}

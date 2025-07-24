@@ -1,0 +1,225 @@
+/* Estilos para la sección de Restauraciones */
+:root {
+    --color-oro: #FFD700;
+    --color-oro-oscuro: #FFA500;
+    --color-fondo-oscuro: #1a1a1a;
+    --color-texto: #e0e0e0;
+    --color-texto-secundario: #a0a0a0;
+    --color-borde: rgba(255, 215, 0, 0.2);
+}
+
+/* Título principal */
+.restauracion-titulo {
+    color: var(--color-oro);
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Georgia', serif;
+}
+
+.restauracion-titulo:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-oro), var(--color-oro-oscuro));
+    border-radius: 2px;
+}
+
+/* Tarjetas de obras */
+.obra-card {
+    background-color: var(--color-fondo-oscuro);
+    border: 1px solid var(--color-borde);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.obra-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 215, 0, 0.4);
+}
+
+.obra-imagen-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 66.67%; /* Relación de aspecto 3:2 */
+    background-color: #2a2a2a;
+}
+
+.obra-imagen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    background-color: #2a2a2a;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.obra-card:hover .obra-imagen {
+    transform: scale(1.03);
+}
+
+.estado-restauracion {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+.estado-restauracion .badge {
+    font-size: 0.7rem;
+    padding: 0.3em 0.6em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.card-body {
+    flex: 1;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    color: var(--color-oro);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.card-text {
+    color: var(--color-texto);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+    flex-grow: 1;
+}
+
+.card-text strong {
+    color: var(--color-oro);
+    font-weight: 500;
+    margin-right: 0.25rem;
+}
+
+.card-text .small {
+    font-size: 0.8rem;
+    color: var(--color-texto-secundario);
+}
+
+.card-footer {
+    background-color: rgba(30, 30, 30, 0.9);
+    border-top: 1px solid var(--color-borde);
+    padding: 0.75rem 1.25rem;
+    backdrop-filter: blur(5px);
+}
+
+/* Botones */
+.btn-oro {
+    background-color: var(--color-oro);
+    color: #1a1a1a;
+    border: none;
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-oro:hover {
+    background-color: #FFC000;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 200, 0, 0.4);
+}
+
+.btn-outline-oro {
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    background-color: transparent;
+}
+
+.btn-outline-oro:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #FFD700;
+}
+
+/* Formularios */
+.form-control, .form-select {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #FFD700;
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+}
+
+.form-label {
+    color: #FFD700;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Modal de confirmación */
+.modal-content {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* Mensaje cuando no hay obras */
+.bg-dark-50 {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px dashed rgba(255, 215, 0, 0.3);
+    padding: 3rem 1.5rem;
+    border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .restauracion-titulo {
+        font-size: 1.8rem;
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+    }
+}

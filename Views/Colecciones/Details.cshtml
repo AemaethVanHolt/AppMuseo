@@ -56,6 +56,61 @@
                             }
                         </ul>
                     </div>
+                    <div class="col-md-6">
+                        <h5>Obras en esta colección</h5>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                            @foreach (var obra in Model.Obras)
+                            {
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="position-relative" style="height: 200px; overflow: hidden;">
+                                            @{
+                                                var imagePath = obra.ImageUrl ?? "/img/obras/default.jpg";
+                                                // Asegurarse de que la ruta comience con /
+                                                if (!string.IsNullOrEmpty(imagePath) && !imagePath.StartsWith("/"))
+                                                {
+                                                    imagePath = "/" + imagePath.TrimStart('~').TrimStart('/');
+                                                }
+                                                // Asegurarse de que la ruta de la imagen sea accesible desde la web
+                                                imagePath = imagePath.Replace("wwwroot", "");
+                                                
+                                                // Codificar la URL para manejar espacios y caracteres especiales
+                                                var encodedImagePath = Url.Content(imagePath);
+                                            }
+                                            <div class="image-container" style="position: relative; height: 100%; width: 100%;">
+                                                <img src="@encodedImagePath"
+                                                     class="card-img-top img-zoom"
+                                                     alt="@obra.Titulo"
+                                                     onerror="this.onerror=null; this.src='@Url.Content("/img/obras/default.jpg")';"
+                                                     style="height: 100%; width: 100%; object-fit: cover;">
+                                                <button class="expand-btn" onclick="expandImage(this)" title="Ampliar imagen">
+                                                    <i class="fas fa-expand"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">@obra.Titulo</h5>
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-user-edit"></i> @(string.IsNullOrEmpty(obra.Autor) ? "Autor no especificado" : obra.Autor)<br>
+                                                    <i class="far fa-calendar-alt"></i> @(obra.Anio > 0 ? obra.Anio.ToString() : "Año no especificado")<br>
+                                                    <i class="fas fa-map-marker-alt"></i> @(string.IsNullOrEmpty(obra.UbicacionActual) ? "Ubicación no especificada" : obra.UbicacionActual)
+                                                </small>
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <a asp-controller="Obras" asp-action="Details" asp-route-id="@obra.Id" class="btn btn-sm btn-outline-dark">
+                                                    <i class="fas fa-info-circle"></i> Detalles
+                                                </a>
+                                                <span class="badge @(obra.Estado == EstadoObra.EnMuseo ? "bg-success" : "bg-warning text-dark")">
+                                                    @obra.Estado
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
             }
         </div>

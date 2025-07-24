@@ -113,7 +113,7 @@ namespace AppMuseo.Controllers
             ApplicationUser user;
             if (!string.IsNullOrEmpty(model.Id) && isAdmin)
             {
-                if (string.IsNullOrEmpty(model.Id))
+                if (model == null || string.IsNullOrEmpty(model.Id))
                 {
                     return BadRequest("ID de usuario no proporcionado");
                 }

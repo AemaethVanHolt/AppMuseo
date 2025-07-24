@@ -1,0 +1,234 @@
+@model AppMuseo.Models.ViewModels.ReservaVisitaGuiadaViewModel
+@{
+    ViewData["Title"] = "Reserva de Visita Guiada";
+    Layout = "_Layout";
+}
+
+<div class="reserva-visita">
+    <section class="hero-section">
+        <div class="container">
+            <h1>Reserva tu Visita Guiada</h1>
+            <p class="lead">Completa el formulario para solicitar tu visita guiada</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card bg-dark text-white">
+                    <div class="card-body p-4">
+                        <div id="formularioReserva">
+                            <h2 class="text-center mb-4">Solicitud de Reserva</h2>
+                            
+                            @using (Html.BeginForm("ReservaVisitaGuiada", "Paginas", FormMethod.Post, new { id = "reservaForm" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row g-3">
+        <!-- Información Personal -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre completo" })
+                @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", placeholder = "ejemplo@email.com" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Telefono, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", placeholder = "+34 123 456 789" })
+                @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.NumeroPersonas, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.NumeroPersonas, new { @class = "form-control", type = "number", min = "1", max = "20" })
+                @Html.ValidationMessageFor(m => m.NumeroPersonas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Tipo de Visita -->
+        <div class="col-12">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.TipoVisita, new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.TipoVisita, new SelectList(Model.TiposVisita), "Selecciona una opción", new { @class = "form-select", id = "tipoVisita" })
+                @Html.ValidationMessageFor(m => m.TipoVisita, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Fecha y Hora -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.FechaVisita, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.FechaVisita, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), id = "fecha" })
+                @Html.ValidationMessageFor(m => m.FechaVisita, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Horario, new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.Horario, new SelectList(Model.HorariosDisponibles), "Selecciona una hora", new { @class = "form-select", id = "hora" })
+                @Html.ValidationMessageFor(m => m.Horario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Comentarios -->
+        <div class="col-12">
+            <div class="mb-4">
+                @Html.LabelFor(m => m.Comentarios, new { @class = "form-label" })
+                @Html.TextAreaFor(m => m.Comentarios, new { @class = "form-control", rows = "3", placeholder = "¿Alguna necesidad especial o preferencia?" })
+                @Html.ValidationMessageFor(m => m.Comentarios, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5">Enviar Solicitud</button>
+        </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Mensaje de confirmación (inicialmente oculto) -->
+                        @if (ViewBag.MensajeExito != null)
+{
+    <div id="mensajeConfirmacion" class="text-center">
+        <div class="alert alert-success">
+            <h3><i class="fas fa-check-circle"></i> @ViewBag.MensajeExito</h3>
+            <p>Hemos recibido tu solicitud de reserva. Te enviaremos un correo de confirmación con los detalles en breve.</p>
+            <p class="mb-0">Si no recibes nuestro correo, por favor revisa tu carpeta de spam o contáctanos al +34 123 456 789</p>
+        </div>
+        <a href="/Paginas/VisitasGuiadas" class="btn btn-outline-light mt-3">
+            <i class="fas fa-arrow-left me-2"></i>Volver a Visitas Guiadas
+        </a>
+    </div>
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .reserva-visita .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('/img/visitas/visita-guiada-hero.jpg') no-repeat center center/cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .reserva-visita .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .reserva-visita .form-control,
+        .reserva-visita .form-select {
+            background-color: #2c3034;
+            border: 1px solid #444;
+            color: #fff;
+        }
+
+        .reserva-visita .form-control:focus,
+        .reserva-visita .form-select:focus {
+            background-color: #2c3034;
+            border-color: #ffc107;
+            color: #fff;
+            box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+        }
+
+        .reserva-visita .btn-primary {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #000;
+            font-weight: 600;
+            padding: 10px 30px;
+        }
+
+        .reserva-visita .btn-primary:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+
+        .alert {
+            border: none;
+            border-radius: 10px;
+        }
+
+        .alert-success {
+            background-color: #198754;
+            color: white;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Mostrar/ocultar opción de horario nocturno según el tipo de visita
+        document.getElementById('tipoVisita').addEventListener('change', function() {
+            const opcionNocturna = document.querySelector('.opcion-nocturna');
+            if (this.value === 'nocturna') {
+                opcionNocturna.style.display = 'block';
+                document.getElementById('hora').value = '20:00';
+            } else {
+                opcionNocturna.style.display = 'none';
+                if (document.getElementById('hora').value === '20:00') {
+                    document.getElementById('hora').value = '';
+                }
+            }
+        });
+
+        // Validar fecha (no permitir domingos)
+        document.getElementById('fecha').addEventListener('change', function() {
+            const fechaSeleccionada = new Date(this.value);
+            const diaSemana = fechaSeleccionada.getDay();
+            
+            if (diaSemana === 0) { // 0 es domingo
+                alert('El museo está cerrado los domingos. Por favor, selecciona otro día.');
+                this.value = '';
+            }
+        });
+
+        // Función para enviar el formulario
+        function enviarReserva(event) {
+            event.preventDefault();
+            
+            // Aquí iría la lógica para enviar los datos al servidor
+            // Por ahora, solo mostramos el mensaje de confirmación
+            document.getElementById('formularioReserva').style.display = 'none';
+            document.getElementById('mensajeConfirmacion').style.display = 'block';
+            
+            // Desplazarse al mensaje de confirmación
+            document.getElementById('mensajeConfirmacion').scrollIntoView({ behavior: 'smooth' });
+            
+            // Aquí podrías agregar una llamada AJAX para enviar los datos al servidor
+            // fetch('/api/reservas', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({
+            //         nombre: document.getElementById('nombre').value,
+            //         email: document.getElementById('email').value,
+            //         telefono: document.getElementById('telefono').value,
+            //         personas: document.getElementById('personas').value,
+            //         tipoVisita: document.getElementById('tipoVisita').value,
+            //         fecha: document.getElementById('fecha').value,
+            //         hora: document.getElementById('hora').value,
+            //         comentarios: document.getElementById('comentarios').value
+            //     })
+            // });
+        }
+    </script>
+}

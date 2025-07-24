@@ -131,10 +131,10 @@ namespace AppMuseo.Data
 
                     // Determinar si se aplica algún descuento (70% de probabilidad)
                     bool aplicarDescuento = random.Next(10) < 7; // 70% de probabilidad
-                    Descuento descuento = null;
+                    Descuento? descuento = null;
                     decimal total = precioBase;
                     
-                    if (aplicarDescuento)
+                    if (aplicarDescuento && tiposDescuento != null && tiposDescuento.Length > 0)
                     {
                         // Seleccionar un tipo de descuento aleatorio
                         var tipoDescuento = tiposDescuento[random.Next(tiposDescuento.Length)];

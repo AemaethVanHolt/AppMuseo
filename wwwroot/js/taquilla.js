@@ -198,19 +198,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Validación de formularios
     const forms = document.querySelectorAll('form[id^="form"]');
-    const mensajeError = document.getElementById('mensajeError');
     
     forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            const cantidad = this.querySelector('input[type="number"]')?.value || 1;
-            
-            if (cantidad < 1) {
-                e.preventDefault();
-                mensajeError.classList.remove('d-none');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                mensajeError.classList.add('d-none');
-            }
+        form.addEventListener('submit', function() {
         });
     });
     

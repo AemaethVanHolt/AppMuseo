@@ -1,17 +1,67 @@
 /* Estilos para la página de Exposiciones */
 
+/* Estilos para la tabla de calendario */
+.calendario-exposiciones .table {
+    color: #ffffff;
+}
+
+.calendario-exposiciones .table th,
+.calendario-exposiciones .table td {
+    color: #ffffff;
+    border-color: #444;
+}
+
+.calendario-exposiciones .table thead th {
+    border-bottom: 2px solid #666;
+}
+
+.calendario-exposiciones .table tbody tr {
+    border-bottom: 1px solid #444;
+}
+
+.calendario-exposiciones .table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.calendario-exposiciones .table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .exposiciones .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                url('https://images.unsplash.com/photo-1518998053901-53485d3d0c0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+                url('/img/obras/4.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     color: white;
-    padding: 150px 0;
+    padding: 180px 0;
     text-align: center;
     margin-bottom: 50px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Efecto de desenfoque para el texto */
+.exposiciones .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1000px;
+    height: 60%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    z-index: 0;
+}
+
+.exposiciones .hero-section .container {
+    position: relative;
+    z-index: 1;
 }
 
 .exposiciones .hero-section h1 {
@@ -73,25 +123,30 @@
 
 /* Tarjetas de exposiciones */
 .exposicion-card {
-    background: white;
+    background: rgba(20, 20, 25, 0.85);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     height: 100%;
     display: flex;
     flex-direction: column;
-    border: 1px solid #eee;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 0 30px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .exposicion-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 215, 0, 0.3);
 }
 
 .exposicion-imagen {
     position: relative;
-    height: 220px;
+    height: 300px;
     overflow: hidden;
 }
 
@@ -108,52 +163,57 @@
 
 .exposicion-fecha, .exposicion-categoria {
     position: absolute;
+    top: 20px;
+    right: 0;
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
     padding: 5px 15px;
-    border-radius: 20px;
     font-size: 0.8rem;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    text-transform: uppercase;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .exposicion-fecha {
-    top: 15px;
-    left: 15px;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #2c3e50;
-}
-
-.exposicion-categoria {
-    bottom: 15px;
-    right: 15px;
-    background-color: #e74c3c;
-    color: white;
+    top: 20px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #FFD700;
+    padding: 5px 15px;
+    font-size: 0.85rem;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-weight: 500;
 }
 
 .exposicion-info {
     padding: 25px;
-    flex: 1;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    color: #ffffff;
 }
 
 .exposicion-info h3 {
-    color: #2c3e50;
     font-size: 1.5rem;
-    margin-bottom: 5px;
-    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-weight: 600;
 }
 
 .exposicion-artista {
-    color: #e74c3c;
-    font-weight: 500;
-    margin-bottom: 15px;
     font-size: 1rem;
+    color: #FFD700;
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
 .exposicion-descripcion {
-    color: #555;
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
-    flex: 1;
-    font-size: 0.95rem;
+    flex-grow: 1;
     line-height: 1.6;
 }
 
@@ -172,15 +232,28 @@
 
 /* Tabla de calendario */
 .calendario-exposiciones {
-    margin-top: 60px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 30px 0;
+    font-size: 1rem;
+    min-width: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    background: rgba(20, 20, 25, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .calendario-exposiciones h2 {
-    color: #2c3e50;
-    font-size: 2rem;
+    color: #FFD700; /* Amarillo dorado */
     margin-bottom: 30px;
+    font-weight: 700;
+    text-align: center;
     position: relative;
     padding-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 .calendario-exposiciones h2:after {
@@ -194,44 +267,51 @@
     background: #e74c3c;
 }
 
-.table {
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 0 1px #eee;
-}
-
-.table thead th {
-    background-color: #2c3e50;
-    color: white;
-    border: none;
+.calendario-exposiciones th {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #FFD700;
+    text-align: left;
     padding: 15px;
     font-weight: 600;
-}
-
-.table tbody tr {
-    transition: all 0.2s ease;
-}
-
-.table tbody tr:hover {
-    background-color: #f8f9fa;
-}
-
-.table tbody td {
-    padding: 15px;
-    vertical-align: middle;
-    border-color: #eee;
-}
-
-.badge {
-    padding: 6px 12px;
-    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
     letter-spacing: 0.5px;
-    border-radius: 4px;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.calendario-exposiciones td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: middle;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Responsive */
+@media (min-width: 992px) {
+    .exposicion-card {
+        max-width: 100%;
+    }
+    
+    .row-cols-lg-2 > * {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .exposicion-card {
+        flex-direction: row;
+    }
+    
+    .exposicion-imagen {
+        flex: 0 0 45%;
+        height: auto;
+    }
+    
+    .exposicion-info {
+        flex: 0 0 55%;
+        padding: 2rem;
+    }
+}
+
 @media (max-width: 1199.98px) {
     .exposiciones .hero-section {
         padding: 120px 0;

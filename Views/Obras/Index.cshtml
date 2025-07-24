@@ -61,16 +61,16 @@
                             </td>
                             @if (esAdministrador)
                             {
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Acciones">
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning" title="Editar">
+                                <td class="text-nowrap">
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Acciones">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info" title="Ver detalles">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm" title="Ver detalles">
                                             <i class="fas fa-info-circle"></i>
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-danger" title="Eliminar" 
-                                                onclick="confirmarEliminacion('@item.Id', '@Html.Raw(item.Titulo.Replace("'", "\\'"))')">
+                                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar" 
+                                                onclick="confirmarEliminacion('@item.Id', '@Html.Raw((item.Titulo ?? string.Empty).Replace("'", "\\'"))')">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>

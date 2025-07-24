@@ -1,7 +1,15 @@
 /* Estilos para la página de Visitas Guiadas */
 
+/* Asegurar que el texto de la sección de introducción sea blanco */
+.visitas-guiadas .intro-text,
+.visitas-guiadas .intro-text h2,
+.visitas-guiadas .intro-text .lead {
+    color: white !important;
+}
+
 .visitas-guiadas .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1531913764164-f85c52d6e654?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('/img/restauracion/1366_2000.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -32,7 +40,7 @@
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: #e74c3c;
+    background: #fbc100;
 }
 
 .visitas-guiadas .hero-section .lead {
@@ -44,66 +52,285 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Tarjetas de visitas */
-.visita-card {
-    border: none;
+/* Tarjetas de visitas guiadas */
+.grupo-card {
+    background: rgba(36, 39, 43, 0.328); /* Fondo oscuro semi-transparente */
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    padding: 30px 25px;
     height: 100%;
-    background: white;
-    border: 1px solid #eee;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #FFD700; /* Borde amarillo dorado */
+    text-align: center;
+    color: #f8f9fa; /* Texto claro */
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
-.visita-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+/* Efecto hover sutil */
+.grupo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border-color: #FFC107; /* Un amarillo más brillante al pasar el ratón */
 }
 
-.visita-card .card-img-top {
-    height: 250px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+/* Estilo para los íconos */
+.grupo-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 215, 0, 0.1); /* Fondo dorado claro */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+    color: #FFD700; /* Icono dorado */
+    border: 2px solid #FFD700; /* Borde dorado */
+    transition: all 0.3s ease;
 }
 
-.visita-card:hover .card-img-top {
-    transform: scale(1.05);
+/* Efecto hover en íconos */
+.grupo-card:hover .grupo-icon {
+    transform: scale(1.1);
+    background: rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
-.visita-card .card-body {
-    padding: 25px;
-}
-
-.visita-card .card-title {
-    color: #2c3e50;
+/* Estilos para los títulos */
+.grupo-card h3 {
+    color: #FFD700; /* Título en dorado */
     font-size: 1.6rem;
     margin-bottom: 15px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.visita-card .list-unstyled li {
-    padding: 5px 0;
-    color: #555;
+/* Estilos para el párrafo */
+.grupo-card p {
+    color: #f8f9fa;
+    margin-bottom: 25px;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.visita-card .list-unstyled i {
-    color: #e74c3c;
-    width: 20px;
-    text-align: center;
+/* Estilos para la lista */
+.grupo-card .list-unstyled {
+    text-align: left;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+.grupo-card .list-unstyled li {
+    padding: 8px 0;
+    color: #f8f9fa;
+    position: relative;
+    padding-left: 30px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.grupo-card .list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.grupo-card .list-unstyled i {
+    color: #FFD700; /* Iconos en dorado */
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover en elementos de la lista */
+.grupo-card .list-unstyled li:hover {
+    transform: translateX(5px);
+}
+
+.grupo-card .list-unstyled li:hover i {
+    color: #FFC107;
+    transform: scale(1.2);
 }
 
 /* Sección de información */
 .info-section {
-    background-color: #f8f9fa;
+    background: rgba(44, 62, 80, 0.7);
+    border-radius: 12px;
+    padding: 35px 40px;
+    color: #f8f9fa;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    margin: 40px 0;
+}
+
+.info-section h3 {
+    color: #FFD700;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section h3 i {
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.info-section .list-unstyled {
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.info-section .list-unstyled li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.info-section .list-unstyled li:hover {
+    transform: translateX(5px);
+}
+
+.info-section .list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.info-section .list-unstyled li strong {
+    color: #FFD700;
+    min-width: 140px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Caja de reserva */
+.reserva-box {
+    background: linear-gradient(135deg, rgba(25, 28, 30, 0.478) 0%, rgba(26, 37, 47, 0.95) 100%);
+    color: #f8f9fa;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.reserva-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+    background-size: 200% auto;
+    animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.reserva-box h3 {
+    color: #FFD700;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.reserva-box p {
+    color: #ffffff; /* Texto completamente blanco */
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.reserva-box .btn-primary {
+    background-color: #FFD700;
+    color: #1a252f;
+    border: none;
+    font-weight: 700;
+    padding: 15px 40px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.reserva-box .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #FFC107;
+    transition: all 0.3s ease;
+    z-index: -1;
+    border-radius: 50px;
+}
+
+.reserva-box .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+.reserva-box .btn-primary:hover::before {
+    width: 100%;
+}
+
+.reserva-box .small {
+    color: #ffffff; /* Texto completamente blanco */
+    font-size: 1rem;
+    margin-top: 25px;
+    display: block;
+    font-style: italic;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+}
+
+.reserva-box .small i {
+    margin-right: 5px;
+    color: #FFD700;
+}
+
+/* Sección de información */
+.info-section {
+    background-color: #1e1f204e;
     border-radius: 12px;
     padding: 30px;
     margin: 40px 0;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #e8b600;
 }
 
 .info-section h4 {
-    color: #2c3e50;
+    color: #2b313675;
     font-size: 1.3rem;
     margin-bottom: 15px;
     display: flex;
@@ -125,7 +352,7 @@
 .alert h4 {
     display: flex;
     align-items: center;
-    color: #2c3e50;
+    color: #1c1e21ca;
 }
 
 .alert i {

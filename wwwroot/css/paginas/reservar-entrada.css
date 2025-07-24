@@ -1,0 +1,82 @@
+.reserva-container {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.reserva-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.reserva-imagen {
+    height: 100%;
+    min-height: 300px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.reserva-categoria {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.reserva-artista {
+    color: #6c757d;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.reserva-descripcion {
+    color: #495057;
+    margin-bottom: 1.5rem;
+}
+
+.reserva-ubicacion {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+.reserva-formulario {
+    padding: 2rem;
+}
+
+.input-group-text {
+    min-width: 40px;
+    justify-content: center;
+}
+
+#btnMas, #btnMenos {
+    width: 40px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 991.98px) {
+    .reserva-imagen {
+        min-height: 250px;
+    }
+    
+    .reserva-formulario {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .reserva-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .reserva-container {
+        padding: 1.5rem 0;
+    }
+}

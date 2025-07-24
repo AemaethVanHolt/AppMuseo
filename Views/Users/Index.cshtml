@@ -80,61 +80,67 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var user in Model)
+                            @if (Model != null)
                             {
-                                var roles = userRoles.ContainsKey(user.Id) ? userRoles[user.Id] : new List<string>();
-                                <tr>
-                                    <td>@(string.Concat(user.Nombre ?? string.Empty, " ", user.Apellidos ?? string.Empty).Trim())</td>
-                                    <td>@(user.Email ?? string.Empty)</td>
-                                    <td>@(string.IsNullOrEmpty(user.PhoneNumber) ? "No especificado" : user.PhoneNumber)</td>
-                                    <td>
-                                        @if (roles.Any())
-                                        {
-                                            <span class="badge bg-primary">@string.Join(", ", roles)</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-secondary">Sin rol asignado</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (user.Activo)
-                                        {
-                                            <span class="badge bg-success">Activo</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-danger">Inactivo</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="@Url.Action("Edit", "Profile", new { id = user.Id })" class="btn-edit-user me-2">
-                                                <i class="fas fa-edit"></i> EDITAR
-                                            </a>
-                                            <form asp-action="ToggleStatus" method="post" class="d-inline">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="id" value="@user.Id" />
-                                                @if (user.Activo)
+                                @foreach (var user in Model)
+                                {
+                                    if (user != null)
+                                    {
+                                        var roles = userRoles.ContainsKey(user.Id) ? userRoles[user.Id] : new List<string>();
+                                        <tr>
+                                            <td>@(string.Concat(user.Nombre ?? string.Empty, " ", user.Apellidos ?? string.Empty).Trim())</td>
+                                            <td>@(user.Email ?? string.Empty)</td>
+                                            <td>@(string.IsNullOrEmpty(user.PhoneNumber) ? "No especificado" : user.PhoneNumber)</td>
+                                            <td>
+                                                @if (roles.Any())
                                                 {
-                                                    <button type="submit" class="btn btn-icon-only" 
-                                                            title="Desactivar usuario"
-                                                            onclick="return confirm('¿Estás seguro de desactivar este usuario?')">
-                                                        <i class="fas fa-user-slash text-danger"></i>
-                                                    </button>
+                                                    <span class="badge bg-primary">@string.Join(", ", roles)</span>
                                                 }
                                                 else
                                                 {
-                                                    <button type="submit" class="btn btn-icon-only"
-                                                            title="Activar usuario"
-                                                            onclick="return confirm('¿Estás seguro de activar este usuario?')">
-                                                        <i class="fas fa-user-check text-success"></i>
-                                                    </button>
+                                                    <span class="badge bg-secondary">Sin rol asignado</span>
                                                 }
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                            </td>
+                                            <td>
+                                                @if (user.Activo)
+                                                {
+                                                    <span class="badge bg-success">Activo</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">Inactivo</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="@Url.Action("Edit", "Profile", new { id = user.Id })" class="btn-edit-user me-2">
+                                                        <i class="fas fa-edit"></i> EDITAR
+                                                    </a>
+                                                    <form asp-action="ToggleStatus" method="post" class="d-inline">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="id" value="@user.Id" />
+                                                        @if (user.Activo)
+                                                        {
+                                                            <button type="submit" class="btn btn-icon-only" 
+                                                                    title="Desactivar usuario"
+                                                                    onclick="return confirm('¿Estás seguro de desactivar este usuario?')">
+                                                                <i class="fas fa-user-slash text-danger"></i>
+                                                            </button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="submit" class="btn btn-icon-only"
+                                                                    title="Activar usuario"
+                                                                    onclick="return confirm('¿Estás seguro de activar este usuario?')">
+                                                                <i class="fas fa-user-check text-success"></i>
+                                                            </button>
+                                                        }
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
                             }
                         </tbody>
                     </table>

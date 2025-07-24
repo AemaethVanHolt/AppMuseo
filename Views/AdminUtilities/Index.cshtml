@@ -1,9 +1,12 @@
 @{
     ViewData["Title"] = "Utilidades de Administración";
+    ViewData["ActivePage"] = "AdminUtilities";
 }
 
+<link rel="stylesheet" href="~/css/admin-utilities.css" />
+
 <div class="container mt-5">
-    <h2>@ViewData["Title"]</h2>
+    <h2 class="admin-utilities-title">@ViewData["Title"]</h2>
     <hr />
 
     @if (TempData["SuccessMessage"] != null)
@@ -23,9 +26,9 @@
     }
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-header bg-danger text-white">
+        <div class="col-md-6 mb-4">
+            <div class="utility-card">
+                <div class="card-header">
                     <h5 class="mb-0">Reinicializar Base de Datos</h5>
                 </div>
                 <div class="card-body">
@@ -42,9 +45,9 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-header bg-warning text-dark">
+        <div class="col-md-6 mb-4">
+            <div class="utility-card">
+                <div class="card-header">
                     <h5 class="mb-0">Activar Todos los Usuarios</h5>
                 </div>
                 <div class="card-body">
